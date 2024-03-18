@@ -37,18 +37,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/GrassHex.png
 
-#begin Sprites/Hexagon-PNG-Clipart.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/Hexagon-PNG-Clipart.png
-
 #begin Sprites/SandHex.png
 /importer:TextureImporter
 /processor:TextureProcessor

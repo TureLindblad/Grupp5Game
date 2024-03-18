@@ -9,6 +9,7 @@ namespace Grupp5Game
 {
     public abstract class Enemy
     {
+        public Rectangle Bounds { get { return new Rectangle((int)Position.X - 25, (int)Position.Y - 25, 50, 50); } }
         private Texture2D Texture;
         public int Health { get; set; }
         public int PhysArmor { get; set; }
@@ -33,6 +34,8 @@ namespace Grupp5Game
 
         public void Update(MapScene mapScene)
         {
+            if (Collision.CheckCollision(this, mapScene.EnemyList)) return;
+
             float minDistance = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestTile = null;
@@ -66,6 +69,8 @@ namespace Grupp5Game
 
             if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
         }
+
+
 
         public void Draw(MapScene mapScene)
         {

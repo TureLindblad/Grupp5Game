@@ -19,7 +19,7 @@ namespace Grupp5Game
         {
             if (CanSpawn)
             {
-                mapScene.EnemyList.Add(new Enemy());
+                mapScene.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));
                 EnemeySpawnTimer();
             }
         }
