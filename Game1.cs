@@ -16,6 +16,7 @@ namespace Grupp5Game
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList {  get; private set; }
         public Scene CurrentScene { get; set; }
+        
 
         public Game1()
         {
@@ -26,6 +27,8 @@ namespace Grupp5Game
             IsMouseVisible = true;
 
             EnemyList = new List<Enemy>();
+            
+            
         }
 
         protected override void Initialize()
@@ -40,9 +43,12 @@ namespace Grupp5Game
             Assets.GrassTexture = Content.Load<Texture2D>("GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("SandHex");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("EnemyGoblin");
+            Assets.FrostElementalTexture = Content.Load<Texture2D>("FrostBoss");
 
             MapGrid = new Grid(MapDimensions);
             Spawner = new EnemySpawner();
+            
+
         }
 
         protected override void Update(GameTime gameTime)

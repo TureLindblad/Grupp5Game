@@ -18,7 +18,7 @@ namespace Grupp5Game
         {
             if (CanSpawn)
             {
-                game.EnemyList.Add(new Enemy());
+                game.EnemyList.Add(new FrostElemental(Assets.FrostElementalTexture));
                 EnemeySpawnTimer();
             }
         }

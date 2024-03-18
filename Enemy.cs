@@ -15,9 +15,9 @@ namespace Grupp5Game
         public Vector2 Velocity { get; set; }
         private int Speed;
         private List<Tile> CompletedTileList;
-        public Enemy()
+        public Enemy(Texture2D texture)
         {
-            Texture = Assets.EnemyGoblinTexture;
+            Texture = texture;
 
             Position = new Vector2(0, 0);
             Size = 50;

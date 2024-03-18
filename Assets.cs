@@ -33,5 +33,7 @@ namespace Grupp5Game
             "1000000000000000000" +
             "1000000000000000000" +
             "1000000000000000000";
+
+        public static Texture2D FrostElementalTexture { get; internal set; }
     }
 }
