@@ -1,3 +1,3 @@
 ﻿
-using var game = new HexagonTileTest.Game1();
+using var game = new Grupp5Game.Game1();
 game.Run();

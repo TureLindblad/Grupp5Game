@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HexagonTileTest
+namespace Grupp5Game
 {
     public class EnemySpawner
     {

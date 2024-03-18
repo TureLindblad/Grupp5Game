@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
-namespace HexagonTileTest
+namespace Grupp5Game
 {
     public class Game1 : Game
     {

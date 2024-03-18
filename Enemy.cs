@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HexagonTileTest
+namespace Grupp5Game
 {
     public class Enemy
     {
