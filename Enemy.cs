@@ -26,15 +26,15 @@ namespace Grupp5Game
             CompletedTileList = new List<Tile>();
         }
 
-        public void Update(Game1 game, GameTime gameTime)
+        public void Update(MapScene mapScene)
         {
             float minDistance = float.MaxValue;
-            Tile[,] tiles = game.MapGrid.Tiles;
+            Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestTile = null;
 
             for (int x = 0; x < tiles.GetLength(0); x++)
             {
-                for (int y = 0; y < game.MapGrid.Tiles.GetLength(1); y++)
+                for (int y = 0; y < mapScene.MapGrid.Tiles.GetLength(1); y++)
                 {
                     float distance = Vector2.Distance(Position, tiles[x, y].Position);
                     if (tiles[x, y].IsPath && distance < minDistance && !CompletedTileList.Contains(tiles[x, y]))
@@ -59,12 +59,12 @@ namespace Grupp5Game
                 Position += Velocity;
             }
 
-            if (CompletedTileList.Count == game.MapGrid.NumberOfPathTiles) game.EnemyList.Remove(this);
+            if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
         }
 
-        public void Draw(Game1 game)
+        public void Draw(MapScene mapScene)
         {
-            game._spriteBatch.Draw(
+            Globals.SpriteBatch.Draw(
                 Texture, 
                 new Rectangle(
                     (int)Position.X - Size / 2 + 5, //5 hjälper men vet inte varför den behövs 
