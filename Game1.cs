@@ -37,9 +37,10 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Assets.GrassTexture = Content.Load<Texture2D>("GrassHex");
-            Assets.SandTexture = Content.Load<Texture2D>("SandHex");
-            Assets.EnemyGoblinTexture = Content.Load<Texture2D>("EnemyGoblin");
+            Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
+            Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
+            Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
+            Assets.IntroText = Content.Load<SpriteFont>("Text/IntroText");
         }
 
         protected override void Update(GameTime gameTime)
