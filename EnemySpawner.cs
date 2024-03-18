@@ -15,15 +15,12 @@ namespace Grupp5Game
             NumberOfEnemiesToSpawn = 5;
             CanSpawn = true;
         }
-        public void Update(Game1 game)
+        public void Update(MapScene mapScene)
         {
             if (CanSpawn)
             {
-                for(int i = 0; i < NumberOfEnemiesToSpawn; i++)
-                {
-                    game.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));
-                    EnemeySpawnTimer();
-                }
+                mapScene.EnemyList.Add(new Enemy());
+                EnemeySpawnTimer();
             }
         }
 
