@@ -7,22 +7,27 @@ using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
-    public class Enemy
+    public abstract class Enemy
     {
         private Texture2D Texture;
+        public int Health { get; set; }
+        public int PhysArmor { get; set; }
+        public int MagicArmor { get; set; }
+        public int AttackDamage { get; set; }
+        public int AttackSpeed { get; set; }
         public int Size { get; set; }
+        public int Speed { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
-        private int Speed;
         private List<Tile> CompletedTileList;
         public Enemy(Texture2D texture)
         {
             Texture = texture;
 
             Position = new Vector2(0, 0);
-            Size = 50;
+
             Velocity = new Vector2(0, 0);
-            Speed = 2;
+
             CompletedTileList = new List<Tile>();
         }
 

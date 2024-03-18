@@ -8,18 +8,22 @@ namespace Grupp5Game
 {
     public class EnemySpawner
     {
-        private bool CanSpawn;
-
+        private bool CanSpawn = true;
+        public int NumberOfEnemiesToSpawn;
         public EnemySpawner()
         {
+            NumberOfEnemiesToSpawn = 5;
             CanSpawn = true;
         }
         public void Update(Game1 game)
         {
             if (CanSpawn)
             {
-                game.EnemyList.Add(new FrostElemental(Assets.FrostElementalTexture));
-                EnemeySpawnTimer();
+                for(int i = 0; i < NumberOfEnemiesToSpawn; i++)
+                {
+                    game.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));
+                    EnemeySpawnTimer();
+                }
             }
         }
 
