@@ -25,7 +25,7 @@ namespace Grupp5Game
             else Texture = Assets.GrassTexture;
 
             TileColor = Color.White;
-            TextureResizeDimension = (int)(Texture.Width * ((float)Game1.WindowSize.X / (Texture.Width * MapScene.MapDimensions.X)));
+            TextureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * MapScene.MapDimensions.X)));
             TextureResizeDimension = (int)(TextureResizeDimension * 1.25);
 
             Origin = new(TextureResizeDimension / 2, TextureResizeDimension / 2);
