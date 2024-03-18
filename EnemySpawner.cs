@@ -14,11 +14,11 @@ namespace Grupp5Game
         {
             CanSpawn = true;
         }
-        public void Update(Game1 game)
+        public void Update(MapScene mapScene)
         {
             if (CanSpawn)
             {
-                game.EnemyList.Add(new Enemy());
+                mapScene.EnemyList.Add(new Enemy());
                 EnemeySpawnTimer();
             }
         }
