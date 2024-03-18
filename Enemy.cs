@@ -36,7 +36,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < game.MapGrid.Tiles.GetLength(1); y++)
                 {
-                    float distance = Vector2.Distance(Position, tiles[x, y].Position);
+                    float distance = Vector2.Distance(Position, tiles[x, y].TexturePosition);
                     if (tiles[x, y].IsPath && distance < minDistance && !CompletedTileList.Contains(tiles[x, y]))
                     {
                         minDistance = distance;
@@ -47,7 +47,7 @@ namespace Grupp5Game
 
             if (closestTile != null)
             {
-                Vector2 direction = Vector2.Normalize(closestTile.Position - Position);
+                Vector2 direction = Vector2.Normalize(closestTile.TexturePosition - Position);
 
                 Velocity = direction * Speed;
 

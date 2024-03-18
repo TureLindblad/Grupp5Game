@@ -38,6 +38,7 @@ namespace Grupp5Game
 
             Assets.GrassTexture = Content.Load<Texture2D>("GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("SandHex");
+            Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("EnemyGoblin");
 
             MapGrid = new Grid(MapDimensions);
