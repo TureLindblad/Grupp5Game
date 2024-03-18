@@ -15,6 +15,7 @@ namespace Grupp5Game
         public static Point WindowSize = new Point(1600, 900);
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList {  get; private set; }
+        public Scene CurrentScene { get; set; }
 
         public Game1()
         {
