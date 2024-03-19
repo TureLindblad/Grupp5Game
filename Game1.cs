@@ -8,20 +8,20 @@ namespace Grupp5Game
 {
     public static class Globals
     {
+        public static Point WindowSize = new Point(1600, 900);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
     }
 
     public class Game1 : Game
     {
-        public static Point WindowSize = new Point(1600, 900);
         public static Scene CurrentScene { get; set; }
 
         public Game1()
         {
             Globals.Graphics = new GraphicsDeviceManager(this);
-            Globals.Graphics.PreferredBackBufferWidth = WindowSize.X;
-            Globals.Graphics.PreferredBackBufferHeight = WindowSize.Y;
+            Globals.Graphics.PreferredBackBufferWidth = Globals.WindowSize.X;
+            Globals.Graphics.PreferredBackBufferHeight = Globals.WindowSize.Y;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -40,7 +40,8 @@ namespace Grupp5Game
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
-            Assets.IntroText = Content.Load<SpriteFont>("Text/IntroText");
+            Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
+            Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
         }
 
         protected override void Update(GameTime gameTime)
