@@ -9,7 +9,10 @@ namespace Grupp5Game
 {
     public abstract class Enemy
     {
-        public Rectangle Bounds { get { return new Rectangle((int)Position.X - 10 , (int)Position.Y - 10 , 20 , 20 ); } }
+        public Rectangle Bounds { get { 
+                return new Rectangle((int)Position.X - Size / 4 , (int)Position.Y - Size / 4, Size / 2 , Size / 2 ); 
+            } 
+        }
         private Texture2D Texture;
         public int Health { get; set; }
         public int PhysArmor { get; set; }
@@ -34,7 +37,8 @@ namespace Grupp5Game
 
         public void Update(MapScene mapScene)
         {
-            float minDistance = float.MaxValue;
+            float minDistancePath = float.MaxValue;
+            float minDistanceTower = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestTile = null;
 
@@ -43,9 +47,14 @@ namespace Grupp5Game
                 for (int y = 0; y < mapScene.MapGrid.Tiles.GetLength(1); y++)
                 {
                     float distance = Vector2.Distance(Position, tiles[x, y].TexturePosition);
-                    if (tiles[x, y].IsPath || tiles[x, y] is TowerTile && distance < minDistance && !CompletedTileList.Contains(tiles[x, y]))
+                    if (tiles[x, y].IsPath && distance < minDistancePath && !CompletedTileList.Contains(tiles[x, y]))
                     {
-                        minDistance = distance;
+                        minDistancePath = distance;
+                        closestTile = tiles[x, y];
+                    }
+                    else if (tiles[x, y] is TowerTile && distance < minDistanceTower)
+                    {
+                        minDistanceTower = distance;
                         closestTile = tiles[x, y];
                     }
                 }
@@ -57,12 +66,12 @@ namespace Grupp5Game
 
                 Velocity = direction * Speed;
 
-                if (minDistance < Speed)
+                if (minDistancePath < Speed)
                 {
                     CompletedTileList.Add(closestTile);
                 }
 
-                if (closestTile is TowerTile && minDistance < Speed)
+                if (closestTile is TowerTile && minDistanceTower < Speed)
                 {
                     tiles[closestTile.IndexPosition.X, closestTile.IndexPosition.Y] = 
                         new Tile(closestTile.IndexPosition.X, closestTile.IndexPosition.Y, false);
