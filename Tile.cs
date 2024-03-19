@@ -27,7 +27,7 @@ namespace Grupp5Game
             else Texture = Assets.GrassTexture;
 
             TileColor = Color.White;
-            TextureResizeDimension = (int)(Texture.Width * ((float)Game1.WindowSize.X / (Texture.Width * Game1.MapDimensions.X)));
+            TextureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * MapScene.MapDimensions.X)));
             TextureResizeDimension = (int)(TextureResizeDimension * 1.25);
 
             Origin = new(TextureResizeDimension / 2, TextureResizeDimension / 2);
@@ -72,7 +72,7 @@ namespace Grupp5Game
                 TextureResizeDimension,
                 TextureResizeDimension);
 
-            game._spriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
+            Globals.SpriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
         }
     }
 }
