@@ -54,7 +54,7 @@ namespace Grupp5Game
                 {
                     Tiles[x, y].Update();
 
-                    float distance = Vector2.Distance(MousePosition, Tiles[x, y].Position);
+                    float distance = Vector2.Distance(MousePosition, Tiles[x, y].TexturePosition);
                     if (distance < minDistance)
                     {
                         minDistance = distance;
@@ -66,6 +66,11 @@ namespace Grupp5Game
             if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y))
             {
                 selected.TileColor = Color.Lerp(Color.White, Color.Gray, 0.5f);
+            }
+
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
             }
         }
 

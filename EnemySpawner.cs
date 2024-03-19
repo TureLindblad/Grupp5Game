@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Grupp5Game
+namespace Grupp5Game 
 {
     public class EnemySpawner
     {
