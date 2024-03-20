@@ -9,7 +9,7 @@ namespace Grupp5Game
 {
     public abstract class Enemy
     {
-        public Rectangle Bounds { get { return new Rectangle((int)Position.X - 10 , (int)Position.Y - 10 , 20 , 20 ); } }
+        public Rectangle Bounds { get { return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , 5 , 5 ); } }
         private Texture2D Texture;
         public int Health { get; set; }
         public int PhysArmor { get; set; }
@@ -34,8 +34,6 @@ namespace Grupp5Game
 
         public void Update(MapScene mapScene)
         {
-            
-
             float minDistance = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestTile = null;
