@@ -45,7 +45,7 @@ namespace Grupp5Game
             TileColor = Color.White;
         }
 
-        public virtual void Draw(Game1 game)
+        public virtual void Draw()
         {
             Rectangle destinationRect = new Rectangle(
                 (int)Math.Round(TexturePosition.X), 
@@ -53,7 +53,7 @@ namespace Grupp5Game
                 TextureResizeDimension, 
                 TextureResizeDimension);
 
-            game._spriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
+            Globals.SpriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
         }
     }
 
@@ -64,7 +64,7 @@ namespace Grupp5Game
             Texture = Assets.TowerTexture;
         }
 
-        public override void Draw(Game1 game)
+        public override void Draw()
         {
             Rectangle destinationRect = new Rectangle(
                 (int)Math.Round(TexturePosition.X),

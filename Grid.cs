@@ -80,7 +80,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    Tiles[x, y].Draw(mapScene);
+                    Tiles[x, y].Draw();
                 }
             }
         }
