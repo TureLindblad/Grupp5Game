@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace Grupp5Game
@@ -17,8 +18,8 @@ namespace Grupp5Game
         {
             get
             {
-                int xMod = (int)(Velocity.X * Speed);
-                int yMod = (int)(Velocity.Y * Speed);
+                int xMod = (int)(Velocity.X);
+                int yMod = (int)(Velocity.Y);
                 return new Rectangle(Bounds.X + xMod, Bounds.Y + yMod, Bounds.Width + xMod, Bounds.Height + yMod);
             }
         }
@@ -33,11 +34,13 @@ namespace Grupp5Game
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         private List<Tile> CompletedTileList;
+        protected bool AttacksTower { get; set; }
+        protected bool IsAttacking { get; set; }
         public Enemy(Texture2D texture)
         {
             Texture = texture;
 
-            Position = new Vector2(0, 0);
+            Position = new Vector2(10, 10);
 
             Velocity = new Vector2(0, 0);
 
@@ -49,7 +52,9 @@ namespace Grupp5Game
             float minDistancePath = float.MaxValue;
             float minDistanceTower = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
-            Tile closestTile = null;
+            Tile closestPathTile = null;
+            TowerTile closestTowerTile = null;
+            Tile nextTile;
 
             for (int x = 0; x < tiles.GetLength(0); x++)
             {
@@ -59,54 +64,98 @@ namespace Grupp5Game
                     if (tiles[x, y].IsPath && distance < minDistancePath && !CompletedTileList.Contains(tiles[x, y]))
                     {
                         minDistancePath = distance;
-                        closestTile = tiles[x, y];
+                        closestPathTile = tiles[x, y];
                     }
-                    else if (tiles[x, y] is TowerTile && distance < minDistanceTower)
+
+                    if (tiles[x, y] is TowerTile towerTile && distance < minDistanceTower/* && CheckAttackingPositions(towerTile)*/)
                     {
                         minDistanceTower = distance;
-                        closestTile = tiles[x, y];
+                        if (minDistanceTower < tiles[0,0].TextureResizeDimension * 1.3)
+                        {
+                            closestTowerTile = towerTile;
+                        }
                     }
                 }
             }
 
-            if (closestTile != null)
+            if (closestTowerTile != null && AttacksTower )
             {
-                Vector2 direction = Vector2.Normalize(closestTile.TexturePosition - Position);
+                nextTile = closestTowerTile;
+            }
+            else nextTile = closestPathTile;
+
+            if (nextTile != null)
+            {
+                Vector2 direction = Vector2.Normalize(nextTile.TexturePosition - Position);
 
                 Velocity = direction * Speed;
 
-                if (minDistancePath < Speed)
+                if (minDistancePath < nextTile.TextureResizeDimension / 2 )
                 {
-                    CompletedTileList.Add(closestTile);
+                    CompletedTileList.Add(nextTile);
                 }
 
-                if (closestTile is TowerTile && minDistanceTower < Speed)
+                if (nextTile is TowerTile nextTower && minDistanceTower < nextTile.TextureResizeDimension / 2)
                 {
-                    tiles[closestTile.IndexPosition.X, closestTile.IndexPosition.Y] = 
-                        new Tile(closestTile.IndexPosition.X, closestTile.IndexPosition.Y, false);
-                }
+                    foreach(var li in nextTower.AttackingPositions)
+                    {
+                        if (!li.Item2)
+                        {
 
-                if (!Collision.CheckCollision(this, mapScene.EnemyList))
-                {
-                    Velocity *= -1;
+                            Position = li.Item1; // Assign the enemy's position
+                                                    // Update the availability of this position in nextTower.AttackingPositions
+                            nextTower.AttackingPositions[nextTower.AttackingPositions.IndexOf(li)] = Tuple.Create(li.Item1, true);
+                            IsAttacking = true;
+                            break;
+                        }
+                    }
+                    /*tiles[nextTile.IndexPosition.X, nextTile.IndexPosition.Y] =
+                        new Tile(nextTile.IndexPosition.X, nextTile.IndexPosition.Y, false);*/
                     
                 }
-                Position += Velocity;
+
+                Tuple<bool, bool> collisionChecks = Collision.CheckCollision(this, mapScene.EnemyList);
+
+                if (collisionChecks.Item1)
+                {
+                    Velocity = new Vector2(0, Velocity.Y + Speed * direction.X);
+                }
+                
+                if (collisionChecks.Item2)
+                {
+                    Velocity = new Vector2(Velocity.X + Speed * direction.Y, 0);
+                }
+
+                if (!IsAttacking) Position += Velocity;
             }
 
-            if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
+            //if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
+        }
+        private static bool CheckAttackingPositions(TowerTile towerTile)
+        {
+            foreach (var li in towerTile.AttackingPositions)
+            {
+                if (!li.Item2) return true;
+            }
+
+            return false;
         }
 
         public void Draw(MapScene mapScene)
         {
+            Globals.SpriteBatch.Draw(Assets.IntroTextTexture, BoundsWithNextMovement,
+                    Color.Black);
+
             Globals.SpriteBatch.Draw(
                 Texture, 
                 new Rectangle(
-                    (int)Position.X - Size / 2 + 5, //5 hjälper men vet inte varför den behövs 
-                    (int)Position.Y - Size / 2 - 15, //-15 för att rita lite över mitten
+                    (int)Position.X - Size / 2/* + 5*/, //5 hjälper men vet inte varför den behövs 
+                    (int)Position.Y - Size / 2/* - 15*/, //-15 för att rita lite över mitten
                     Size, 
                     Size), 
                 Color.White);
+
+            
         }
     }
 }

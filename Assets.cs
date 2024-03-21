@@ -15,6 +15,7 @@ namespace Grupp5Game
         public static Texture2D SandTexture;
         public static Texture2D TowerTexture;
         public static Texture2D EnemyGoblinTexture;
+        public static Texture2D FrostEnemyTexture;
         
         public static Texture2D FrostElementalTexture { get; internal set; }
 
@@ -37,6 +38,16 @@ namespace Grupp5Game
             "1000000000000000000" +
             "1000000000000000000" +
             "1000000000000000000";
+
+        public static string GridMatrix3 =
+            "1100000001100000000" +
+            "0100000011000000000" +
+            "0011000010000000000" +
+            "0001000011110000000" +
+            "0000110000001000000" +
+            "0000010000001000000" +
+            "0000001100011000000" +
+            "0000000011100000000";
 
     }
 }

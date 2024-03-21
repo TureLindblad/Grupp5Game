@@ -33,7 +33,7 @@ namespace Grupp5Game
             Origin = new(TextureResizeDimension / 2, TextureResizeDimension / 2);
             TexturePosition = GetPosition(TextureResizeDimension, x, y);
         }
-        private static Vector2 GetPosition(int textureDim, int x, int y)
+        protected static Vector2 GetPosition(int textureDim, int x, int y)
         {
             return new Vector2(
                 x * 0.73f * textureDim + textureDim / 2,
@@ -59,9 +59,25 @@ namespace Grupp5Game
 
     public class TowerTile : Tile
     {
+        public List<Tuple<Vector2, bool>> AttackingPositions {  get; set; }
         public TowerTile(int x, int y, bool isPath) : base(x, y, isPath)
         {
             Texture = Assets.TowerTexture;
+
+            int textureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * MapScene.MapDimensions.X)));
+            textureResizeDimension = (int)(textureResizeDimension * 1.25);
+            Vector2 texturePosition = GetPosition(textureResizeDimension, x, y);
+
+            AttackingPositions = new List<Tuple<Vector2, bool>>();
+
+            Vector2 v1 = new Vector2(texturePosition.X , texturePosition.Y - 20);
+            Vector2 v2 = new Vector2(texturePosition.X + 10, texturePosition.Y - 50);
+            Vector2 v3 = new Vector2(texturePosition.X + 150, texturePosition.Y - 70);
+
+            AttackingPositions.Add(Tuple.Create(v1, false));
+            AttackingPositions.Add(Tuple.Create(v2, false));
+            AttackingPositions.Add(Tuple.Create(v3, false));
+
         }
 
         public override void Draw()

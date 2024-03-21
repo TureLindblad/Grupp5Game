@@ -41,6 +41,7 @@ namespace Grupp5Game
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
+            Assets.FrostEnemyTexture = Content.Load<Texture2D>("Sprites/FrostEnemy");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
         }   

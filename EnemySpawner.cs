@@ -7,21 +7,26 @@ namespace Grupp5Game
     {
         private bool CanSpawn = true;
         public int NumberOfEnemiesToSpawn;
-        private int EnemiesSpawned;
+        private int SpawnTowerAttacker;
         public EnemySpawner()
         {
             NumberOfEnemiesToSpawn = 1;
             CanSpawn = true;
+            SpawnTowerAttacker = 0;
         }
         public void Update(MapScene mapScene)
         {
             if (CanSpawn)
             {
-                mapScene.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));
+                if (SpawnTowerAttacker < 4)
+                {
+                    mapScene.EnemyList.Add(new FrostEnemy(Assets.FrostEnemyTexture));
+                    SpawnTowerAttacker++;
+                }
+                else mapScene.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));
                 EnemeySpawnTimer();
-            }
 
-            
+            }
         }
 
         private async void EnemeySpawnTimer()

@@ -23,7 +23,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    if (FromMatrixIsPath(Assets.GridMatrix2[y * 19 + x]))
+                    if (FromMatrixIsPath(Assets.GridMatrix3[y * 19 + x]))
                     {
                         NumberOfPathTiles++;
                         isPath = true;
