@@ -23,7 +23,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    if (FromMatrixIsPath(Assets.GridMatrix[y * 19 + x]))
+                    if (FromMatrixIsPath(Assets.GridMatrix2[y * 19 + x]))
                     {
                         NumberOfPathTiles++;
                         isPath = true;
@@ -63,16 +63,47 @@ namespace Grupp5Game
                 }
             }
 
-            if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y))
-            {
-                selected.TileColor = Color.Lerp(Color.White, Color.Gray, 0.5f);
-            }
+    if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y) &&
+        Mouse.GetState().LeftButton == ButtonState.Pressed)
+    {
+        if (selected.IsPath)
+        {
+            
+            return;
+        }
 
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+        bool canPlaceTower = false;
+        foreach (var neighbor in GetNeighborTiles(selected.IndexPosition))
+        {
+            if (neighbor.IsPath)
             {
-                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
+                canPlaceTower = true; 
+                break;
             }
         }
+
+        if (canPlaceTower)
+        {
+            Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
+        }
+    }
+}
+
+        private IEnumerable<Tile> GetNeighborTiles(Point position)
+        {
+            var neighbors = new List<Tile>();
+
+            if (position.X > 0)
+                neighbors.Add(Tiles[position.X - 1, position.Y]);
+            if (position.X < Tiles.GetLength(0) - 1)
+                neighbors.Add(Tiles[position.X + 1, position.Y]);
+            if (position.Y > 0)
+                neighbors.Add(Tiles[position.X, position.Y - 1]);
+            if (position.Y < Tiles.GetLength(1) - 1)
+                neighbors.Add(Tiles[position.X, position.Y + 1]);
+
+            return neighbors;
+        }  
 
         public void Draw(Game1 game)
         {
