@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
 using System.Threading.Tasks;
 
 namespace Grupp5Game 
@@ -10,9 +7,10 @@ namespace Grupp5Game
     {
         private bool CanSpawn = true;
         public int NumberOfEnemiesToSpawn;
+        private int EnemiesSpawned;
         public EnemySpawner()
         {
-            NumberOfEnemiesToSpawn = 5;
+            NumberOfEnemiesToSpawn = 1;
             CanSpawn = true;
         }
         public void Update(MapScene mapScene)
@@ -22,6 +20,8 @@ namespace Grupp5Game
                 mapScene.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));
                 EnemeySpawnTimer();
             }
+
+            
         }
 
         private async void EnemeySpawnTimer()
