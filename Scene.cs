@@ -25,7 +25,7 @@ namespace Grupp5Game
 
         public override void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new MapScene();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new StartScreenScene();
         }
 
         public override void Draw()
@@ -48,13 +48,24 @@ namespace Grupp5Game
 
     public class StartScreenScene : Scene
     {
+        private Button playButton;
+
+        public StartScreenScene()
+        {
+            playButton = new Button();
+        }
+
         public override void Update()
         {
-
+            playButton.Update(this);
         }
 
         public override void Draw()
         {
+            if (playButton != null)
+            {
+                playButton.Draw(this);
+            }
 
         }
     }

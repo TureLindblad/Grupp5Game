@@ -42,6 +42,7 @@ namespace Grupp5Game
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
+            Assets.PlayButton = Content.Load<Texture2D>("Buttons/play_btn");
         }
 
         protected override void Update(GameTime gameTime)
