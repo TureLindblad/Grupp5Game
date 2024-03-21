@@ -105,13 +105,13 @@ namespace Grupp5Game
             return neighbors;
         }  
 
-        public void Draw(Game1 game)
+        public void Draw(MapScene mapScene)
         {
             for (int x = 0; x < Tiles.GetLength(0); x++)
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    Tiles[x, y].Draw(game);
+                    Tiles[x, y].Draw(mapScene);
                 }
             }
         }
