@@ -16,6 +16,13 @@ namespace Grupp5Game
 
     public class IntroScene : Scene
     {
+        private static float IntroTextResize = Math.Min(
+            Globals.WindowSize.X / (float)Assets.IntroTextTexture.Width,
+            Globals.WindowSize.Y / (float)Assets.IntroTextTexture.Height);
+            
+        private static int IntroTextWidth = (int)(Assets.IntroTextTexture.Width * IntroTextResize * 0.8);
+        private static int IntroTextHeight = (int)(Assets.IntroTextTexture.Height * IntroTextResize * 0.8);
+
         public override void Update()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new MapScene();
@@ -23,7 +30,19 @@ namespace Grupp5Game
 
         public override void Draw()
         {
+            Globals.SpriteBatch.Draw(Assets.IntroTextTexture, 
+                new Rectangle(
+                    Globals.WindowSize.X / 2 - IntroTextWidth / 2, 
+                    Globals.WindowSize.Y / 2 - IntroTextHeight / 2,
+                    IntroTextWidth, 
+                    IntroTextHeight), 
+                Color.White);
 
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                "PRESS SPACE TO CONTINUE",
+                new Vector2(Globals.WindowSize.X / 2 - 280, Globals.WindowSize.Y - 90),
+                Color.Black);
         }
     }
 

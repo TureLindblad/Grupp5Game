@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace Grupp5Game
 {
     public class Assets
-    {   
-        public static SpriteFont IntroText;
+    {
+        public static SpriteFont IntroTextFont;
+        public static Texture2D IntroTextTexture;
         public static Texture2D GrassTexture;
         public static Texture2D SandTexture;
+        public static Texture2D TowerTexture;
         public static Texture2D EnemyGoblinTexture;
         
         public static Texture2D FrostElementalTexture { get; internal set; }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Threading.Tasks;
 
-namespace Grupp5Game
+namespace Grupp5Game 
 {
     public class EnemySpawner
     {
