@@ -46,7 +46,8 @@ namespace Grupp5Game
 
         public void Update(MapScene mapScene)
         {
-            float minDistance = float.MaxValue;
+            float minDistancePath = float.MaxValue;
+            float minDistanceTower = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestTile = null;
 
@@ -55,9 +56,14 @@ namespace Grupp5Game
                 for (int y = 0; y < mapScene.MapGrid.Tiles.GetLength(1); y++)
                 {
                     float distance = Vector2.Distance(Position, tiles[x, y].TexturePosition);
-                    if (tiles[x, y].IsPath && distance < minDistance && !CompletedTileList.Contains(tiles[x, y]))
+                    if (tiles[x, y].IsPath && distance < minDistancePath && !CompletedTileList.Contains(tiles[x, y]))
                     {
-                        minDistance = distance;
+                        minDistancePath = distance;
+                        closestTile = tiles[x, y];
+                    }
+                    else if (tiles[x, y] is TowerTile && distance < minDistanceTower)
+                    {
+                        minDistanceTower = distance;
                         closestTile = tiles[x, y];
                     }
                 }
@@ -69,12 +75,18 @@ namespace Grupp5Game
 
                 Velocity = direction * Speed;
 
-                if (minDistance < Speed)
+                if (minDistancePath < Speed)
                 {
                     CompletedTileList.Add(closestTile);
                 }
 
-                if (Collision.CheckCollision(this, mapScene.EnemyList))
+                if (closestTile is TowerTile && minDistanceTower < Speed)
+                {
+                    tiles[closestTile.IndexPosition.X, closestTile.IndexPosition.Y] = 
+                        new Tile(closestTile.IndexPosition.X, closestTile.IndexPosition.Y, false);
+                }
+
+                if (!Collision.CheckCollision(this, mapScene.EnemyList))
                 {
                     Velocity *= -1;
                     
@@ -82,7 +94,7 @@ namespace Grupp5Game
                 Position += Velocity;
             }
 
-            //if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
+            if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
         }
 
         public void Draw(MapScene mapScene)
