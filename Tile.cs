@@ -53,7 +53,7 @@ namespace Grupp5Game
                 TextureResizeDimension, 
                 TextureResizeDimension);
 
-            game._spriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
+        game._spriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
         }
     }
 
