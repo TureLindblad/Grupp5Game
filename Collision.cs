@@ -13,10 +13,10 @@ namespace Grupp5Game
         {
             foreach (Enemy enemy2 in enemyList) 
             {
-                if (enemy1.Bounds.Intersects(enemy2.Bounds) && enemy1 != enemy2)
+                if (enemy1.BoundsWithNextMovement.Intersects(enemy2.BoundsWithNextMovement) && enemy1 != enemy2)
                 {
-                    Vector2 displacement = CalculateDisplacement(enemy1.Bounds, enemy2.Bounds);
-                    enemy1.Position += displacement;
+                    //Vector2 displacement = CalculateDisplacement(enemy1.Bounds, enemy2.Bounds);
+                    //enemy1.Position += displacement;
 
                     return true;
                 }
@@ -35,26 +35,45 @@ namespace Grupp5Game
             return false;*/
         }
 
-        public static Vector2 CalculateDisplacement (Rectangle bounds1, Rectangle bounds2)
+        public static Vector2 CalculateDisplacement(Rectangle bounds1, Rectangle bounds2)
         {
+            /*            Rectangle intersection = Rectangle.Intersect(bounds1, bounds2);
+                        Vector2 displacement = Vector2.Zero;
+
+                        if (!intersection.IsEmpty)
+                        {
+                            // Calculate the direction of displacement
+                            Vector2 direction = new Vector2(
+                                bounds1.Center.X < bounds2.Center.X ? -1 : 1, // -1 if bounds1 is left, 1 if bounds1 is right
+                                bounds1.Center.Y < bounds2.Center.Y ? -1 : 1  // -1 if bounds1 is above, 1 if bounds1 is below
+                            );
+
+                            // Calculate the displacement magnitude along X and Y axes
+                            float displacementX = intersection.Width * direction.X;
+                            float displacementY = intersection.Height * direction.Y;
+
+                            // Set the displacement vector
+                            displacement = new Vector2(displacementX, displacementY);
+                        }
+
+                        return displacement;
+                    }*/
+
+
             Rectangle intersection = Rectangle.Intersect(bounds1, bounds2);
             Vector2 displacement = Vector2.Zero;
 
             if (!intersection.IsEmpty)
             {
-                displacement.X = bounds1.Center.X < bounds2.Center.X ? intersection.Width: - intersection.Width;
+                displacement.X = bounds1.Center.X < bounds2.Center.X ? intersection.Width : -intersection.Width * 2;
+
+                displacement.Y = bounds1.Center.Y < bounds2.Center.Y ? intersection.Height : -intersection.Height;
             }
-
-            else
-            {
-                displacement.Y = bounds1.Center.Y < bounds2.Center.Y ? intersection.Height: - intersection.Height;
-            }
-
-
             return displacement;
         }
 
-        public static bool HandleCollision(Enemy enemy1, Enemy enemy2)
+
+            public static bool HandleCollision(Enemy enemy1, Enemy enemy2)
         {
             Rectangle intersection = Rectangle.Intersect(enemy1.Bounds, enemy2.Bounds);
 

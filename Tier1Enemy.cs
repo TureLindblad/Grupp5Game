@@ -15,7 +15,7 @@ namespace Grupp5Game
     {
         public GoblinEnemy(Texture2D texture) : base (texture) 
         {
-            Position = new Vector2(50, 200);
+            Position = new Vector2(0, 0);
             Size = 50;
             Velocity = new Vector2(0, 0);
             Speed = 5;

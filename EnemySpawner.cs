@@ -15,13 +15,13 @@ namespace Grupp5Game
         }
         public void Update(MapScene mapScene)
         {
-            if (CanSpawn && EnemiesSpawned < NumberOfEnemiesToSpawn)
+            if (CanSpawn /*&& EnemiesSpawned < NumberOfEnemiesToSpawn*/)
             {
                 for (int i = 0; i < NumberOfEnemiesToSpawn; i++)
                 {
                     Enemy newEnemy = new GoblinEnemy(Assets.EnemyGoblinTexture);
                     mapScene.EnemyList.Add(newEnemy);
-                    EnemiesSpawned++;
+                    /*EnemiesSpawned++;
 
                     foreach (Enemy existingEnemy in mapScene.EnemyList)
                     {
@@ -32,11 +32,12 @@ namespace Grupp5Game
                         } 
                     }
 
-                    if (EnemiesSpawned >= NumberOfEnemiesToSpawn) { break; }
+                    if (EnemiesSpawned >= NumberOfEnemiesToSpawn) { break; }*/
                 }
+                EnemeySpawnTimer();
             }
 
-            EnemeySpawnTimer();
+            
         }
 
         private async void EnemeySpawnTimer()

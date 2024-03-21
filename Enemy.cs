@@ -9,7 +9,19 @@ namespace Grupp5Game
 {
     public abstract class Enemy
     {
-        public Rectangle Bounds { get { return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , 5 , 5 ); } }
+        public Rectangle Bounds { get { 
+                return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , Size , Size); 
+            } 
+        }
+        public Rectangle BoundsWithNextMovement
+        {
+            get
+            {
+                int xMod = (int)(Velocity.X * Speed);
+                int yMod = (int)(Velocity.Y * Speed);
+                return new Rectangle(Bounds.X + xMod, Bounds.Y + yMod, Bounds.Width + xMod, Bounds.Height + yMod);
+            }
+        }
         private Texture2D Texture;
         public int Health { get; set; }
         public int PhysArmor { get; set; }
@@ -62,16 +74,16 @@ namespace Grupp5Game
                     CompletedTileList.Add(closestTile);
                 }
 
-                if (!Collision.CheckCollision(this, mapScene.EnemyList))
+                if (Collision.CheckCollision(this, mapScene.EnemyList))
                 {
-                    Position += Velocity;
+                    Velocity *= -1;
+                    
                 }
+                Position += Velocity;
             }
 
             //if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
         }
-
-
 
         public void Draw(MapScene mapScene)
         {
