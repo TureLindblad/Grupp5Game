@@ -14,15 +14,6 @@ namespace Grupp5Game
                 return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , Size , Size); 
             } 
         }
-        public Rectangle BoundsWithNextMovement
-        {
-            get
-            {
-                int xMod = (int)(Velocity.X);
-                int yMod = (int)(Velocity.Y);
-                return new Rectangle(Bounds.X + xMod, Bounds.Y + yMod, Bounds.Width + xMod, Bounds.Height + yMod);
-            }
-        }
         private Texture2D Texture;
         public int Health { get; set; }
         public int PhysArmor { get; set; }
@@ -36,8 +27,11 @@ namespace Grupp5Game
         private List<Tile> CompletedTileList;
         protected bool AttacksTower { get; set; }
         public bool IsAttacking { get; set; }
+        public int AssignedPathLane { get; set; }
+
         public Enemy(Texture2D texture)
         {
+            AssignedPathLane = 1;
             Texture = texture;
 
             Position = new Vector2(10, 10);
@@ -61,7 +55,7 @@ namespace Grupp5Game
                 for (int y = 0; y < mapScene.MapGrid.Tiles.GetLength(1); y++)
                 {
                     float distance = Vector2.Distance(Position, tiles[x, y].TexturePosition);
-                    if (tiles[x, y].IsPath && distance < minDistancePath && !CompletedTileList.Contains(tiles[x, y]))
+                    if (tiles[x, y] is PathTile pathTile && pathTile.PathLane == AssignedPathLane && distance < minDistancePath && !CompletedTileList.Contains(tiles[x, y]))
                     {
                         minDistancePath = distance;
                         closestPathTile = tiles[x, y];
@@ -101,12 +95,15 @@ namespace Grupp5Game
                     {
                         if (!li.Item2)
                         {
+                            direction = Vector2.Normalize(li.Item1 - Position);
+                            
+                            Velocity = direction * Speed;
 
-                            Position = li.Item1; // Assign the enemy's position
-                                                    // Update the availability of this position in nextTower.AttackingPositions
-                            nextTower.AttackingPositions[nextTower.AttackingPositions.IndexOf(li)] = Tuple.Create(li.Item1, true);
-                            IsAttacking = true;
-                            break;
+                            if (Vector2.Distance(Position, li.Item1) < Speed * 1.5) {
+                                nextTower.AttackingPositions[nextTower.AttackingPositions.IndexOf(li)] = Tuple.Create(li.Item1, true);
+                                IsAttacking = true;
+                                break;
+                            }
                         }
 
                     }
@@ -132,9 +129,6 @@ namespace Grupp5Game
 
         public void Draw(MapScene mapScene)
         {
-            Globals.SpriteBatch.Draw(Assets.IntroTextTexture, BoundsWithNextMovement,
-                    Color.Black);
-
             Globals.SpriteBatch.Draw(
                 Texture, 
                 new Rectangle(

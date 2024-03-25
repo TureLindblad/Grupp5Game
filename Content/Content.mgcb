@@ -68,6 +68,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Text/IntroText.spritefont
 
+#begin Text/MapCreation.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Text/MapCreation.spritefont
+
 #begin TextSprites/IntroText.png
 /importer:TextureImporter
 /processor:TextureProcessor

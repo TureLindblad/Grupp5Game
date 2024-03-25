@@ -12,28 +12,36 @@ namespace Grupp5Game
     {
         public Tile[,] Tiles { get; set; }
         public int NumberOfPathTiles { get; private set; }
+        public readonly int MaxNumberOfPathTiles = 27;
+        public List<Tile> PathTileOrder { get; private set; }
 
-        public Grid(Point gridDimensions)
+        private MouseState LastMouseState { get; set; }
+        private MouseState CurrentMouseState { get; set; }
+
+        public Grid(Point gridDimensions, bool loadReadyMap)
         {
             Tiles = new Tile[gridDimensions.X, gridDimensions.Y];
-
-            bool isPath = false;
 
             for (int x = 0; x < Tiles.GetLength(0); x++)
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    if (FromMatrixIsPath(Assets.BigGrid25x12[y * 25 + x]))
+                    if (FromMatrixIsPath(Assets.BigGrid25x12[y * 25 + x]) && loadReadyMap)
                     {
                         NumberOfPathTiles++;
-                        isPath = true;
+                        Tiles[x, y] = new PathTile(x, y, Assets.BigGrid25x12[y * 25 + x] - '0');
                     }
-
-                    Tiles[x, y] = new Tile(x, y, isPath);
-
-                    isPath = false;
+                    else
+                    {
+                        Tiles[x, y] = new TerrainTile(x, y);
+                    }
                 }
             }
+
+            PathTileOrder = new List<Tile>();
+
+            Tiles[0, 0] = new PathTile(0, 0, 1);
+            PathTileOrder.Add(Tiles[0, 0]);
         }
 
         private static bool FromMatrixIsPath(char c)
@@ -42,8 +50,11 @@ namespace Grupp5Game
             else return true;
         }
 
-        public void Update(MapScene mapScene)
+        public void Update()
         {
+            LastMouseState = CurrentMouseState;
+            CurrentMouseState = Mouse.GetState();
+            
             Vector2 MousePosition = Mouse.GetState().Position.ToVector2();
             float minDistance = float.MaxValue;
             Tile selected = null;
@@ -68,23 +79,56 @@ namespace Grupp5Game
                 selected.TileColor = Color.Lerp(Color.White, Color.Gray, 0.5f);
             }
 
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (CurrentMouseState.LeftButton == ButtonState.Pressed && 
+                LastMouseState.LeftButton == ButtonState.Released &&
+                selected is not PathTile &&
+                CheckNumberOfAdjacentPathTiles(selected) &&
+                NumberOfPathTiles < MaxNumberOfPathTiles)
             {
-                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
+                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] 
+                    = new PathTile(selected.IndexPosition.X, selected.IndexPosition.Y, 1);
+
+                PathTileOrder.Add(Tiles[selected.IndexPosition.X, selected.IndexPosition.Y]);
+
+                NumberOfPathTiles++;
             }
 
             if (Mouse.GetState().RightButton == ButtonState.Pressed)
             {
-                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new Tile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
-
-                foreach (Enemy enemy in mapScene.EnemyList)
-                {
-                    enemy.IsAttacking = false;
-                }
+                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y);
             }
         }
 
-        public void Draw(MapScene mapScene)
+        private bool CheckNumberOfAdjacentPathTiles(Tile selected)
+        {
+            int adjacentTiles = 0;
+            bool foundAdjacentFirst = false;
+
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    try
+                    {
+                        if (Tiles[selected.IndexPosition.X + x, selected.IndexPosition.Y + y] is PathTile /*&&
+                            ((x != -1 && y != -1) && (x != 1 && y != -1))*/)
+                        {
+                            adjacentTiles++;
+                        }
+
+                        if (Tiles[selected.IndexPosition.X + x, selected.IndexPosition.Y + y] == PathTileOrder.Last())
+                        {
+                            foundAdjacentFirst = true;
+                        }
+                    }
+                    catch { }
+                }
+            }
+
+            return foundAdjacentFirst && adjacentTiles <= 2;
+        }
+
+        public void Draw()
         {
             for (int x = 0; x < Tiles.GetLength(0); x++)
             {
@@ -93,6 +137,12 @@ namespace Grupp5Game
                     Tiles[x, y].Draw();
                 }
             }
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                "Number of tiles left: " + (MaxNumberOfPathTiles - NumberOfPathTiles),
+                new Vector2(Globals.WindowSize.X / 2 - 80, Globals.WindowSize.Y - 60),
+                Color.Red);
         }
     }
 }

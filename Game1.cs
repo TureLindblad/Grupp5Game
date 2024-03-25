@@ -8,7 +8,7 @@ namespace Grupp5Game
 {
     public static class Globals
     {
-        public static Point WindowSize = new Point(1600, 1200);
+        public static Point WindowSize = new Point(1600, 1000);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
     }
@@ -44,6 +44,7 @@ namespace Grupp5Game
             Assets.FrostEnemyTexture = Content.Load<Texture2D>("Sprites/FrostEnemy");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
+            Assets.MapCreationFont = Content.Load<SpriteFont>("Text/MapCreation");
         }   
 
         protected override void Update(GameTime gameTime)

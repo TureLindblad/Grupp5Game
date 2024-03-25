@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
-    public class Tile
+    public abstract class Tile
     {
         protected Texture2D Texture;
         public Color TileColor {  get; set; }
@@ -16,15 +16,12 @@ namespace Grupp5Game
         public Vector2 Origin;
         public Vector2 TexturePosition;
         public Point IndexPosition;
-        public bool IsPath { get; set; }
 
-        public Tile(int x, int y, bool isPath)
+        public Tile(int x, int y)
         {
-            IndexPosition = new Point(x, y);
-            IsPath = isPath;
+            Texture = Assets.GrassTexture;
 
-            if (isPath) Texture = Assets.SandTexture;
-            else Texture = Assets.GrassTexture;
+            IndexPosition = new Point(x, y);
 
             TileColor = Color.White;
             TextureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * MapScene.MapDimensions.X)));
@@ -57,10 +54,28 @@ namespace Grupp5Game
         }
     }
 
+    public class TerrainTile : Tile
+    {
+        public TerrainTile(int x, int y) : base(x, y) 
+        {
+            Texture = Assets.GrassTexture;
+        }
+    }
+
+    public class PathTile : Tile
+    {
+        public int PathLane { get; set; }
+        public PathTile(int x, int y, int pathLane) : base(x, y)
+        {
+            Texture = Assets.SandTexture;
+            PathLane = pathLane;
+        }
+    }
+
     public class TowerTile : Tile
     {
         public List<Tuple<Vector2, bool>> AttackingPositions {  get; set; }
-        public TowerTile(int x, int y, bool isPath) : base(x, y, isPath)
+        public TowerTile(int x, int y) : base(x, y)
         {
             Texture = Assets.TowerTexture;
 

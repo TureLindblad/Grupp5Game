@@ -25,7 +25,7 @@ namespace Grupp5Game
 
         public override void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new MapScene();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new MapCreationScene();
         }
 
         public override void Draw()
@@ -59,6 +59,32 @@ namespace Grupp5Game
         }
     }
 
+    public class MapCreationScene : Scene
+    {
+        public Grid MapGrid { get; private set; }
+        //public static Point MapDimensions = new Point(19, 8);
+        public static Point MapDimensions = new Point(25, 10);
+
+        public MapCreationScene()
+        {
+            MapGrid = new Grid(MapDimensions, false);
+        }
+        public override void Update()
+        {
+            MapGrid.Update();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            {
+                Game1.CurrentScene = new MapScene(MapGrid);
+            }
+        }
+
+        public override void Draw()
+        {
+            MapGrid.Draw();
+        }
+    }
+
     public class MapScene : Scene
     {
         public Grid MapGrid { get; private set; }
@@ -67,9 +93,9 @@ namespace Grupp5Game
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
 
-        public MapScene()
+        public MapScene(Grid drawnGrid)
         {
-            MapGrid = new Grid(MapDimensions);
+            MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
         }
@@ -77,7 +103,7 @@ namespace Grupp5Game
         {
             Spawner.Update(this);
 
-            MapGrid.Update(this);
+            MapGrid.Update();
 
             for (int i = 0; i < EnemyList.Count; i++)
             {
@@ -87,7 +113,7 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-            MapGrid.Draw(this);
+            MapGrid.Draw();
 
             foreach (Enemy enemy in EnemyList)
             {

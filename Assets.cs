@@ -10,6 +10,7 @@ namespace Grupp5Game
     public class Assets
     {
         public static SpriteFont IntroTextFont;
+        public static SpriteFont MapCreationFont;
         public static Texture2D IntroTextTexture;
         public static Texture2D GrassTexture;
         public static Texture2D SandTexture;
@@ -50,7 +51,7 @@ namespace Grupp5Game
             "0000000011100000000";
 
         public static string BigGrid25x12 =
-            "11111111111111111111111" +
+            "22222222222222222222222" +
             "11111111111111111111111" +
             "10000000000000000000000" +
             "10000000000000000000000" +
