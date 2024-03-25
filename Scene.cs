@@ -62,7 +62,8 @@ namespace Grupp5Game
     public class MapScene : Scene
     {
         public Grid MapGrid { get; private set; }
-        public static Point MapDimensions = new Point(19, 8);
+        //public static Point MapDimensions = new Point(19, 8);
+        public static Point MapDimensions = new Point(25, 12);
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
 
@@ -76,7 +77,7 @@ namespace Grupp5Game
         {
             Spawner.Update(this);
 
-            MapGrid.Update();
+            MapGrid.Update(this);
 
             for (int i = 0; i < EnemyList.Count; i++)
             {

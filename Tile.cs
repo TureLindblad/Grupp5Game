@@ -70,9 +70,9 @@ namespace Grupp5Game
 
             AttackingPositions = new List<Tuple<Vector2, bool>>();
 
-            Vector2 v1 = new Vector2(texturePosition.X , texturePosition.Y - 20);
-            Vector2 v2 = new Vector2(texturePosition.X + 10, texturePosition.Y - 50);
-            Vector2 v3 = new Vector2(texturePosition.X + 150, texturePosition.Y - 70);
+            Vector2 v1 = new Vector2(texturePosition.X + 30, texturePosition.Y + 30);
+            Vector2 v2 = new Vector2(texturePosition.X, texturePosition.Y - 30);
+            Vector2 v3 = new Vector2(texturePosition.X - 30, texturePosition.Y + 30);
 
             AttackingPositions.Add(Tuple.Create(v1, false));
             AttackingPositions.Add(Tuple.Create(v2, false));

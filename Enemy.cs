@@ -35,7 +35,7 @@ namespace Grupp5Game
         public Vector2 Velocity { get; set; }
         private List<Tile> CompletedTileList;
         protected bool AttacksTower { get; set; }
-        protected bool IsAttacking { get; set; }
+        public bool IsAttacking { get; set; }
         public Enemy(Texture2D texture)
         {
             Texture = texture;
@@ -67,7 +67,7 @@ namespace Grupp5Game
                         closestPathTile = tiles[x, y];
                     }
 
-                    if (tiles[x, y] is TowerTile towerTile && distance < minDistanceTower/* && CheckAttackingPositions(towerTile)*/)
+                    if (tiles[x, y] is TowerTile towerTile && distance < minDistanceTower && CheckAttackingPositions(towerTile) )
                     {
                         minDistanceTower = distance;
                         if (minDistanceTower < tiles[0,0].TextureResizeDimension * 1.3)
@@ -90,12 +90,12 @@ namespace Grupp5Game
 
                 Velocity = direction * Speed;
 
-                if (minDistancePath < nextTile.TextureResizeDimension / 2 )
+                if (minDistancePath < nextTile.TextureResizeDimension / 2 && !IsAttacking)
                 {
                     CompletedTileList.Add(nextTile);
                 }
 
-                if (nextTile is TowerTile nextTower && minDistanceTower < nextTile.TextureResizeDimension / 2)
+                if (nextTile is TowerTile nextTower && minDistanceTower < nextTile.TextureResizeDimension / 2 && !IsAttacking)
                 {
                     foreach(var li in nextTower.AttackingPositions)
                     {
@@ -108,28 +108,17 @@ namespace Grupp5Game
                             IsAttacking = true;
                             break;
                         }
+
                     }
-                    /*tiles[nextTile.IndexPosition.X, nextTile.IndexPosition.Y] =
-                        new Tile(nextTile.IndexPosition.X, nextTile.IndexPosition.Y, false);*/
-                    
-                }
-
-                Tuple<bool, bool> collisionChecks = Collision.CheckCollision(this, mapScene.EnemyList);
-
-                if (collisionChecks.Item1)
-                {
-                    Velocity = new Vector2(0, Velocity.Y + Speed * direction.X);
-                }
-                
-                if (collisionChecks.Item2)
-                {
-                    Velocity = new Vector2(Velocity.X + Speed * direction.Y, 0);
                 }
 
                 if (!IsAttacking) Position += Velocity;
             }
 
-            //if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles) mapScene.EnemyList.Remove(this);
+            /*if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles)
+            {
+                mapScene.EnemyList.Remove(this);
+            }*/
         }
         private static bool CheckAttackingPositions(TowerTile towerTile)
         {

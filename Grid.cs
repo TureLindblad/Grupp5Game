@@ -23,7 +23,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    if (FromMatrixIsPath(Assets.GridMatrix3[y * 19 + x]))
+                    if (FromMatrixIsPath(Assets.BigGrid25x12[y * 25 + x]))
                     {
                         NumberOfPathTiles++;
                         isPath = true;
@@ -42,7 +42,7 @@ namespace Grupp5Game
             else return true;
         }
 
-        public void Update()
+        public void Update(MapScene mapScene)
         {
             Vector2 MousePosition = Mouse.GetState().Position.ToVector2();
             float minDistance = float.MaxValue;
@@ -71,6 +71,16 @@ namespace Grupp5Game
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
+            }
+
+            if (Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new Tile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
+
+                foreach (Enemy enemy in mapScene.EnemyList)
+                {
+                    enemy.IsAttacking = false;
+                }
             }
         }
 

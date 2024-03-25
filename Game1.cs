@@ -8,7 +8,7 @@ namespace Grupp5Game
 {
     public static class Globals
     {
-        public static Point WindowSize = new Point(1600, 900);
+        public static Point WindowSize = new Point(1600, 1200);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
     }
