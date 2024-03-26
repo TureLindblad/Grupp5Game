@@ -84,16 +84,11 @@ namespace Grupp5Game
         public TowerTile(int x, int y) : base(x, y)
         {
             Texture = Assets.TowerTexture;
-
-            int textureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * Globals.MapDimensions.X)));
-            textureResizeDimension = (int)(textureResizeDimension * 1.25);
-            Vector2 texturePosition = GetPosition(textureResizeDimension, x, y);
-
             AttackingPositions = new List<Tuple<Vector2, bool>>();
 
-            Vector2 v1 = new Vector2(texturePosition.X + 30, texturePosition.Y + 30);
-            Vector2 v2 = new Vector2(texturePosition.X, texturePosition.Y - 30);
-            Vector2 v3 = new Vector2(texturePosition.X - 30, texturePosition.Y + 30);
+            Vector2 v1 = new Vector2(TexturePosition.X + 30, TexturePosition.Y + 30);
+            Vector2 v2 = new Vector2(TexturePosition.X, TexturePosition.Y - 30);
+            Vector2 v3 = new Vector2(TexturePosition.X - 30, TexturePosition.Y + 30);
 
             AttackingPositions.Add(Tuple.Create(v1, false));
             AttackingPositions.Add(Tuple.Create(v2, false));

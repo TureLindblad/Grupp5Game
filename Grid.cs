@@ -12,7 +12,7 @@ namespace Grupp5Game
     public class Grid
     {
         public Tile[,] Tiles { get; set; }
-        public int NumberOfPathTiles { get; private set; }
+        public int NumberOfPathTiles { get; set; }
         public readonly int MaxNumberOfPathTiles = 27;
         public List<Tile> PathTileOrder { get; private set; }
         public static Point NexusIndex = new Point(Globals.MapDimensions.X / 2, 0);
@@ -84,8 +84,8 @@ namespace Grupp5Game
         private void TowerPlacingTool(Tile selected)
         {
             if (Mouse.GetState().RightButton == ButtonState.Pressed &&
-            selected is not PathTile &&
-            selected is not NexusTile)
+                selected is not PathTile &&
+                selected is not NexusTile)
             {
                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y);
             }
@@ -94,10 +94,10 @@ namespace Grupp5Game
         private void MapCreationTool(Tile selected)
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
-            selected is not PathTile &&
-            selected is not NexusTile &&
-            CheckAdjacentPathTiles(selected) &&
-            NumberOfPathTiles < MaxNumberOfPathTiles)
+                selected is not PathTile &&
+                selected is not NexusTile &&
+                CheckAdjacentPathTiles(selected) &&
+                NumberOfPathTiles < MaxNumberOfPathTiles)
             {
                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y]
                     = new PathTile(selected.IndexPosition.X, selected.IndexPosition.Y);
