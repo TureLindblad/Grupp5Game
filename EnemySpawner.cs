@@ -14,7 +14,7 @@ namespace Grupp5Game
             CanSpawn = true;
             SpawnTowerAttacker = 0;
         }
-        public void Update(MapScene mapScene)
+        public void Update(PlayMapScene mapScene)
         {
             if (CanSpawn)
             {

@@ -27,21 +27,20 @@ namespace Grupp5Game
         private List<Tile> CompletedTileList;
         protected bool AttacksTower { get; set; }
         public bool IsAttacking { get; set; }
-        public int AssignedPathLane { get; set; }
+        public bool MarkedForDeletion { get; set; } = false;
 
         public Enemy(Texture2D texture)
         {
-            AssignedPathLane = 1;
             Texture = texture;
 
-            Position = new Vector2(10, 10);
+            Position = Vector2.Zero;
 
-            Velocity = new Vector2(0, 0);
+            Velocity = Vector2.Zero;
 
             CompletedTileList = new List<Tile>();
         }
 
-        public void Update(MapScene mapScene)
+        public void Update(PlayMapScene mapScene)
         {
             float minDistancePath = float.MaxValue;
             float minDistanceTower = float.MaxValue;
@@ -52,10 +51,13 @@ namespace Grupp5Game
 
             for (int x = 0; x < tiles.GetLength(0); x++)
             {
-                for (int y = 0; y < mapScene.MapGrid.Tiles.GetLength(1); y++)
+                for (int y = 0; y < tiles.GetLength(1); y++)
                 {
                     float distance = Vector2.Distance(Position, tiles[x, y].TexturePosition);
-                    if (tiles[x, y] is PathTile pathTile && pathTile.PathLane == AssignedPathLane && distance < minDistancePath && !CompletedTileList.Contains(tiles[x, y]))
+
+                    if ((tiles[x, y] is PathTile || tiles[x, y] is NexusTile) &&
+                        distance < minDistancePath && 
+                        !CompletedTileList.Contains(tiles[x, y]))
                     {
                         minDistancePath = distance;
                         closestPathTile = tiles[x, y];
@@ -72,51 +74,57 @@ namespace Grupp5Game
                 }
             }
 
-            if (closestTowerTile != null && AttacksTower )
-            {
-                nextTile = closestTowerTile;
-            }
+            if (closestTowerTile != null && AttacksTower ) nextTile = closestTowerTile;
             else nextTile = closestPathTile;
 
-            if (nextTile != null)
+            HandleMovementToNextTile(nextTile, Math.Min(minDistancePath, minDistanceTower));
+        }
+
+        private void HandleMovementToNextTile(Tile nextTile, float nextMinDistance)
+        {
+            Vector2 direction = Vector2.Normalize(nextTile.TexturePosition - Position);
+
+            Velocity = direction * Speed;
+
+            if (nextMinDistance < nextTile.TextureResizeDimension / 2 && !IsAttacking)
             {
-                Vector2 direction = Vector2.Normalize(nextTile.TexturePosition - Position);
-
-                Velocity = direction * Speed;
-
-                if (minDistancePath < nextTile.TextureResizeDimension / 2 && !IsAttacking)
+                if (nextTile is NexusTile)
+                {
+                    MarkedForDeletion = true;
+                }
+                else if (nextTile is TowerTile nextTower)
+                {
+                    HandleTowerAttack(nextTower, ref direction);
+                }
+                else
                 {
                     CompletedTileList.Add(nextTile);
                 }
-
-                if (nextTile is TowerTile nextTower && minDistanceTower < nextTile.TextureResizeDimension / 2 && !IsAttacking)
-                {
-                    foreach(var li in nextTower.AttackingPositions)
-                    {
-                        if (!li.Item2)
-                        {
-                            direction = Vector2.Normalize(li.Item1 - Position);
-                            
-                            Velocity = direction * Speed;
-
-                            if (Vector2.Distance(Position, li.Item1) < Speed * 1.5) {
-                                nextTower.AttackingPositions[nextTower.AttackingPositions.IndexOf(li)] = Tuple.Create(li.Item1, true);
-                                IsAttacking = true;
-                                break;
-                            }
-                        }
-
-                    }
-                }
-
-                if (!IsAttacking) Position += Velocity;
             }
 
-            /*if (CompletedTileList.Count == mapScene.MapGrid.NumberOfPathTiles)
-            {
-                mapScene.EnemyList.Remove(this);
-            }*/
+            if (!IsAttacking) Position += Velocity;
         }
+
+        private void HandleTowerAttack(TowerTile nextTower, ref Vector2 direction)
+        {
+            foreach (var li in nextTower.AttackingPositions)
+            {
+                if (!li.Item2)
+                {
+                    direction = Vector2.Normalize(li.Item1 - Position);
+
+                    Velocity = direction * Speed;
+
+                    if (Vector2.Distance(Position, li.Item1) < Speed * 1.5)
+                    {
+                        nextTower.AttackingPositions[nextTower.AttackingPositions.IndexOf(li)] = Tuple.Create(li.Item1, true);
+                        IsAttacking = true;
+                        break;
+                    }
+                }
+            }
+        }
+
         private static bool CheckAttackingPositions(TowerTile towerTile)
         {
             foreach (var li in towerTile.AttackingPositions)
@@ -127,13 +135,13 @@ namespace Grupp5Game
             return false;
         }
 
-        public void Draw(MapScene mapScene)
+        public void Draw(PlayMapScene mapScene)
         {
             Globals.SpriteBatch.Draw(
                 Texture, 
                 new Rectangle(
-                    (int)Position.X - Size / 2/* + 5*/, //5 hjälper men vet inte varför den behövs 
-                    (int)Position.Y - Size / 2/* - 15*/, //-15 för att rita lite över mitten
+                    (int)Position.X - Size / 2 + 5, //5 hjälper men vet inte varför den behövs 
+                    (int)Position.Y - Size / 2,
                     Size, 
                     Size), 
                 Color.White);

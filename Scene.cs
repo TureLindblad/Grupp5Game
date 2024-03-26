@@ -62,43 +62,46 @@ namespace Grupp5Game
     public class MapCreationScene : Scene
     {
         public Grid MapGrid { get; private set; }
-        //public static Point MapDimensions = new Point(19, 8);
-        public static Point MapDimensions = new Point(25, 10);
 
-        public MapCreationScene()
+        public MapCreationScene(Grid mapGrid = null)
         {
-            MapGrid = new Grid(MapDimensions, false);
+            MapGrid = mapGrid != null ? mapGrid : new Grid(false);
         }
         public override void Update()
         {
             MapGrid.Update();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.P))
+            if (Keyboard.GetState().IsKeyDown(Keys.P) && MapGrid.CheckAdjacentPathTiles(MapGrid.Tiles[Grid.NexusIndex.X, Grid.NexusIndex.Y]))
             {
-                Game1.CurrentScene = new MapScene(MapGrid);
+                Game1.CurrentScene = new PlayMapScene(MapGrid);
             }
         }
 
         public override void Draw()
         {
             MapGrid.Draw();
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                "UNDO PRESS: U. Number of tiles left: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
+                new Vector2(Globals.WindowSize.X / 2 - 290, Globals.WindowSize.Y - 90),
+                Color.Black);
         }
     }
 
-    public class MapScene : Scene
+    public class PlayMapScene : Scene
     {
         public Grid MapGrid { get; private set; }
-        //public static Point MapDimensions = new Point(19, 8);
-        public static Point MapDimensions = new Point(25, 12);
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
 
-        public MapScene(Grid drawnGrid)
+        public PlayMapScene(Grid drawnGrid)
         {
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
         }
+
         public override void Update()
         {
             Spawner.Update(this);
@@ -108,6 +111,11 @@ namespace Grupp5Game
             for (int i = 0; i < EnemyList.Count; i++)
             {
                 EnemyList[i].Update(this);
+            }
+
+            for (int i = 0; i < EnemyList.Count; i++)
+            {
+                if (EnemyList[i].MarkedForDeletion) EnemyList.Remove(EnemyList[i]);
             }
         }
 

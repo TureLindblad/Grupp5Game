@@ -9,6 +9,7 @@ namespace Grupp5Game
     public static class Globals
     {
         public static Point WindowSize = new Point(1600, 1000);
+        public static Point MapDimensions = new Point(25, 10);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
     }
@@ -40,6 +41,7 @@ namespace Grupp5Game
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
+            Assets.NexusTexture = Content.Load<Texture2D>("Sprites/NexusHex");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
             Assets.FrostEnemyTexture = Content.Load<Texture2D>("Sprites/FrostEnemy");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");

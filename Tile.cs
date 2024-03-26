@@ -24,7 +24,7 @@ namespace Grupp5Game
             IndexPosition = new Point(x, y);
 
             TileColor = Color.White;
-            TextureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * MapScene.MapDimensions.X)));
+            TextureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * Globals.MapDimensions.X)));
             TextureResizeDimension = (int)(TextureResizeDimension * 1.25);
 
             Origin = new(TextureResizeDimension / 2, TextureResizeDimension / 2);
@@ -42,7 +42,7 @@ namespace Grupp5Game
             TileColor = Color.White;
         }
 
-        public virtual void Draw()
+        public void Draw()
         {
             Rectangle destinationRect = new Rectangle(
                 (int)Math.Round(TexturePosition.X), 
@@ -51,6 +51,14 @@ namespace Grupp5Game
                 TextureResizeDimension);
 
             Globals.SpriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
+        }
+    }
+
+    public class NexusTile : Tile
+    {
+        public NexusTile(int x, int y) : base(x, y) 
+        {
+            Texture = Assets.NexusTexture;
         }
     }
 
@@ -64,11 +72,9 @@ namespace Grupp5Game
 
     public class PathTile : Tile
     {
-        public int PathLane { get; set; }
-        public PathTile(int x, int y, int pathLane) : base(x, y)
+        public PathTile(int x, int y) : base(x, y)
         {
             Texture = Assets.SandTexture;
-            PathLane = pathLane;
         }
     }
 
@@ -79,7 +85,7 @@ namespace Grupp5Game
         {
             Texture = Assets.TowerTexture;
 
-            int textureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * MapScene.MapDimensions.X)));
+            int textureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * Globals.MapDimensions.X)));
             textureResizeDimension = (int)(textureResizeDimension * 1.25);
             Vector2 texturePosition = GetPosition(textureResizeDimension, x, y);
 
@@ -92,18 +98,6 @@ namespace Grupp5Game
             AttackingPositions.Add(Tuple.Create(v1, false));
             AttackingPositions.Add(Tuple.Create(v2, false));
             AttackingPositions.Add(Tuple.Create(v3, false));
-
-        }
-
-        public override void Draw()
-        {
-            Rectangle destinationRect = new Rectangle(
-                (int)Math.Round(TexturePosition.X),
-                (int)Math.Round(TexturePosition.Y),
-                TextureResizeDimension,
-                TextureResizeDimension);
-
-            Globals.SpriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
         }
     }
 }
