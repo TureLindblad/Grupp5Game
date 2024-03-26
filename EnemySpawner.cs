@@ -1,25 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.Xna.Framework;
 using System.Threading.Tasks;
 
-namespace Grupp5Game
+namespace Grupp5Game 
 {
     public class EnemySpawner
     {
-        private bool CanSpawn;
-
+        private bool CanSpawn = true;
+        public int NumberOfEnemiesToSpawn;
+        private int SpawnTowerAttacker;
         public EnemySpawner()
         {
+            NumberOfEnemiesToSpawn = 1;
             CanSpawn = true;
+            SpawnTowerAttacker = 0;
         }
-        public void Update(MapScene mapScene)
+        public void Update(PlayMapScene mapScene)
         {
             if (CanSpawn)
             {
-                mapScene.EnemyList.Add(new Enemy());
+                if (SpawnTowerAttacker < 4)
+                {
+                    mapScene.EnemyList.Add(new FrostEnemy(Assets.FrostEnemyTexture));
+                    SpawnTowerAttacker++;
+                }
+                else mapScene.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));
                 EnemeySpawnTimer();
+
             }
         }
 

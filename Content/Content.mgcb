@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/EnemyGoblin.png
 
+#begin Sprites/FrostEnemy.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/FrostEnemy.png
+
 #begin Sprites/GrassHex.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -36,6 +48,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/GrassHex.png
+
+#begin Sprites/NexusHex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/NexusHex.png
 
 #begin Sprites/SandHex.png
 /importer:TextureImporter
@@ -56,6 +80,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Text/IntroText.spritefont
 
+#begin Text/MapCreation.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Text/MapCreation.spritefont
+
 #begin TextSprites/IntroText.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -67,4 +98,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TextSprites/IntroText.png
+
+#begin TowerHex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TowerHex.png
 

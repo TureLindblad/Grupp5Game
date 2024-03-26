@@ -25,7 +25,7 @@ namespace Grupp5Game
 
         public override void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new MapScene();
+            if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new MapCreationScene();
         }
 
         public override void Draw()
@@ -59,19 +59,70 @@ namespace Grupp5Game
         }
     }
 
-    public class MapScene : Scene
+    public class MapCreationScene : Scene
+    {
+        private bool UndoIsPressed;
+        public Grid MapGrid { get; private set; }
+
+        public MapCreationScene()
+        {
+            MapGrid = new Grid(false);
+        }
+        public override void Update()
+        {
+            MapGrid.Update();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.P) && 
+                MapGrid.CheckAdjacentPathTiles(MapGrid.Tiles[Grid.NexusIndex.X, Grid.NexusIndex.Y]))
+            {
+                Game1.CurrentScene = new PlayMapScene(MapGrid);
+            }
+
+            if (!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) 
+            {
+                UndoIsPressed = true;
+
+                Tile tileToRemove = MapGrid.PathTileOrder.Last();
+
+                MapGrid.Tiles[tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y]
+                    = new TerrainTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
+
+                MapGrid.PathTileOrder.Remove(MapGrid.PathTileOrder.Last());
+
+                MapGrid.NumberOfPathTiles--;
+            }
+
+            if (Keyboard.GetState().IsKeyUp(Keys.U))
+            {
+                UndoIsPressed = false;
+            }
+        }
+
+        public override void Draw()
+        {
+            MapGrid.Draw();
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                "UNDO PRESS: U. Number of tiles left: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
+                new Vector2(Globals.WindowSize.X / 2 - 350, Globals.WindowSize.Y - 90),
+                Color.Black);
+        }
+    }
+
+    public class PlayMapScene : Scene
     {
         public Grid MapGrid { get; private set; }
-        public static Point MapDimensions = new Point(19, 8);
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
 
-        public MapScene()
+        public PlayMapScene(Grid drawnGrid)
         {
-            MapGrid = new Grid(MapDimensions);
+            MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
         }
+
         public override void Update()
         {
             Spawner.Update(this);
@@ -81,12 +132,14 @@ namespace Grupp5Game
             for (int i = 0; i < EnemyList.Count; i++)
             {
                 EnemyList[i].Update(this);
+
+                if (EnemyList[i].MarkedForDeletion) EnemyList.Remove(EnemyList[i]);
             }
         }
 
         public override void Draw()
         {
-            MapGrid.Draw(this);
+            MapGrid.Draw();
 
             foreach (Enemy enemy in EnemyList)
             {
