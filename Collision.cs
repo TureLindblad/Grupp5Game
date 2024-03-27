@@ -12,17 +12,24 @@ namespace Grupp5Game
                 {
                     if (projectile is not CannonBall)
                     {
-                        if (projectile is MagicProjectile)
+                         if (projectile is MagicProjectile magicProjectile)
                         {
                             enemy.HealthBar.CurrentHealth -= ((projectile.MagicDamage - enemy.MagicArmor)
                                                                + (projectile.MagicDamage / 2));
+                            if (magicProjectile.FromUpgraded) 
+                            {
                             _ = projectile.ApplyProjectileEffect(enemy);
+                            }
                         }
-                        if (projectile is Arrow)
+                        if (projectile is Arrow arrowProjectile)
                         {
                             enemy.HealthBar.CurrentHealth -= ((projectile.PhysDamage - enemy.PhysArmor)
                                                                + (projectile.PhysDamage / 2));
+
+                            if (arrowProjectile.FromUpgraded) 
+                            {
                             _ = projectile.ApplyProjectileEffect(enemy);
+                            }
                         }
                     }
 

@@ -14,6 +14,7 @@ namespace Grupp5Game
         private Rectangle rect;
         private Point size;
         public Color Color {  get; set; }
+        
 
         public PlayMapObject(Texture2D texture, Point size)
         {
