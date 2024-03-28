@@ -59,6 +59,7 @@ namespace Grupp5Game
             Assets.MapCreationFont = Content.Load<SpriteFont>("Text/MapCreation");
             Assets.TowerBuildingTexture = Content.Load<Texture2D>("Sprites/TowerBuildtile");
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
+            Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental");
         }
 
         protected override void Update(GameTime gameTime)
