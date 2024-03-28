@@ -118,10 +118,7 @@ namespace Grupp5Game
 
                 NumberOfPathTiles++;
             }
-               
-            
         }
-
         public List<Tile> GetNeighborTiles(Tile selected)
         {
             var neighbors = new List<Tile>();

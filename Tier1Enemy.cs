@@ -15,12 +15,9 @@ namespace Grupp5Game
     {
         public GoblinEnemy(Texture2D texture) : base (texture) 
         {
-            Position = new Vector2(0, 0);
-            MaxHealth = 20;
-            CurrentHealth = MaxHealth;
+            HealthBar = new HealthBar(25);
             Size = 30;
-            Velocity = new Vector2(0, 0);
-            Speed = 5;
+            Speed = 3;
             AttacksTower = false;
         }
     }
@@ -28,12 +25,19 @@ namespace Grupp5Game
     {
         public FrostEnemy(Texture2D texture) : base(texture)
         {
-            Position = new Vector2(0, 0);
             Size = 35;
-            MaxHealth = 35;
-            CurrentHealth = MaxHealth;
-            Velocity = new Vector2(0, 0);
-            Speed = 5;
+            HealthBar = new HealthBar(35);
+            Speed = 2;
+            AttacksTower = true;
+        }
+    }
+    public class FireEnemy : Tier1Enemy
+    {
+        public FireEnemy(Texture2D texture) : base(texture)
+        {
+            Size = 35;
+            HealthBar = new HealthBar(40);
+            Speed = 4;
             AttacksTower = true;
         }
     }
