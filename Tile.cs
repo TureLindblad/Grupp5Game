@@ -23,15 +23,18 @@ namespace Grupp5Game
 
             IndexPosition = new Point(x, y);
 
-            int rightUIWidth = 350;
+            int rightUIWidth = 120;
+            int topMinusOffset = 30;
+            int leftMinusOffset = 10;
 
             TileColor = Color.White;
             TextureResizeDimension 
-                = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * Globals.MapDimensions.X + rightUIWidth)));
+                = (int)(Texture.Width * ((float)(Globals.WindowSize.X - rightUIWidth) / (Texture.Width * Globals.MapDimensions.X)));
             TextureResizeDimension = (int)(TextureResizeDimension * 1.33);
 
             Origin = new(TextureResizeDimension / 2, TextureResizeDimension / 2);
             TexturePosition = GetPosition(TextureResizeDimension, x, y);
+            TexturePosition = new Vector2(TexturePosition.X - leftMinusOffset, TexturePosition.Y - topMinusOffset);
         }
         protected static Vector2 GetPosition(int textureDim, int x, int y)
         {
