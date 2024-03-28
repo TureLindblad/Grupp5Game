@@ -1,6 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace Grupp5Game 
@@ -11,22 +9,23 @@ namespace Grupp5Game
         public static int Tier2Enemy = 0;
         public static int Tier3Enemy = 0;
         public static int EnemyWave = 0;
+        public static int FlyingEnemies = 2;
     }
     public class EnemySpawner
     {
         private bool CanSpawn = true;
-        private int SpawnTowerAttacker;
         private int Tier1Enemy;
         private int Tier2Enemy;
         private int Tier3Enemy;
         private int EnemyWave;
+        private int FlyingEnemies;
         public EnemySpawner()
         {
             Tier1Enemy = 0;
             Tier2Enemy = 0; 
             Tier3Enemy = 0;
+            FlyingEnemies = 0;
             EnemyWave = 0;
-            SpawnTowerAttacker = 0;
             CanSpawn = true;
         }
         public void Update(PlayMapScene mapScene)
@@ -49,6 +48,12 @@ namespace Grupp5Game
                 {
                     mapScene.EnemyList.Add(GetTier3Enemy());
                     Tier3Enemy++;
+                    EnemeySpawnTimer();
+                }
+                else if (FlyingEnemies < CurrentWave.FlyingEnemies)
+                {
+                    mapScene.EnemyList.Add(new FlyingEnemy(Assets.FlyingEnemyTexture));
+                    FlyingEnemies++;
                     EnemeySpawnTimer();
                 }
 
@@ -126,21 +131,25 @@ namespace Grupp5Game
                 Tier1Enemy = 0;
                 Tier2Enemy = 0;
                 Tier3Enemy = 0;
+                FlyingEnemies = 0;
+                
                 EnemyWave++;
 
                 if (EnemyWave % 4 == 0)
                 {
                     CurrentWave.Tier1Enemy--;
                 }
-
                 if (EnemyWave % 2== 0)
                 {
                     CurrentWave.Tier2Enemy++;
                 }
-
                 if (EnemyWave % 3 == 0)
                 {
                     CurrentWave.Tier3Enemy++;
+                }
+                if (EnemyWave % 2 == 0)
+                {
+                    CurrentWave.FlyingEnemies++;
                 }
             }
         }

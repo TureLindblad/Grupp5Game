@@ -14,7 +14,7 @@ namespace Grupp5Game
                 return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , Size , Size); 
             } 
         }
-        private Texture2D Texture;
+        public Texture2D Texture;
         public int PhysArmor { get; set; }
         public int MagicArmor { get; set; }
         public int AttackDamage { get; set; }
@@ -136,7 +136,7 @@ namespace Grupp5Game
             return false;
         }
 
-        public void Draw(PlayMapScene mapScene)
+        public virtual void Draw(PlayMapScene mapScene)
         {
             HealthBar.Draw(Position, Size);
 
