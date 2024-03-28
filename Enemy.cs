@@ -15,7 +15,8 @@ namespace Grupp5Game
             } 
         }
         private Texture2D Texture;
-        public int Health { get; set; }
+        public int MaxHealth { get; set; }
+        public int CurrentHealth {  get; set; }
         public int PhysArmor { get; set; }
         public int MagicArmor { get; set; }
         public int AttackDamage { get; set; }
@@ -146,7 +147,22 @@ namespace Grupp5Game
                     Size), 
                 Color.White);
 
-            
+            float healthPercentage = (float)CurrentHealth / MaxHealth;
+
+            int healthBarWidth = (int)(Size * healthPercentage);
+
+
+            Rectangle healthBarRect = new Rectangle(
+                (int)Position.X - Size / 2,
+                (int)Position.Y - Size / 2 - 10,
+                healthBarWidth,
+                5);
+
+            Globals.SpriteBatch.Draw(
+                texture: Assets.EnemyGoblinTexture,
+                destinationRectangle: healthBarRect,
+                color: Color.Red);
         }
     }
+    
 }
