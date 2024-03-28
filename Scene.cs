@@ -135,7 +135,7 @@ namespace Grupp5Game
 
         public MapCreationScene()
         {
-            MapGrid = new Grid(false);
+            MapGrid = new Grid();
         }
         public override void Update(GameTime gameTime)
         {
@@ -154,7 +154,7 @@ namespace Grupp5Game
                 Tile tileToRemove = MapGrid.PathTileOrder.Last();
 
                 MapGrid.Tiles[tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y]
-                    = new TerrainTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
+                    = new GrassTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
 
                 MapGrid.PathTileOrder.Remove(MapGrid.PathTileOrder.Last());
 
@@ -222,11 +222,12 @@ namespace Grupp5Game
             {
                 enemy.Draw(this);
             }
-            foreach (Projectile projectile in Projectiles)
-            {
-                projectile.Draw();
 
-            }
+            Globals.SpriteBatch.Draw(
+                Assets.Overlay, 
+                new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), 
+                null, 
+                Color.White);
         }
     }
 

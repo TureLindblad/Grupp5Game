@@ -16,9 +16,9 @@ namespace Grupp5Game
         public int NumberOfPathTiles { get; set; }
         public readonly int MaxNumberOfPathTiles = 27;
         public List<Tile> PathTileOrder { get; private set; }
-        public static Point NexusIndex = new Point(Globals.MapDimensions.X / 2, 0);
+        public static Point NexusIndex = new Point(Globals.MapDimensions.X / 2, 1);
 
-        public Grid(bool loadReadyMap)
+        public Grid()
         {
             Tiles = new Tile[Globals.MapDimensions.X, Globals.MapDimensions.Y];
 
@@ -26,22 +26,15 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    if (Assets.BigGrid25x12[y * 25 + x] != '0' && loadReadyMap)
-                    {
-                        NumberOfPathTiles++;
-                        Tiles[x, y] = new PathTile(x, y);
-                    }
-                    else
-                    {
-                        Tiles[x, y] = new TerrainTile(x, y);
-                    }
+                    if (y == 0 || y == Globals.MapDimensions.Y - 1) Tiles[x, y] = new MountainTile(x, y);
+                    else Tiles[x, y] = new GrassTile(x, y);
                 }
             }
 
             PathTileOrder = new List<Tile>();
 
-            Tiles[0, 0] = new PathTile(0, 0);
-            PathTileOrder.Add(Tiles[0, 0]);
+            Tiles[0, Globals.MapDimensions.Y / 2] = new PathTile(0, Globals.MapDimensions.Y / 2);
+            PathTileOrder.Add(Tiles[0, Globals.MapDimensions.Y / 2]);
 
             Tiles[NexusIndex.X, NexusIndex.Y] = new NexusTile(NexusIndex.X, NexusIndex.Y);
         }
@@ -86,6 +79,7 @@ namespace Grupp5Game
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
                 selected is not PathTile &&
+                selected is not MountainTile &&
                 selected is not NexusTile)
             {
                 foreach (var neighbor in GetNeighborTiles(selected))
@@ -106,6 +100,7 @@ namespace Grupp5Game
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
                 selected is not PathTile &&
+                selected is not MountainTile &&
                 selected is not NexusTile &&
                 neighbours.Count == 1 &&
                 neighbours.Contains(PathTileOrder.Last()) &&

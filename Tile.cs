@@ -65,11 +65,19 @@ namespace Grupp5Game
         }
     }
 
-    public class TerrainTile : Tile
+    public class GrassTile : Tile
     {
-        public TerrainTile(int x, int y) : base(x, y) 
+        public GrassTile(int x, int y) : base(x, y) 
         {
             Texture = Assets.GrassTexture;
+        }
+    }
+
+    public class MountainTile : Tile
+    {
+        public MountainTile(int x, int y) : base(x, y)
+        {
+            Texture = Assets.TowerTexture;
         }
     }
 
