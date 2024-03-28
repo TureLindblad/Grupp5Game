@@ -61,6 +61,42 @@
 /processorParam:TextureFormat=Color
 /build:Buttons/play_btn.png
 
+#begin Image/archer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Image/archer.png
+
+#begin Image/artillery.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Image/artillery.png
+
+#begin Image/magictower.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Image/magictower.png
+
 #begin Sprites/EnemyGoblin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -140,6 +176,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Text/IntroText.spritefont
 
+#begin Text/MapCreation.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Text/MapCreation.spritefont
+
 #begin Text/playername.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -153,13 +196,6 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Text/title.spritefont
-
-#begin Text/MapCreation.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Text/MapCreation.spritefont
 
 #begin TextSprites/IntroText.png
 /importer:TextureImporter
