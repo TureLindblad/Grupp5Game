@@ -211,6 +211,9 @@ namespace Grupp5Game
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
+        PlayMapObject archer;
+        PlayMapObject magic;
+        PlayMapObject artillery;
 
         public static List<Projectile> Projectiles = new List<Projectile>();
         public PlayMapScene(Grid drawnGrid)
@@ -221,6 +224,10 @@ namespace Grupp5Game
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
+
+            archer.CenterElementBottom(Globals.WindowSize.Y - 60, Globals.WindowSize.X - 150);
+            magic.CenterElementBottom(Globals.WindowSize.Y - 60, Globals.WindowSize.X - 450);
+            artillery.CenterElementBottom(Globals.WindowSize.Y - 60, Globals.WindowSize.X - 750);
         }
 
         public override void Update(GameTime gameTime)
@@ -288,6 +295,9 @@ namespace Grupp5Game
 
         public override void Draw()
         {
+            archer.Draw(this);
+            magic.Draw(this);
+            artillery.Draw(this);
             MapGrid.Draw();
 
             foreach (Enemy enemy in EnemyList)
