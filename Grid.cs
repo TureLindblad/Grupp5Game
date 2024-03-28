@@ -67,47 +67,6 @@ namespace Grupp5Game
                 }
             }
 
-            if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y) &&
-                Mouse.GetState().LeftButton == ButtonState.Pressed)
-            {   
-                if (selected is PathTile)
-                {
-                    return;
-                }
-
-                if (selected is TowerTile)
-                {
-                    if (selected is BuildingTile)
-                    {   
-                        
-                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y );
-                    }
-                    else
-                    {
-                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 10);
-
-                    }
-                }
-                else
-                {
-                    bool canPlaceTower = false;
-                    foreach (var neighbor in GetNeighborTiles(selected.IndexPosition))
-                    {
-                        if (neighbor is PathTile)
-                        {
-                            canPlaceTower = true;
-                            break;
-                        }
-                    }
-
-                    if (canPlaceTower)
-                    {
-                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y);
-                    }
-                }
-                selected.TileColor = Color.Lerp(Color.White, Color.Gray, 0.5f);
-            }
-
             if (Game1.CurrentScene is MapCreationScene)
             {
                 MapCreationTool(selected);
@@ -115,6 +74,11 @@ namespace Grupp5Game
             else if (Game1.CurrentScene is PlayMapScene)
             {
                 TowerPlacingTool(selected);
+            }
+
+            if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y))
+            {
+                selected.TileColor = Color.Lerp(Color.White, Color.Gray, 0.5f);
             }
         }
 
@@ -124,7 +88,15 @@ namespace Grupp5Game
                 selected is not PathTile &&
                 selected is not NexusTile)
             {
-                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y);
+                foreach (var neighbor in GetNeighborTiles(selected.IndexPosition))
+                {
+                    if (neighbor is PathTile)
+                    {
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 10);
+                        break;
+                    }
+                }
+                
             }
         }
 
