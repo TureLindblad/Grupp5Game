@@ -11,13 +11,13 @@ namespace Grupp5Game
     {
         private Texture2D texture;
         private Rectangle rect;
-        private int size;
+        private Point size;
 
-        public MenuObjects(Texture2D texture, int size)
+        public MenuObjects(Texture2D texture, Point size)
         {
             this.size = size;
             this.texture = texture;
-            this.rect = new Rectangle(0, 0, size, size);
+            this.rect = new Rectangle(0, 0, size.X, size.Y);
         }
 
         public void Update(StartScreenScene startScreenScene)

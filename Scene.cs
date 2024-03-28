@@ -60,9 +60,9 @@ namespace Grupp5Game
 
         public StartScreenScene()
         {
-            int frameSize = 450;
-            int buttonSize = 300;
-            int nameBoxSize = 200;
+            Point frameSize = new Point(450, 450);
+            Point buttonSize = new Point(150, 80);
+            Point nameBoxSize = new Point(200, 200);
             nameFont = Assets.PlayerName;
             TitleFont = Assets.Title;
             nameBox = new MenuObjects(Assets.NameBox, nameBoxSize);
