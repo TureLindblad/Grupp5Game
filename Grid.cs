@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -47,7 +48,7 @@ namespace Grupp5Game
 
         public void Update()
         {
-            Vector2 MousePosition = Mouse.GetState().Position.ToVector2();
+            Vector2 mousePosition = Mouse.GetState().Position.ToVector2();
             float minDistance = float.MaxValue;
             Tile selected = null;
 
@@ -57,7 +58,7 @@ namespace Grupp5Game
                 {
                     Tiles[x, y].Update();
 
-                    float distance = Vector2.Distance(MousePosition, Tiles[x, y].TexturePosition);
+                    float distance = Vector2.Distance(mousePosition, Tiles[x, y].TexturePosition);
                     if (distance < minDistance)
                     {
                         minDistance = distance;
@@ -66,8 +67,44 @@ namespace Grupp5Game
                 }
             }
 
-            if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y))
-            {
+            if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y) &&
+                Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {   
+                if (selected is PathTile)
+                {
+                    return;
+                }
+
+                if (selected is TowerTile)
+                {
+                    if (selected is BuildingTile)
+                    {   
+                        
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y );
+                    }
+                    else
+                    {
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 10);
+
+                    }
+                }
+                else
+                {
+                    bool canPlaceTower = false;
+                    foreach (var neighbor in GetNeighborTiles(selected.IndexPosition))
+                    {
+                        if (neighbor is PathTile)
+                        {
+                            canPlaceTower = true;
+                            break;
+                        }
+                    }
+
+                    if (canPlaceTower)
+                    {
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y);
+                    }
+                }
                 selected.TileColor = Color.Lerp(Color.White, Color.Gray, 0.5f);
             }
 
@@ -106,6 +143,24 @@ namespace Grupp5Game
 
                 NumberOfPathTiles++;
             }
+               
+            
+        }
+
+        private IEnumerable<Tile> GetNeighborTiles(Point position)
+        {
+            var neighbors = new List<Tile>();
+
+            if (position.X > 0)
+                neighbors.Add(Tiles[position.X - 1, position.Y]);
+            if (position.X < Tiles.GetLength(0) - 1)
+                neighbors.Add(Tiles[position.X + 1, position.Y]);
+            if (position.Y > 0)
+                neighbors.Add(Tiles[position.X, position.Y - 1]);
+            if (position.Y < Tiles.GetLength(1) - 1)
+                neighbors.Add(Tiles[position.X, position.Y + 1]);
+
+            return neighbors;
         }
 
         public bool CheckAdjacentPathTiles(Tile selected)

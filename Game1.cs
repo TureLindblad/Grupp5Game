@@ -38,6 +38,8 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
+            
+            Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
@@ -47,7 +49,9 @@ namespace Grupp5Game
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
             Assets.MapCreationFont = Content.Load<SpriteFont>("Text/MapCreation");
-        }   
+            Assets.TowerBuildingTexture = Content.Load<Texture2D>("Sprites/TowerBuildtile");
+
+        }
 
         protected override void Update(GameTime gameTime)
         {

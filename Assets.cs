@@ -18,6 +18,8 @@ namespace Grupp5Game
         public static Texture2D NexusTexture;
         public static Texture2D EnemyGoblinTexture;
         public static Texture2D FrostEnemyTexture;
+        public static Texture2D TowerBuildingTexture;
+         
         
         public static Texture2D FrostElementalTexture { get; internal set; }
 
