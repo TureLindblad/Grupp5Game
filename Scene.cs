@@ -80,7 +80,7 @@ namespace Grupp5Game
             playButton.Update(this);
             if (playButton.IsClicked())
             {
-                Game1.CurrentScene = new MapScene();
+                Game1.CurrentScene = new MapCreationScene();
                 playerNames.Add(playerName);
             }
             KeyboardState keyboardState = Keyboard.GetState();
