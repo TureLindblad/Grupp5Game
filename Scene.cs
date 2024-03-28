@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace Grupp5Game
         private static float IntroTextResize = Math.Min(
             Globals.WindowSize.X / (float)Assets.IntroTextTexture.Width,
             Globals.WindowSize.Y / (float)Assets.IntroTextTexture.Height);
-            
+
         private static int IntroTextWidth = (int)(Assets.IntroTextTexture.Width * IntroTextResize * 0.8);
         private static int IntroTextHeight = (int)(Assets.IntroTextTexture.Height * IntroTextResize * 0.8);
 
@@ -30,12 +31,12 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-            Globals.SpriteBatch.Draw(Assets.IntroTextTexture, 
+            Globals.SpriteBatch.Draw(Assets.IntroTextTexture,
                 new Rectangle(
-                    Globals.WindowSize.X / 2 - IntroTextWidth / 2, 
+                    Globals.WindowSize.X / 2 - IntroTextWidth / 2,
                     Globals.WindowSize.Y / 2 - IntroTextHeight / 2,
-                    IntroTextWidth, 
-                    IntroTextHeight), 
+                    IntroTextWidth,
+                    IntroTextHeight),
                 Color.White);
 
             Globals.SpriteBatch.DrawString(
@@ -48,27 +49,85 @@ namespace Grupp5Game
 
     public class StartScreenScene : Scene
     {
-        private Button playButton;
+        MenuObjects frame;
+        MenuObjects playButton;
+        MenuObjects nameBox;
+        List<string> playerNames = new List<string>();
+        string playerName = "";
+        bool keyAlreadyPressed = false;
+        SpriteFont nameFont;
+        SpriteFont TitleFont;
 
         public StartScreenScene()
         {
-            playButton = new Button();
+            int frameSize = 450;
+            int buttonSize = 300;
+            int nameBoxSize = 200;
+            nameFont = Assets.PlayerName;
+            TitleFont = Assets.Title;
+            nameBox = new MenuObjects(Assets.NameBox, nameBoxSize);
+            frame = new MenuObjects(Assets.Frame, frameSize);
+            playButton = new MenuObjects(Assets.PlayButton, buttonSize);
+
+            frame.CenterElement(Globals.WindowSize.Y, Globals.WindowSize.X);
+            playButton.CenterElement(Globals.WindowSize.Y + 200, Globals.WindowSize.X);
+            nameBox.CenterElement(Globals.WindowSize.Y - 100, Globals.WindowSize.X);
+
         }
 
         public override void Update()
         {
             playButton.Update(this);
+            if (playButton.IsClicked())
+            {
+                Game1.CurrentScene = new MapScene();
+                playerNames.Add(playerName);
+            }
+            KeyboardState keyboardState = Keyboard.GetState();
+            Keys[] pressedKeys = keyboardState.GetPressedKeys();
+            foreach (Keys key in pressedKeys)
+            {
+                if (playerName.Length <= 10)
+                {
+                    if (key >= Keys.A && key <= Keys.Z && !keyAlreadyPressed)
+                    {
+                        playerName += key.ToString();
+                        keyAlreadyPressed = true;
+                    }
+                    else if (key == Keys.Back && playerName.Length > 0)
+                    {
+                        playerName = playerName.Remove(playerName.Length - 1);
+                    }
+                }
+            }
+            if (pressedKeys.Length == 0)
+            {
+                keyAlreadyPressed = false;
+            }
         }
 
         public override void Draw()
         {
-            if (playButton != null)
-            {
-                playButton.Draw(this);
-            }
+            frame.Draw(this);
+            playButton.Draw(this);
+            nameBox.Draw(this);
+            Vector2 playerNameSize = nameFont.MeasureString(playerName);
 
+            string titleText = "ENTER YOUR NAME";
+            Vector2 titleSize = nameFont.MeasureString(titleText);
+
+            float titleX = (Globals.WindowSize.X - titleSize.X) / 2;
+            float titleY = (Globals.WindowSize.Y - titleSize.Y) / 2;
+
+            Globals.SpriteBatch.DrawString(TitleFont, titleText, new Vector2(titleX - 50, titleY - 150), Color.Black);
+
+            float textX = (Globals.WindowSize.X - playerNameSize.X) / 2;
+            float textY = (Globals.WindowSize.Y - playerNameSize.Y) / 2;
+
+            Globals.SpriteBatch.DrawString(nameFont, playerName, new Vector2(textX, textY - 50), Color.Black);
         }
     }
+
 
     public class MapScene : Scene
     {

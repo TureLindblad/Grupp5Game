@@ -43,6 +43,10 @@ namespace Grupp5Game
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
             Assets.PlayButton = Content.Load<Texture2D>("Buttons/play_btn");
+            Assets.Frame = Content.Load<Texture2D>("Buttons/frame");
+            Assets.PlayerName = Content.Load<SpriteFont>("Text/playername");
+            Assets.Title = Content.Load<SpriteFont>("Text/title");
+            Assets.NameBox = Content.Load<Texture2D>("Buttons/name");
         }
 
         protected override void Update(GameTime gameTime)
