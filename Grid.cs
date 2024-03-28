@@ -23,7 +23,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    if (FromMatrixIsPath(Assets.GridMatrix2[y * 19 + x]))
+                    if (FromMatrixIsPath(Assets.GridMatrix[y * 19 + x]))
                     {
                         NumberOfPathTiles++;
                         isPath = true;
@@ -38,13 +38,12 @@ namespace Grupp5Game
 
         private static bool FromMatrixIsPath(char c)
         {
-            if (c == '0') return false;
-            else return true;
+            return c != '0';
         }
 
         public void Update()
         {
-            Vector2 MousePosition = Mouse.GetState().Position.ToVector2();
+            Vector2 mousePosition = Mouse.GetState().Position.ToVector2();
             float minDistance = float.MaxValue;
             Tile selected = null;
 
@@ -54,7 +53,7 @@ namespace Grupp5Game
                 {
                     Tiles[x, y].Update();
 
-                    float distance = Vector2.Distance(MousePosition, Tiles[x, y].TexturePosition);
+                    float distance = Vector2.Distance(mousePosition, Tiles[x, y].TexturePosition);
                     if (distance < minDistance)
                     {
                         minDistance = distance;
@@ -63,31 +62,46 @@ namespace Grupp5Game
                 }
             }
 
-    if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y) &&
-        Mouse.GetState().LeftButton == ButtonState.Pressed)
-    {
-        if (selected.IsPath)
-        {
-            
-            return;
-        }
-
-        bool canPlaceTower = false;
-        foreach (var neighbor in GetNeighborTiles(selected.IndexPosition))
-        {
-            if (neighbor.IsPath)
+            if (minDistance < Math.Max(selected.Origin.X, selected.Origin.Y) &&
+                Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
-                canPlaceTower = true; 
-                break;
+                if (selected.IsPath)
+                {
+                    return;
+                }
+
+                if (selected is TowerTile)
+                {
+                    if (selected is BuildingTile)
+                    {   
+                        
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
+                    }
+                    else
+                    {
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, false, 10);
+
+                    }
+                }
+                else
+                {
+                    bool canPlaceTower = false;
+                    foreach (var neighbor in GetNeighborTiles(selected.IndexPosition))
+                    {
+                        if (neighbor.IsPath)
+                        {
+                            canPlaceTower = true;
+                            break;
+                        }
+                    }
+
+                    if (canPlaceTower)
+                    {
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
+                    }
+                }
             }
         }
-
-        if (canPlaceTower)
-        {
-            Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new TowerTile(selected.IndexPosition.X, selected.IndexPosition.Y, false);
-        }
-    }
-}
 
         private IEnumerable<Tile> GetNeighborTiles(Point position)
         {
@@ -103,7 +117,7 @@ namespace Grupp5Game
                 neighbors.Add(Tiles[position.X, position.Y + 1]);
 
             return neighbors;
-        }  
+        }
 
         public void Draw(MapScene mapScene)
         {
@@ -111,7 +125,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    Tiles[x, y].Draw(mapScene);
+                    Tiles[x, y].Draw();
                 }
             }
         }

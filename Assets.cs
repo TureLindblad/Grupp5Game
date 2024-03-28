@@ -15,6 +15,8 @@ namespace Grupp5Game
         public static Texture2D SandTexture;
         public static Texture2D TowerTexture;
         public static Texture2D EnemyGoblinTexture;
+        public static Texture2D TowerBuildingTexture;
+         
         
 
         public static string GridMatrix =

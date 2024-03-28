@@ -27,13 +27,15 @@ namespace Grupp5Game
                 {
                     nearestDistance = distance;
                     nearestEnemy = enemy;
+
                 }
             }
 
             if (nearestEnemy != null)
             {
-                
+        
             }
         }
     }
+ 
 }
