@@ -8,8 +8,8 @@ namespace Grupp5Game
 {
     public static class Globals
     {
-        public static Point WindowSize = new Point(1600, 1000);
-        public static Point MapDimensions = new Point(25, 10);
+        public static Point WindowSize = new Point(1600, 900);
+        public static Point MapDimensions = new Point(25, 11);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
     }
@@ -25,6 +25,8 @@ namespace Grupp5Game
             Globals.Graphics.PreferredBackBufferHeight = Globals.WindowSize.Y;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            Globals.Graphics.IsFullScreen = false;
         }
 
         protected override void Initialize()
