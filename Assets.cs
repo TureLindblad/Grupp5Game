@@ -17,6 +17,13 @@ namespace Grupp5Game
         public static Texture2D TowerTexture;
         public static Texture2D NexusTexture;
         public static Texture2D EnemyGoblinTexture;
+        public static Texture2D PlayButton;
+        public static Texture2D Frame;
+        public static SpriteFont PlayerName;
+        public static SpriteFont Title;
+        public static Texture2D NameBox;
+        
+
         public static Texture2D FrostEnemyTexture;
         public static Texture2D TowerBuildingTexture;
          
