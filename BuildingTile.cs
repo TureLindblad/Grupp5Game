@@ -10,7 +10,7 @@ namespace Grupp5Game
         private List<Enemy> enemiesInRange;
         private float range; 
 
-        public BuildingTile(int x, int y, bool isPath, float range) : base(x, y, isPath)
+        public BuildingTile(int x, int y, float range) : base(x, y)
         {
             Texture = Assets.TowerBuildingTexture;
             enemiesInRange = new List<Enemy>();
@@ -43,15 +43,6 @@ namespace Grupp5Game
             return null;
         }
 
-        public override void Draw()
-        {
-            Rectangle destinationRect = new Rectangle(
-                (int)Math.Round(TexturePosition.X),
-                (int)Math.Round(TexturePosition.Y),
-                TextureResizeDimension,
-                TextureResizeDimension);
-
-            Globals.SpriteBatch.Draw(Texture, destinationRect, null, TileColor, 0f, Origin, SpriteEffects.None, 1f);
-        }
+      
     }
 }
