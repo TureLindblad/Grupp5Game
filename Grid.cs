@@ -16,7 +16,7 @@ namespace Grupp5Game
         public int NumberOfPathTiles { get; set; }
         public readonly int MaxNumberOfPathTiles = 27;
         public List<Tile> PathTileOrder { get; private set; }
-        public static Point NexusIndex = new Point(Globals.MapDimensions.X / 2, 0);
+        public static Point NexusIndex = new Point(Globals.MapDimensions.X / 2, 1);
 
         private static Point NexusCenterIndex = new Point(Globals.MapDimensions.X / 2, 1);
         public Dictionary<NexusTile, Point> OuterNexusTiles = new Dictionary<NexusTile, Point>();
