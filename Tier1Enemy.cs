@@ -31,6 +31,16 @@ namespace Grupp5Game
             Size = 35;
             HealthBar = new HealthBar(35);
             Speed = 2;
+            AttacksTower = true;
+        }
+    }
+    public class FireEnemy : Tier1Enemy
+    {
+        public FireEnemy(Texture2D texture) : base(texture)
+        {
+            Size = 35;
+            HealthBar = new HealthBar(35);
+            Speed = 2;
             MagicArmor = 5;
             GoldValue = 50;
         }

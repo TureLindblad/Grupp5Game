@@ -41,6 +41,7 @@ namespace Grupp5Game
             Velocity = Vector2.Zero;
 
             CompletedTileList = new List<Tile>();
+            
         }
 
         public void Update(PlayMapScene mapScene)
