@@ -88,7 +88,7 @@ namespace Grupp5Game
                 selected is not PathTile &&
                 selected is not NexusTile)
             {
-                foreach (var neighbor in GetNeighborTiles(selected.IndexPosition))
+                foreach (var neighbor in GetNeighborTiles(selected))
                 {
                     if (neighbor is PathTile)
                     {
@@ -102,10 +102,13 @@ namespace Grupp5Game
 
         private void MapCreationTool(Tile selected)
         {
+            var neighbours = GetNeighborTiles(selected);
+
             if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
                 selected is not PathTile &&
                 selected is not NexusTile &&
-                CheckAdjacentPathTiles(selected) &&
+                neighbours.Count == 1 &&
+                neighbours.Contains(PathTileOrder.Last()) &&
                 NumberOfPathTiles < MaxNumberOfPathTiles)
             {
                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y]
@@ -119,26 +122,9 @@ namespace Grupp5Game
             
         }
 
-        private IEnumerable<Tile> GetNeighborTiles(Point position)
+        public List<Tile> GetNeighborTiles(Tile selected)
         {
             var neighbors = new List<Tile>();
-
-            if (position.X > 0)
-                neighbors.Add(Tiles[position.X - 1, position.Y]);
-            if (position.X < Tiles.GetLength(0) - 1)
-                neighbors.Add(Tiles[position.X + 1, position.Y]);
-            if (position.Y > 0)
-                neighbors.Add(Tiles[position.X, position.Y - 1]);
-            if (position.Y < Tiles.GetLength(1) - 1)
-                neighbors.Add(Tiles[position.X, position.Y + 1]);
-
-            return neighbors;
-        }
-
-        public bool CheckAdjacentPathTiles(Tile selected)
-        {
-            int adjacentTiles = 0;
-            bool lastPathIsAdjacent = false;
 
             for (int x = 0; x < Tiles.GetLength(0); x++)
             {
@@ -147,16 +133,12 @@ namespace Grupp5Game
                     float distance = Vector2.Distance(selected.TexturePosition, Tiles[x, y].TexturePosition);
                     if (Tiles[x, y] is PathTile && distance < selected.TextureResizeDimension)
                     {
-                        adjacentTiles++;
-                    }
-                    if (Tiles[x, y] == PathTileOrder.Last() && distance < selected.TextureResizeDimension)
-                    {
-                        lastPathIsAdjacent = true;
+                        neighbors.Add(Tiles[x, y]);
                     }
                 }
             }
 
-            return adjacentTiles == 1 && lastPathIsAdjacent;
+            return neighbors;
         }
 
         public void Draw()

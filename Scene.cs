@@ -73,7 +73,7 @@ namespace Grupp5Game
             MapGrid.Update();
 
             if (Keyboard.GetState().IsKeyDown(Keys.P) && 
-                MapGrid.CheckAdjacentPathTiles(MapGrid.Tiles[Grid.NexusIndex.X, Grid.NexusIndex.Y]))
+                MapGrid.GetNeighborTiles(MapGrid.Tiles[Grid.NexusIndex.X, Grid.NexusIndex.Y]).Count == 1)
             {
                 Game1.CurrentScene = new PlayMapScene(MapGrid);
             }
