@@ -151,10 +151,9 @@ namespace Grupp5Game
 
             int healthBarWidth = (int)(Size * healthPercentage);
 
-
             Rectangle healthBarRect = new Rectangle(
-                (int)Position.X - Size / 2,
-                (int)Position.Y - Size / 2 - 10,
+                (int)Position.X - Size / 2 + 5,
+                (int)Position.Y - Size / 2 - 8,
                 healthBarWidth,
                 5);
 
