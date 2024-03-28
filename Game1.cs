@@ -60,6 +60,7 @@ namespace Grupp5Game
             Assets.TowerBuildingTexture = Content.Load<Texture2D>("Sprites/TowerBuildtile");
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
             Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental");
+            Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
         }
 
         protected override void Update(GameTime gameTime)

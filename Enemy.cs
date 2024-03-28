@@ -139,7 +139,7 @@ namespace Grupp5Game
             return false;
         }
 
-        public void Draw(PlayMapScene mapScene)
+        public virtual void Draw(PlayMapScene mapScene)
         {
             HealthBar.Draw(Position, Size);
 
