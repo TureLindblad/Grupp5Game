@@ -23,9 +23,12 @@ namespace Grupp5Game
 
             IndexPosition = new Point(x, y);
 
+            int rightUIWidth = 350;
+
             TileColor = Color.White;
-            TextureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * Globals.MapDimensions.X)));
-            TextureResizeDimension = (int)(TextureResizeDimension * 1.25);
+            TextureResizeDimension 
+                = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * Globals.MapDimensions.X + rightUIWidth)));
+            TextureResizeDimension = (int)(TextureResizeDimension * 1.33);
 
             Origin = new(TextureResizeDimension / 2, TextureResizeDimension / 2);
             TexturePosition = GetPosition(TextureResizeDimension, x, y);
