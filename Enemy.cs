@@ -34,7 +34,7 @@ namespace Grupp5Game
         {
             Texture = texture;
 
-            Position = Vector2.Zero;
+            Position = new Vector2(0, (int)(Globals.WindowSize.Y / 2.0f));
 
             Velocity = Vector2.Zero;
 
