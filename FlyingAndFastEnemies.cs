@@ -32,8 +32,6 @@ namespace Grupp5Game
                     Size,
                     Size),
                     Color.White);
-
-
         }
     }
     public class FastEnemy : FlyingAndFastEnemies
@@ -42,7 +40,7 @@ namespace Grupp5Game
         {
             HealthBar = new HealthBar(15);
             Size = 30;
-            Speed = 5;
+            Speed = 6;
             AttacksTower = false;
         }
     }

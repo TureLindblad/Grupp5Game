@@ -10,6 +10,7 @@ namespace Grupp5Game
         public static int Tier3Enemy = 0;
         public static int EnemyWave = 0;
         public static int FlyingEnemies = 2;
+        public static int FastEnemies = 1;
     }
     public class EnemySpawner
     {
@@ -19,6 +20,7 @@ namespace Grupp5Game
         private int Tier3Enemy;
         private int EnemyWave;
         private int FlyingEnemies;
+        private int FastEnemies;
         public EnemySpawner()
         {
             Tier1Enemy = 0;
@@ -26,6 +28,7 @@ namespace Grupp5Game
             Tier3Enemy = 0;
             FlyingEnemies = 0;
             EnemyWave = 0;
+            FastEnemies = 0;
             CanSpawn = true;
         }
         public void Update(PlayMapScene mapScene)
@@ -54,6 +57,12 @@ namespace Grupp5Game
                 {
                     mapScene.EnemyList.Add(new FlyingEnemy(Assets.FlyingEnemyTexture));
                     FlyingEnemies++;
+                    EnemeySpawnTimer();
+                }
+                else if (FastEnemies < CurrentWave.FastEnemies)
+                {
+                    mapScene.EnemyList.Add(new FastEnemy(Assets.FastEnemyTexture));
+                    FastEnemies++;
                     EnemeySpawnTimer();
                 }
 
@@ -134,12 +143,14 @@ namespace Grupp5Game
                 Tier2Enemy = 0;
                 Tier3Enemy = 0;
                 FlyingEnemies = 0;
+                FastEnemies = 0;
                 
                 EnemyWave++;
 
                 if (EnemyWave % 4 == 0)
                 {
                     CurrentWave.Tier1Enemy--;
+                    CurrentWave.FastEnemies++;
                 }
                 if (EnemyWave % 2== 0)
                 {
