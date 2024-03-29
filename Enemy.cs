@@ -14,9 +14,7 @@ namespace Grupp5Game
                 return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , Size , Size); 
             } 
         }
-        private Texture2D Texture;
-        public int MaxHealth { get; set; }
-        public int CurrentHealth {  get; set; }
+        public Texture2D Texture;
         public int PhysArmor { get; set; }
         public int MagicArmor { get; set; }
         public int AttackDamage { get; set; }
@@ -29,6 +27,7 @@ namespace Grupp5Game
         protected bool AttacksTower { get; set; }
         public bool IsAttacking { get; set; }
         public bool MarkedForDeletion { get; set; } = false;
+        public HealthBar HealthBar { get; protected set; }
 
         public Enemy(Texture2D texture)
         {
@@ -39,10 +38,12 @@ namespace Grupp5Game
             Velocity = Vector2.Zero;
 
             CompletedTileList = new List<Tile>();
+            
         }
 
         public void Update(PlayMapScene mapScene)
         {
+            HealthBar.Update();
             float minDistancePath = float.MaxValue;
             float minDistanceTower = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
@@ -125,7 +126,6 @@ namespace Grupp5Game
                 }
             }
         }
-
         private static bool CheckAttackingPositions(TowerTile towerTile)
         {
             foreach (var li in towerTile.AttackingPositions)
@@ -136,8 +136,10 @@ namespace Grupp5Game
             return false;
         }
 
-        public void Draw(PlayMapScene mapScene)
+        public virtual void Draw(PlayMapScene mapScene)
         {
+            HealthBar.Draw(Position, Size);
+
             Globals.SpriteBatch.Draw(
                 Texture, 
                 new Rectangle(
@@ -147,20 +149,6 @@ namespace Grupp5Game
                     Size), 
                 Color.White);
 
-            float healthPercentage = (float)CurrentHealth / MaxHealth;
-
-            int healthBarWidth = (int)(Size * healthPercentage);
-
-            Rectangle healthBarRect = new Rectangle(
-                (int)Position.X - Size / 2 + 5,
-                (int)Position.Y - Size / 2 - 8,
-                healthBarWidth,
-                5);
-
-            Globals.SpriteBatch.Draw(
-                texture: Assets.EnemyGoblinTexture,
-                destinationRectangle: healthBarRect,
-                color: Color.Red);
         }
     }
     
