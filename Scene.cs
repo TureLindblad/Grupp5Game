@@ -141,11 +141,25 @@ namespace Grupp5Game
         {
             MapGrid.Update();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.P) && 
-                MapGrid.GetNeighborTiles(MapGrid.Tiles[Grid.NexusIndex.X, Grid.NexusIndex.Y]).Count == 1)
+            bool playButton = Keyboard.GetState().IsKeyDown(Keys.P);
+            bool canPlay = false;
+
+            foreach (var nexus in MapGrid.OuterNexusTiles)
             {
-                Game1.CurrentScene = new PlayMapScene(MapGrid);
+                int numberOfAdjacentPaths = MapGrid.GetNeighborTiles(nexus.Key).Count;
+
+                if (numberOfAdjacentPaths == 1) 
+                {
+                    canPlay = true;
+                }
+                else if (numberOfAdjacentPaths > 1)
+                {
+                    canPlay = false;
+                    break;
+                }
             }
+
+            if (playButton && canPlay) Game1.CurrentScene = new PlayMapScene(MapGrid);
 
             if (!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) 
             {

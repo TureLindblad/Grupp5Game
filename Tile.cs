@@ -62,9 +62,11 @@ namespace Grupp5Game
 
     public class NexusTile : Tile
     {
-        public NexusTile(int x, int y) : base(x, y) 
+        public NexusTile(int x, int y, bool isNexusCenter) : base(x, y) 
         {
-            Texture = Assets.NexusTexture;
+            if (isNexusCenter) Texture = Assets.NexusTexture;
+            else Texture = Assets.NexusTextureOuter;
+
         }
     }
 
