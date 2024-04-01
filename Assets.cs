@@ -25,10 +25,11 @@ namespace Grupp5Game
         public static Texture2D Magic;
         public static Texture2D Archer;
         public static Texture2D Artillery;
-        
-
+        public static Texture2D UpgradeButton;
         public static Texture2D FrostEnemyTexture;
         public static Texture2D TowerBuildingTexture;
+        public static Texture2D PriceButton;
+        public static Texture2D InputBox;
          
         
         public static Texture2D FrostElementalTexture { get; internal set; }

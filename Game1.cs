@@ -26,7 +26,7 @@ namespace Grupp5Game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Globals.Graphics.IsFullScreen = false;
+            Globals.Graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -40,7 +40,7 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
+
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
@@ -57,9 +57,12 @@ namespace Grupp5Game
             Assets.NameBox = Content.Load<Texture2D>("Buttons/name");
             Assets.MapCreationFont = Content.Load<SpriteFont>("Text/MapCreation");
             Assets.TowerBuildingTexture = Content.Load<Texture2D>("Sprites/TowerBuildtile");
-            Assets.Archer = Content.Load<Texture2D>("Image/archer");
-            Assets.Magic = Content.Load<Texture2D>("Image/magictower");
-            Assets.Artillery = Content.Load<Texture2D>("Image/artillery");
+            Assets.Archer = Content.Load<Texture2D>("Image/archerimage");
+            Assets.Magic = Content.Load<Texture2D>("Image/magicimage");
+            Assets.Artillery = Content.Load<Texture2D>("Image/artilleryimage");
+            Assets.UpgradeButton = Content.Load<Texture2D>("Image/upgbutton");
+            Assets.PriceButton = Content.Load<Texture2D>("Buttons/pricebutton");
+            Assets.InputBox = Content.Load<Texture2D>("Image/inputbox");
 
         }
 
