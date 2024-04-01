@@ -28,11 +28,12 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch.Draw(texture, rect, Color.White);
         }
-        public void CenterElementBottom(int windowHeight, int windowWidth)
+        public void TopRightCorner(int windowHeight, int windowWidth)
         {
-            int elementX = (windowWidth - rect.Width) / 2;
+            int elementX = windowWidth - rect.Width;
             int elementY = windowHeight - rect.Height;
             rect = new Rectangle(elementX, elementY, rect.Width, rect.Height);
         }
+
     }
 }
