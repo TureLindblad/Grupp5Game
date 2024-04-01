@@ -243,6 +243,7 @@ namespace Grupp5Game
 
         public PlayMapScene(Grid drawnGrid)
         {
+            
             MapObjects = new MapObjectContainer();
             SelectedTowerToPlace = null;
             GameOverlay = new Overlay(); 
@@ -254,6 +255,7 @@ namespace Grupp5Game
 
         public override void Update(GameTime gameTime)
         {
+            MouseState mouseState = Mouse.GetState();
             LastKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState(); 
 
@@ -307,6 +309,11 @@ namespace Grupp5Game
             if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9))
             {
                 SpecialAbilities.FreezeAllEnemies(this);
+            
+            }
+               if (Keyboard.GetState().IsKeyDown(Keys.D4) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                UpgradeTower(mouseState);
             }
 
             MapObjects.Update(this);
@@ -345,13 +352,37 @@ namespace Grupp5Game
 
             Projectiles.Remove(projectile);
         }
+
+        public void UpgradeTower(MouseState mouseState)
+        {
+            if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                Vector2 mousePosition = mouseState.Position.ToVector2();
+
+                for (int x = 0; x < MapGrid.Tiles.GetLength(0); x++)
+                {
+                    for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
+                    {
+                        float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
+                        if (distance < MapGrid.Tiles[x, y].TextureResizeDimension)
+                        {
+                            if (MapGrid.Tiles[x, y] is MagicTower magicTower)
+                            {
+                                magicTower.UpgradingTower();
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public class EndScreenScene : Scene
     {
         public override void Update(GameTime gameTime)
         {
-
+          
         }
 
         public override void Draw()
