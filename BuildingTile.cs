@@ -60,16 +60,17 @@ namespace Grupp5Game
 
         public Enemy GetTargetEnemy()
         {
-            
-            foreach (Enemy enemy in enemiesInRange)
+            if (Game1.CurrentScene is PlayMapScene mapScene)
             {
-                float distance = Vector2.Distance(TexturePosition, enemy.Position); 
-                if (distance <= Range)
+                foreach (Enemy enemy in mapScene.EnemyList)
                 {
-                    return enemy;
+                    float distance = Vector2.Distance(TexturePosition, enemy.Position);
+                    if (distance <= Range)
+                    {
+                        return enemy;
+                    }
                 }
             }
- 
  
             return null;
         }
