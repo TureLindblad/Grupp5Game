@@ -97,6 +97,7 @@ namespace Grupp5Game
         private void TowerPlacingTool(Tile selected)
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
+                selected is not BuildingTile &&
                 selected is not PathTile &&
                 selected is not MountainTile &&
                 selected is not NexusTile)

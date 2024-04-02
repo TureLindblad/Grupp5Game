@@ -71,7 +71,7 @@ namespace Grupp5Game
         {
             Position = position;
             Direction = direction;
-            Speed = 20f;
+            Speed = 10f;
             Texture = texture;
             Damage = damage;
         }
