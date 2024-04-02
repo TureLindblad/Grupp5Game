@@ -10,10 +10,13 @@ namespace Grupp5Game
 {
     public abstract class Enemy
     {
-        public Rectangle Bounds { get { 
-                return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , Size , Size); 
+        public Rectangle Bounds { 
+            get 
+            { 
+                return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2, Size, Size); 
             } 
         }
+        
         private Texture2D Texture;
         public int MaxHealth { get; set; }
         public int CurrentHealth {  get; set; }

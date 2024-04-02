@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace Grupp5Game
 {
-    public class BuildingTile : Tile
+    public class Archertile : Tile
     {
         private List<Enemy> enemiesInRange;
         private float range; 
 
-        public BuildingTile(int x, int y, float range) : base(x, y)
+        public Archertile (int x, int y, float range) : base(x, y)
         {
-            Texture = Assets.BasetowerTexture;
+            Texture = Assets.TowerBuildingTexture;
             enemiesInRange = new List<Enemy>();
             this.range = range;
         }
@@ -38,8 +38,8 @@ namespace Grupp5Game
                     return enemy;
                 }
             }
- 
- 
+
+            
             return null;
         }
 

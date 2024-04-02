@@ -8,11 +8,15 @@ namespace Grupp5Game
     {
         public Point Position { get; set; }
         public int Range { get; set; }
+        public int Health { get; set; }
+        public int Attack { get; set; }
 
         public Tower(Point position, int range)
         {
             Position = position;
             Range = range;
+            Health = 100; 
+            Attack = 50; 
         }
 
         public void ShootAtEnemy(List<Enemy> enemies)
@@ -27,15 +31,13 @@ namespace Grupp5Game
                 {
                     nearestDistance = distance;
                     nearestEnemy = enemy;
-
                 }
             }
 
             if (nearestEnemy != null)
             {
-        
+               
             }
         }
     }
- 
 }
