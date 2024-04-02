@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -62,19 +63,23 @@ namespace Grupp5Game
         {
             base.Update(gameTime);
 
-            UpdateTimeSinceLastShot(gameTime);
-            
-            if (timeSinceLastShot >= ShotDelay) CanShoot = true;
-
-            Enemy targetEnemy = GetTargetEnemy();
-        
-            if (CanShoot && targetEnemy != null)
+            if (Mouse.GetState().LeftButton != ButtonState.Pressed)
             {
-                CanShoot = false;
-                TimeAtLastShot = gameTime.TotalGameTime;
-                Vector2 direction = Vector2.Normalize(targetEnemy.Position - TexturePosition);
-                CannonBall cannonBall = new CannonBall(TexturePosition, direction, Assets.SandTexture, Damage);
-                PlayMapScene.Projectiles.Add(cannonBall);
+
+                UpdateTimeSinceLastShot(gameTime);
+
+                if (timeSinceLastShot >= ShotDelay) CanShoot = true;
+
+                Enemy targetEnemy = GetTargetEnemy();
+
+                if (CanShoot && targetEnemy != null)
+                {
+                    CanShoot = false;
+                    TimeAtLastShot = gameTime.TotalGameTime;
+                    Vector2 direction = Vector2.Normalize(targetEnemy.Position - TexturePosition);
+                    CannonBall cannonBall = new CannonBall(TexturePosition, direction, Assets.SandTexture, Damage);
+                    PlayMapScene.Projectiles.Add(cannonBall);
+                }
             }
         }
     }    
