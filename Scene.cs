@@ -332,6 +332,9 @@ namespace Grupp5Game
                 projectile.Draw();
             }
 
+          
+           
+
             GameOverlay.Draw();
 
             MapObjects.Draw(this);
