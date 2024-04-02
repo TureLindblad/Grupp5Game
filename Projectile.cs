@@ -27,7 +27,7 @@ namespace Grupp5Game
         public abstract void Update();
         public void Draw()
         {
-            Globals.SpriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, 100, 100), Color.White);
+            Globals.SpriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, 10, 10), Color.Black);
         }
     }
     public class Arrow : Projectile

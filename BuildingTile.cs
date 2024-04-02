@@ -7,21 +7,22 @@ namespace Grupp5Game
 {
     public class BuildingTile : Tile
     {
-        private List<Enemy> enemiesInRange;
+        
         private float Range; 
         public int Damage { get; set; }
         public TimeSpan ShotDelay { get; set; }
         private TimeSpan timeSinceLastShot = TimeSpan.Zero;
+        private TimeSpan TimeAtLastShot;
+        private bool CanShoot = true;
         public List<Tuple<Vector2, bool>> AttackingPositions {  get; set; }
         public BuildingTile(int x, int y, float range) : base(x, y)
         {
             Texture = Assets.BasetowerTexture;
-            enemiesInRange = new List<Enemy>();
             Range = range;
                
-            ShotDelay = new TimeSpan(100);
+            ShotDelay = TimeSpan.FromSeconds(1);
             Damage = 10;
-            Texture = Assets.TowerTexture;
+            Texture = Assets.BasetowerTexture;
             AttackingPositions = new List<Tuple<Vector2, bool>>();
 
             Vector2 v1 = new Vector2(TexturePosition.X + 30, TexturePosition.Y + 30);
@@ -34,30 +35,29 @@ namespace Grupp5Game
         
         }
 
-        public void UpdateShotCooldown(GameTime gameTime)
+        /*public void UpdateShotCooldown(GameTime gameTime)
+        {
+            //timeSinceLastShot += gameTime.ElapsedGameTime;
+            ShotDelay = TimeSpan.FromSeconds(1);
+        }
+
+        public bool CanShoot(GameTime gameTime)
+        {
+            return timeSinceLastShot >=  gameTime.ElapsedGameTime + ShotDelay ;
+        }
+
+        public void ResetShotCooldown(GameTime gameTime)
         {
             timeSinceLastShot += gameTime.ElapsedGameTime;
+            //timeSinceLastShot = TimeSpan.Zero;
+        }*/
+      
+        private void UpdateTimeSinceLastShot(GameTime gameTime) 
+        {
+            timeSinceLastShot = gameTime.TotalGameTime - TimeAtLastShot;
         }
 
-        public bool CanShoot()
-        {
-            return timeSinceLastShot >= ShotDelay;
-        }
-
-        public void ResetShotCooldown()
-        {
-            timeSinceLastShot = TimeSpan.Zero;
-        }
-        public void AddEnemyInRange(Enemy enemy)
-        {
-            enemiesInRange.Add(enemy);
-        }
-
-        public void RemoveEnemyFromRange(Enemy enemy)
-        {
-            enemiesInRange.Remove(enemy);
-        }
-
+     
         public Enemy GetTargetEnemy()
         {
             if (Game1.CurrentScene is PlayMapScene mapScene)
@@ -79,16 +79,19 @@ namespace Grupp5Game
         {
             base.Update(gameTime);
 
-            UpdateShotCooldown(gameTime);
+            UpdateTimeSinceLastShot(gameTime);
+            //UpdateShotCooldown(gameTime);
+            if (timeSinceLastShot >= ShotDelay) CanShoot = true;
 
             Enemy targetEnemy = GetTargetEnemy();
         
-            if (/*CanShoot() && */targetEnemy != null)
+            if (CanShoot && targetEnemy != null)
             {
+                CanShoot = false;
+                TimeAtLastShot = gameTime.TotalGameTime;
                 Vector2 direction = Vector2.Normalize(targetEnemy.Position - TexturePosition);
-                CannonBall cannonBall = new CannonBall(TexturePosition, direction, Assets.NexusTexture, Damage);
+                CannonBall cannonBall = new CannonBall(TexturePosition, direction, Assets.SandTexture, Damage);
                 PlayMapScene.Projectiles.Add(cannonBall);
-                ResetShotCooldown();
             }
         }
     }    

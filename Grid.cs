@@ -92,7 +92,7 @@ namespace Grupp5Game
                 {
                     if (neighbor is PathTile)
                     {
-                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 1000);
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 200);
                         break;
                     }
                 }
