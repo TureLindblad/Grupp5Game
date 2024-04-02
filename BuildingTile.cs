@@ -63,23 +63,20 @@ namespace Grupp5Game
         {
             base.Update(gameTime);
 
-            if (Mouse.GetState().LeftButton != ButtonState.Pressed)
+            UpdateTimeSinceLastShot(gameTime);
+
+            if (timeSinceLastShot >= ShotDelay) CanShoot = true;
+
+            Enemy targetEnemy = GetTargetEnemy();
+
+            if (CanShoot && targetEnemy != null)
             {
-
-                UpdateTimeSinceLastShot(gameTime);
-
-                if (timeSinceLastShot >= ShotDelay) CanShoot = true;
-
-                Enemy targetEnemy = GetTargetEnemy();
-
-                if (CanShoot && targetEnemy != null)
-                {
-                    CanShoot = false;
-                    TimeAtLastShot = gameTime.TotalGameTime;
-                    Vector2 direction = Vector2.Normalize(targetEnemy.Position - TexturePosition);
-                    CannonBall cannonBall = new CannonBall(TexturePosition, direction, Assets.SandTexture, Damage);
-                    PlayMapScene.Projectiles.Add(cannonBall);
-                }
+                CanShoot = false;
+                TimeAtLastShot = gameTime.TotalGameTime;
+                Vector2 direction = Vector2.Normalize(
+                    (targetEnemy.Position + targetEnemy.Velocity * Vector2.Distance(targetEnemy.Position, TexturePosition) / 10) - TexturePosition);
+                CannonBall cannonBall = new CannonBall(TexturePosition, direction, Assets.SandTexture, Damage);
+                PlayMapScene.Projectiles.Add(cannonBall);
             }
         }
     }    
