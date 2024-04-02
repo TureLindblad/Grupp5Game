@@ -23,12 +23,18 @@ namespace Grupp5Game
 
             IndexPosition = new Point(x, y);
 
+            int rightUIWidth = 120;
+            int topMinusOffset = 30;
+            int leftMinusOffset = 10;
+
             TileColor = Color.White;
-            TextureResizeDimension = (int)(Texture.Width * ((float)Globals.WindowSize.X / (Texture.Width * Globals.MapDimensions.X)));
-            TextureResizeDimension = (int)(TextureResizeDimension * 1.25);
+            TextureResizeDimension 
+                = (int)(Texture.Width * ((float)(Globals.WindowSize.X - rightUIWidth) / (Texture.Width * Globals.MapDimensions.X)));
+            TextureResizeDimension = (int)(TextureResizeDimension * 1.33);
 
             Origin = new(TextureResizeDimension / 2, TextureResizeDimension / 2);
             TexturePosition = GetPosition(TextureResizeDimension, x, y);
+            TexturePosition = new Vector2(TexturePosition.X - leftMinusOffset, TexturePosition.Y - topMinusOffset);
         }
         protected static Vector2 GetPosition(int textureDim, int x, int y)
         {
@@ -37,7 +43,7 @@ namespace Grupp5Game
                 y * 0.98f * textureDim + (x % 2 * textureDim / 2) + textureDim / 2);
         }
 
-        public void Update()
+        public virtual void Update(GameTime gameTime)
         {
             TileColor = Color.White;
         }
@@ -56,17 +62,27 @@ namespace Grupp5Game
 
     public class NexusTile : Tile
     {
-        public NexusTile(int x, int y) : base(x, y) 
+        public NexusTile(int x, int y, bool isNexusCenter) : base(x, y) 
         {
-            Texture = Assets.NexusTexture;
+            if (isNexusCenter) Texture = Assets.NexusTexture;
+            else Texture = Assets.NexusTextureOuter;
+
         }
     }
 
-    public class TerrainTile : Tile
+    public class GrassTile : Tile
     {
-        public TerrainTile(int x, int y) : base(x, y) 
+        public GrassTile(int x, int y) : base(x, y) 
         {
             Texture = Assets.GrassTexture;
+        }
+    }
+
+    public class MountainTile : Tile
+    {
+        public MountainTile(int x, int y) : base(x, y)
+        {
+            Texture = Assets.TowerTexture;
         }
     }
 

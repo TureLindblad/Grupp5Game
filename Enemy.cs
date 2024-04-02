@@ -10,8 +10,10 @@ namespace Grupp5Game
 {
     public abstract class Enemy
     {
-        public Rectangle Bounds { get { 
-                return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2 , Size , Size); 
+        public Rectangle Bounds { 
+            get 
+            { 
+                return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2, Size, Size); 
             } 
         }
         public Texture2D Texture;
@@ -33,7 +35,7 @@ namespace Grupp5Game
         {
             Texture = texture;
 
-            Position = Vector2.Zero;
+            Position = new Vector2(0, (int)(Globals.WindowSize.Y / 2.0f));
 
             Velocity = Vector2.Zero;
 
@@ -43,11 +45,13 @@ namespace Grupp5Game
         public void Update(PlayMapScene mapScene)
         {
             HealthBar.Update();
+            if (HealthBar.CurrentHealth <= 0) MarkedForDeletion = true;
+
             float minDistancePath = float.MaxValue;
             float minDistanceTower = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestPathTile = null;
-            TowerTile closestTowerTile = null;
+            BuildingTile closestTowerTile = null;
             Tile nextTile;
 
             for (int x = 0; x < tiles.GetLength(0); x++)
@@ -64,7 +68,7 @@ namespace Grupp5Game
                         closestPathTile = tiles[x, y];
                     }
 
-                    if (tiles[x, y] is TowerTile towerTile && distance < minDistanceTower && CheckAttackingPositions(towerTile) )
+                    if (tiles[x, y] is BuildingTile towerTile && distance < minDistanceTower && CheckAttackingPositions(towerTile) )
                     {
                         minDistanceTower = distance;
                         if (minDistanceTower < tiles[0,0].TextureResizeDimension * 1.3)
@@ -93,7 +97,7 @@ namespace Grupp5Game
                 {
                     MarkedForDeletion = true;
                 }
-                else if (nextTile is TowerTile nextTower)
+                else if (nextTile is BuildingTile nextTower)
                 {
                     HandleTowerAttack(nextTower, ref direction);
                 }
@@ -106,7 +110,7 @@ namespace Grupp5Game
             if (!IsAttacking) Position += Velocity;
         }
 
-        private void HandleTowerAttack(TowerTile nextTower, ref Vector2 direction)
+        private void HandleTowerAttack(BuildingTile nextTower, ref Vector2 direction)
         {
             foreach (var li in nextTower.AttackingPositions)
             {
@@ -125,7 +129,7 @@ namespace Grupp5Game
                 }
             }
         }
-        private static bool CheckAttackingPositions(TowerTile towerTile)
+        private static bool CheckAttackingPositions(BuildingTile towerTile)
         {
             foreach (var li in towerTile.AttackingPositions)
             {
