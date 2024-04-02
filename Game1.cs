@@ -62,7 +62,7 @@ namespace Grupp5Game
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
-            CurrentScene.Update();
+            CurrentScene.Update(gameTime);
 
             base.Update(gameTime);
         }

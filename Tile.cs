@@ -37,7 +37,7 @@ namespace Grupp5Game
                 y * 0.98f * textureDim + (x % 2 * textureDim / 2) + textureDim / 2);
         }
 
-        public void Update()
+        public virtual void Update(GameTime gameTime)
         {
             TileColor = Color.White;
         }

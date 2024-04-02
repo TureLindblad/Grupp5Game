@@ -46,7 +46,7 @@ namespace Grupp5Game
             Tiles[NexusIndex.X, NexusIndex.Y] = new NexusTile(NexusIndex.X, NexusIndex.Y);
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             Vector2 mousePosition = Mouse.GetState().Position.ToVector2();
             float minDistance = float.MaxValue;
@@ -56,7 +56,7 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    Tiles[x, y].Update();
+                    Tiles[x, y].Update(gameTime);
 
                     float distance = Vector2.Distance(mousePosition, Tiles[x, y].TexturePosition);
                     if (distance < minDistance)
@@ -92,7 +92,7 @@ namespace Grupp5Game
                 {
                     if (neighbor is PathTile)
                     {
-                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 10);
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 1000);
                         break;
                     }
                 }

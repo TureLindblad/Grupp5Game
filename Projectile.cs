@@ -5,18 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace TD_shooter
+
+namespace Grupp5Game
 {
-    public class Arrow
+    public abstract class Projectile 
     {
+
         public Vector2 Position { get; set; }
         public Vector2 Direction { get; set; }
         public float Speed { get; set; }
         public Texture2D Texture { get; set; }
         public int Damage { get; set; }
         public float Rotation { get; set; }
+        public Projectile() 
+        {
+
+
+        }
+
+        public abstract void Update();
+        public void Draw()
+        {
+            Globals.SpriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, 100, 100), Color.White);
+        }
+    }
+    public class Arrow : Projectile
+    {
 
         public Arrow(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
@@ -27,25 +42,15 @@ namespace TD_shooter
             Damage = damage;
         }
 
-        public void Update()
+        public override void Update()
         {
             Position += Direction * Speed;
             Rotation = (float)Math.Atan2(Direction.Y, Direction.X);
         }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Position, null, Color.White, Rotation, new Vector2(Texture.Width / 2, Texture.Height / 2), 1.0f, SpriteEffects.None, 0);
-        }
     }
 
-    public class CannonBall
+    public class CannonBall : Projectile
     {
-        public Vector2 Position { get; set; }
-        public Vector2 Direction { get; set; }
-        public float Speed { get; set; }
-        public Texture2D Texture { get; set; }
-        public int Damage { get; set; }
 
         public CannonBall(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
@@ -56,25 +61,14 @@ namespace TD_shooter
             Damage = damage;
         }
 
-        public void Update()
+        public override void Update()
         {
             Position += Direction * Speed;
         }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Position, Color.White);
-        }
     }
 
-    public class MagicProjectile
+    public class MagicProjectile : Projectile
     {
-        public Vector2 Position { get; set; }
-        public Vector2 Direction { get; set; }
-        public float Speed { get; set; }
-        public Texture2D Texture { get; set; }
-        public int Damage { get; set; }
-        public float Rotation { get; set; }
 
         public MagicProjectile(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
@@ -85,15 +79,10 @@ namespace TD_shooter
             Damage = damage;
         }
 
-        public void Update()
+        public override void Update()
         {
             Position += Direction * Speed;
             Rotation = (float)Math.Atan2(Direction.Y, Direction.X);
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Position, null, Color.White, Rotation, new Vector2(Texture.Width / 2, Texture.Height / 2), 1.0f, SpriteEffects.None, 0);
         }
     }
 }
