@@ -21,15 +21,9 @@ namespace Grupp5Game
         public Vector2 Position { get; set; }
         public int Size { get; set; }
         public Vector2 Direction { get; set; }
-        public float Speed { get; set; }
         public Texture2D Texture { get; set; }
         public int Damage { get; set; }
         public float Rotation { get; set; }
-        public Projectile() 
-        {
-
-
-        }
 
         public virtual void Update(List<Enemy> enemyList)
         {
@@ -40,17 +34,22 @@ namespace Grupp5Game
         }
         public void Draw()
         {
-            Globals.SpriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, 10, 10), Color.Black);
+            Globals.SpriteBatch.Draw(Texture, new Rectangle(
+                (int)Position.X - Size / 2, 
+                (int)Position.Y - Size / 2, 
+                Size, 
+                Size), 
+                Color.Red);
         }
     }
     public class Arrow : Projectile
     {
-
+        public static readonly float Speed = 15f;
         public Arrow(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
             Direction = direction;
-            Speed = 15f;
+            Size = 15;
             Texture = texture;
             Damage = damage;
         }
@@ -66,12 +65,12 @@ namespace Grupp5Game
 
     public class CannonBall : Projectile
     {
-
+        public static readonly float Speed = 10f;
         public CannonBall(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
             Direction = direction;
-            Speed = 10f;
+            Size = 25;
             Texture = texture;
             Damage = damage;
         }
@@ -86,12 +85,12 @@ namespace Grupp5Game
 
     public class MagicProjectile : Projectile
     {
-
+        public static readonly float Speed = 9f;
         public MagicProjectile(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
             Direction = direction;
-            Speed = 9f;
+            Size = 20;
             Texture = texture;
             Damage = damage;
         }

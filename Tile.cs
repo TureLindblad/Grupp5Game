@@ -66,7 +66,6 @@ namespace Grupp5Game
         {
             if (isNexusCenter) Texture = Assets.NexusTexture;
             else Texture = Assets.NexusTextureOuter;
-
         }
     }
 
@@ -91,24 +90,6 @@ namespace Grupp5Game
         public PathTile(int x, int y) : base(x, y)
         {
             Texture = Assets.SandTexture;
-        }
-    }
-
-    public class TowerTile : Tile
-    {
-        public List<Tuple<Vector2, bool>> AttackingPositions {  get; set; }
-        public TowerTile(int x, int y) : base(x, y)
-        {
-            Texture = Assets.TowerTexture;
-            AttackingPositions = new List<Tuple<Vector2, bool>>();
-
-            Vector2 v1 = new Vector2(TexturePosition.X + 30, TexturePosition.Y + 30);
-            Vector2 v2 = new Vector2(TexturePosition.X, TexturePosition.Y - 30);
-            Vector2 v3 = new Vector2(TexturePosition.X - 30, TexturePosition.Y + 30);
-
-            AttackingPositions.Add(Tuple.Create(v1, false));
-            AttackingPositions.Add(Tuple.Create(v2, false));
-            AttackingPositions.Add(Tuple.Create(v3, false));
         }
     }
 }

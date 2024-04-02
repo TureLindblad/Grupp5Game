@@ -96,21 +96,40 @@ namespace Grupp5Game
 
         private void TowerPlacingTool(Tile selected)
         {
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
-                selected is not BuildingTile &&
-                selected is not PathTile &&
-                selected is not MountainTile &&
-                selected is not NexusTile)
+            if (Game1.CurrentScene is PlayMapScene mapScene && mapScene.PlayerGold > 0)
             {
-                foreach (var neighbor in GetNeighborTiles(selected))
+                if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
+                    selected is not BuildingTile &&
+                    selected is not PathTile &&
+                    selected is not MountainTile &&
+                    selected is not NexusTile)
                 {
-                    if (neighbor is PathTile)
+                    foreach (var neighbor in GetNeighborTiles(selected))
                     {
-                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 200);
-                        break;
+                        if (neighbor is PathTile)
+                        {
+                            if (mapScene.SelectedTowerToPlace == TowerTypes.Archer)
+                            {
+                                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new ArcherTower(selected.IndexPosition.X, selected.IndexPosition.Y);
+                                mapScene.PlayerGold -= ArcherTower.TowerCost;
+                                break;
+                            }
+                            if (mapScene.SelectedTowerToPlace == TowerTypes.Cannon)
+                            {
+                                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new CannonTower(selected.IndexPosition.X, selected.IndexPosition.Y);
+                                mapScene.PlayerGold -= CannonTower.TowerCost;
+                                break;
+                            }
+                            if (mapScene.SelectedTowerToPlace == TowerTypes.Magic)
+                            {
+                                Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new MagicTower(selected.IndexPosition.X, selected.IndexPosition.Y);
+                                mapScene.PlayerGold -= MagicTower.TowerCost;
+                                break;
+                            }
+                        }
                     }
+
                 }
-                
             }
         }
 

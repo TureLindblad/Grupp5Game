@@ -47,7 +47,11 @@ namespace Grupp5Game
         public void Update(PlayMapScene mapScene)
         {
             HealthBar.Update();
-            if (HealthBar.CurrentHealth <= 0) MarkedForDeletion = true;
+            if (HealthBar.CurrentHealth <= 0)
+            {
+                MarkedForDeletion = true;
+                mapScene.EnemiesKilled++;
+            }
 
             float minDistancePath = float.MaxValue;
             float minDistanceTower = float.MaxValue;
@@ -110,6 +114,7 @@ namespace Grupp5Game
             }
 
             if (!IsAttacking) Position += Velocity;
+            else Velocity = Vector2.Zero;
         }
 
         private void HandleTowerAttack(BuildingTile nextTower, ref Vector2 direction)
