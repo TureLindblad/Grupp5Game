@@ -378,6 +378,11 @@ namespace Grupp5Game
                 projectile.Draw();
             }
 
+            foreach (Projectile projectile in Projectiles)
+            {
+                projectile.Draw();
+            }
+
             GameOverlay.Draw();
         }
     }
