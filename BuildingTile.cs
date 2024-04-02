@@ -20,7 +20,7 @@ namespace Grupp5Game
             Texture = Assets.BasetowerTexture;
             Range = range;
                
-            ShotDelay = TimeSpan.FromSeconds(1);
+            ShotDelay = TimeSpan.FromSeconds(0.6);
             Damage = 10;
             Texture = Assets.BasetowerTexture;
             AttackingPositions = new List<Tuple<Vector2, bool>>();
@@ -34,23 +34,6 @@ namespace Grupp5Game
             AttackingPositions.Add(Tuple.Create(v3, false));
         
         }
-
-        /*public void UpdateShotCooldown(GameTime gameTime)
-        {
-            //timeSinceLastShot += gameTime.ElapsedGameTime;
-            ShotDelay = TimeSpan.FromSeconds(1);
-        }
-
-        public bool CanShoot(GameTime gameTime)
-        {
-            return timeSinceLastShot >=  gameTime.ElapsedGameTime + ShotDelay ;
-        }
-
-        public void ResetShotCooldown(GameTime gameTime)
-        {
-            timeSinceLastShot += gameTime.ElapsedGameTime;
-            //timeSinceLastShot = TimeSpan.Zero;
-        }*/
       
         private void UpdateTimeSinceLastShot(GameTime gameTime) 
         {
@@ -80,7 +63,7 @@ namespace Grupp5Game
             base.Update(gameTime);
 
             UpdateTimeSinceLastShot(gameTime);
-            //UpdateShotCooldown(gameTime);
+            
             if (timeSinceLastShot >= ShotDelay) CanShoot = true;
 
             Enemy targetEnemy = GetTargetEnemy();

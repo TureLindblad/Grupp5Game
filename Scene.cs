@@ -221,9 +221,9 @@ namespace Grupp5Game
                 if (EnemyList[i].MarkedForDeletion) EnemyList.Remove(EnemyList[i]);
             }
 
-            foreach (Projectile projectile in Projectiles)
+            for (int i = 0; i < Projectiles.Count; i++)
             {
-                projectile.Update();
+                Projectiles[i].Update(EnemyList);
 
             }
         }
@@ -235,6 +235,11 @@ namespace Grupp5Game
             foreach (Enemy enemy in EnemyList)
             {
                 enemy.Draw(this);
+            }
+
+            foreach (Projectile projectile in Projectiles)
+            {
+                projectile.Draw();
             }
 
             Globals.SpriteBatch.Draw(

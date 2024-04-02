@@ -11,8 +11,15 @@ namespace Grupp5Game
 {
     public abstract class Projectile 
     {
-
+        public Rectangle Bounds
+        {
+            get
+            {
+                return new Rectangle((int)Position.X - Size / 2, (int)Position.Y - Size / 2, Size, Size);
+            }
+        }
         public Vector2 Position { get; set; }
+        public int Size { get; set; }
         public Vector2 Direction { get; set; }
         public float Speed { get; set; }
         public Texture2D Texture { get; set; }
@@ -24,7 +31,13 @@ namespace Grupp5Game
 
         }
 
-        public abstract void Update();
+        public virtual void Update(List<Enemy> enemyList)
+        {
+            if (Collision.CheckCollisionAndDamageEnemy(this, enemyList))
+            {
+                PlayMapScene.Projectiles.Remove(this);
+            }
+        }
         public void Draw()
         {
             Globals.SpriteBatch.Draw(Texture, new Rectangle((int)Position.X, (int)Position.Y, 10, 10), Color.Black);
@@ -42,8 +55,10 @@ namespace Grupp5Game
             Damage = damage;
         }
 
-        public override void Update()
+        public override void Update(List<Enemy> enemyList)
         {
+            base.Update(enemyList);
+
             Position += Direction * Speed;
             Rotation = (float)Math.Atan2(Direction.Y, Direction.X);
         }
@@ -56,13 +71,15 @@ namespace Grupp5Game
         {
             Position = position;
             Direction = direction;
-            Speed = 5f;
+            Speed = 20f;
             Texture = texture;
             Damage = damage;
         }
 
-        public override void Update()
+        public override void Update(List<Enemy> enemyList)
         {
+            base.Update(enemyList);
+
             Position += Direction * Speed;
         }
     }
@@ -79,8 +96,10 @@ namespace Grupp5Game
             Damage = damage;
         }
 
-        public override void Update()
+        public override void Update(List<Enemy> enemyList)
         {
+            base.Update(enemyList);
+
             Position += Direction * Speed;
             Rotation = (float)Math.Atan2(Direction.Y, Direction.X);
         }
