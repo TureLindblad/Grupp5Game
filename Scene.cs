@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
+    public enum TowerTypes
+    {
+        Archer, Cannon, Magic
+    }
     public abstract class Scene
     {
         public abstract void Update(GameTime gameTime);
@@ -195,6 +199,10 @@ namespace Grupp5Game
 
     public class PlayMapScene : Scene
     {
+        public int PlayerGold { get; set; }
+        public int EnemiesKilled { get; set; }
+        public int CurrentWave { get; set; }
+        public TowerTypes SelectedTowerToPlace { get; set; }
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
@@ -202,7 +210,9 @@ namespace Grupp5Game
         public static List<Projectile> Projectiles = new List<Projectile>();
         public PlayMapScene(Grid drawnGrid)
         {
-            //Projectiles = new List<Projectile>();
+            SelectedTowerToPlace = TowerTypes.Archer;
+            PlayerGold = 1000;
+            CurrentWave = 1;
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
@@ -224,8 +234,11 @@ namespace Grupp5Game
             for (int i = 0; i < Projectiles.Count; i++)
             {
                 Projectiles[i].Update(EnemyList);
-
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D1)) SelectedTowerToPlace = TowerTypes.Archer;
+            if (Keyboard.GetState().IsKeyDown(Keys.D2)) SelectedTowerToPlace = TowerTypes.Cannon;
+            if (Keyboard.GetState().IsKeyDown(Keys.D3)) SelectedTowerToPlace = TowerTypes.Magic;
         }
 
         public override void Draw()
@@ -247,6 +260,24 @@ namespace Grupp5Game
                 new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), 
                 null, 
                 Color.White);
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                $"{PlayerGold}",
+                new Vector2(110, Globals.WindowSize.Y - 55),
+                Color.Black);
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                $"{CurrentWave}",
+                new Vector2(445, Globals.WindowSize.Y - 55),
+                Color.Black);
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                $"{EnemiesKilled}",
+                new Vector2(730, Globals.WindowSize.Y - 55),
+                Color.Black);
         }
     }
 

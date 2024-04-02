@@ -128,6 +128,8 @@ namespace Grupp5Game
         {
             if (mapScene.EnemyList.Count == 0)
             {
+                mapScene.CurrentWave++;
+
                 Tier1Enemy = 0;
                 Tier2Enemy = 0;
                 Tier3Enemy = 0;
