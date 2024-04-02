@@ -11,7 +11,7 @@ namespace Grupp5Game
 {
     public abstract class Scene
     {
-        public abstract void Update();
+        public abstract void Update(GameTime gameTime);
         public abstract void Draw();
     }
 
@@ -24,7 +24,7 @@ namespace Grupp5Game
         private static int IntroTextWidth = (int)(Assets.IntroTextTexture.Width * IntroTextResize * 0.8);
         private static int IntroTextHeight = (int)(Assets.IntroTextTexture.Height * IntroTextResize * 0.8);
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Space)) Game1.CurrentScene = new StartScreenScene();
         }
@@ -75,7 +75,7 @@ namespace Grupp5Game
 
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             playButton.Update(this);
             if (playButton.IsClicked())
@@ -135,17 +135,31 @@ namespace Grupp5Game
 
         public MapCreationScene()
         {
-            MapGrid = new Grid(false);
+            MapGrid = new Grid();
         }
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-            MapGrid.Update();
+            MapGrid.Update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.P) && 
-                MapGrid.GetNeighborTiles(MapGrid.Tiles[Grid.NexusIndex.X, Grid.NexusIndex.Y]).Count == 1)
+            bool playButton = Keyboard.GetState().IsKeyDown(Keys.P);
+            bool canPlay = false;
+
+            foreach (var nexus in MapGrid.OuterNexusTiles)
             {
-                Game1.CurrentScene = new PlayMapScene(MapGrid);
+                int numberOfAdjacentPaths = MapGrid.GetNeighborTiles(nexus.Key).Count;
+
+                if (numberOfAdjacentPaths == 1) 
+                {
+                    canPlay = true;
+                }
+                else if (numberOfAdjacentPaths > 1)
+                {
+                    canPlay = false;
+                    break;
+                }
             }
+
+            if (playButton && canPlay) Game1.CurrentScene = new PlayMapScene(MapGrid);
 
             if (!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) 
             {
@@ -154,7 +168,7 @@ namespace Grupp5Game
                 Tile tileToRemove = MapGrid.PathTileOrder.Last();
 
                 MapGrid.Tiles[tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y]
-                    = new TerrainTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
+                    = new GrassTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
 
                 MapGrid.PathTileOrder.Remove(MapGrid.PathTileOrder.Last());
 
@@ -185,24 +199,32 @@ namespace Grupp5Game
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
 
+        public static List<Projectile> Projectiles = new List<Projectile>();
         public PlayMapScene(Grid drawnGrid)
         {
+            //Projectiles = new List<Projectile>();
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
             Spawner.Update(this);
 
-            MapGrid.Update();
+            MapGrid.Update(gameTime);
 
             for (int i = 0; i < EnemyList.Count; i++)
             {
                 EnemyList[i].Update(this);
 
                 if (EnemyList[i].MarkedForDeletion) EnemyList.Remove(EnemyList[i]);
+            }
+
+            for (int i = 0; i < Projectiles.Count; i++)
+            {
+                Projectiles[i].Update(EnemyList);
+
             }
         }
 
@@ -214,12 +236,23 @@ namespace Grupp5Game
             {
                 enemy.Draw(this);
             }
+
+            foreach (Projectile projectile in Projectiles)
+            {
+                projectile.Draw();
+            }
+
+            Globals.SpriteBatch.Draw(
+                Assets.Overlay, 
+                new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), 
+                null, 
+                Color.White);
         }
     }
 
     public class EndScreenScene() : Scene
     {
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
 
         }

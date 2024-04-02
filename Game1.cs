@@ -8,8 +8,8 @@ namespace Grupp5Game
 {
     public static class Globals
     {
-        public static Point WindowSize = new Point(1600, 1000);
-        public static Point MapDimensions = new Point(25, 10);
+        public static Point WindowSize = new Point(1600, 900);
+        public static Point MapDimensions = new Point(25, 11);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
     }
@@ -25,6 +25,8 @@ namespace Grupp5Game
             Globals.Graphics.PreferredBackBufferHeight = Globals.WindowSize.Y;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            Globals.Graphics.IsFullScreen = false;
         }
 
         protected override void Initialize()
@@ -38,12 +40,13 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
+            Assets.Overlay = Content.Load<Texture2D>("Overlay");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.NexusTexture = Content.Load<Texture2D>("Sprites/NexusHex");
+            Assets.NexusTextureOuter = Content.Load<Texture2D>("Sprites/NexusHexOuter");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
             Assets.FrostEnemyTexture = Content.Load<Texture2D>("Sprites/FrostEnemy");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
@@ -55,14 +58,16 @@ namespace Grupp5Game
             Assets.NameBox = Content.Load<Texture2D>("Buttons/name");
             Assets.MapCreationFont = Content.Load<SpriteFont>("Text/MapCreation");
             Assets.TowerBuildingTexture = Content.Load<Texture2D>("Sprites/TowerBuildtile");
-
+            Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental");
+            Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
+            Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
         }
 
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
-            CurrentScene.Update();
+            CurrentScene.Update(gameTime);
 
             base.Update(gameTime);
         }

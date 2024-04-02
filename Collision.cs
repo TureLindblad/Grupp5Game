@@ -9,7 +9,19 @@ namespace Grupp5Game
 {
     public static class Collision
     {
+        public static bool CheckCollisionAndDamageEnemy(Projectile projectile, List<Enemy> enemyList)
+        {
+            foreach (Enemy enemy in enemyList)
+            {
+                if (projectile.Bounds.Intersects(enemy.Bounds))
+                {
+                    enemy.HealthBar.CurrentHealth -= projectile.Damage;
+                    return true;
+                }
+            }
 
+            return false;
+        }
     }
 }
 
