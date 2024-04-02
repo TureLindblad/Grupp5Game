@@ -20,7 +20,7 @@ namespace Grupp5Game
             {
                 if (SpawnTowerAttacker < 4)
                 {
-                    mapScene.EnemyList.Add(new FrostEnemy(Assets.FrostEnemyTexture));
+                    mapScene.EnemyList.Add(new FrostEnemy(Assets.FrostBossTexture)); //Ändra till en atlas sedan hur många kolumner att animera
                     SpawnTowerAttacker++;
                 }
                 else mapScene.EnemyList.Add(new GoblinEnemy(Assets.EnemyGoblinTexture));

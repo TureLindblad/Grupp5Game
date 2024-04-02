@@ -15,6 +15,8 @@ namespace Grupp5Game
             } 
         }
         private Texture2D Texture;
+        private Rectangle TextureAtlasFrame;
+        private Animation Animation;
         public int Health { get; set; }
         public int PhysArmor { get; set; }
         public int MagicArmor { get; set; }
@@ -32,6 +34,8 @@ namespace Grupp5Game
         public Enemy(Texture2D texture)
         {
             Texture = texture;
+
+            Animation = new Animation(Assets.FrostEnemyTexture, 6);
 
             Position = Vector2.Zero;
 
@@ -78,6 +82,8 @@ namespace Grupp5Game
             else nextTile = closestPathTile;
 
             HandleMovementToNextTile(nextTile, Math.Min(minDistancePath, minDistanceTower));
+
+            TextureAtlasFrame = Animation.GetNextAtlasFrame();
         }
 
         private void HandleMovementToNextTile(Tile nextTile, float nextMinDistance)
@@ -143,7 +149,8 @@ namespace Grupp5Game
                     (int)Position.X - Size / 2 + 5, //5 hjälper men vet inte varför den behövs 
                     (int)Position.Y - Size / 2,
                     Size, 
-                    Size), 
+                    Size),
+                TextureAtlasFrame,
                 Color.White);
 
             

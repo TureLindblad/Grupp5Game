@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
-    public class AnimationManager
+    public class AnimationManager // kanske inte behövs
     {
-        private Animation _animation;
+        public Animation _animation;
         private float _timer;
         public System.Numerics.Vector2 Position {  get;  set; }
         public AnimationManager(Animation animation)
@@ -30,6 +30,12 @@ namespace Grupp5Game
                                 Color.White);
 
         }
+
+        /*public void DrawCustomAnimation(SpriteBatch spriteBatch, Rectangle[] customFrames) 
+        {
+            Rectangle currentFrames = customFrames[_animation.CurrentFrame % customFrames.Length];
+            spriteBatch.Draw(_animation.Texture, Position, currentFrames, Color.White);
+        }*/
         public void Play(Animation animation) 
         {
             if(_animation == animation)

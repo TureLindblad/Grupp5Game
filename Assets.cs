@@ -20,6 +20,7 @@ namespace Grupp5Game
         public static Texture2D FrostEnemyTexture;
         
         public static Texture2D FrostElementalTexture { get; internal set; }
+        public static Texture2D FrostBossTexture { get; internal set; }
 
         public static string GridMatrix =
             "1100000000011000000" +

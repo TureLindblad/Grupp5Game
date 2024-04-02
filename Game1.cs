@@ -12,6 +12,7 @@ namespace Grupp5Game
         public static Point MapDimensions = new Point(25, 10);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
+        
     }
 
     public class Game1 : Game
@@ -44,6 +45,7 @@ namespace Grupp5Game
             Assets.NexusTexture = Content.Load<Texture2D>("Sprites/NexusHex");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
             Assets.FrostEnemyTexture = Content.Load<Texture2D>("Sprites/FrostEnemy");
+            Assets.FrostBossTexture = Content.Load<Texture2D>("FrostBoss");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
             Assets.MapCreationFont = Content.Load<SpriteFont>("Text/MapCreation");
