@@ -16,9 +16,11 @@ namespace Grupp5Game
         public int NumberOfPathTiles { get; set; }
         public readonly int MaxNumberOfPathTiles = 27;
         public List<Tile> PathTileOrder { get; private set; }
-        public static Point NexusIndex = new Point(Globals.MapDimensions.X / 2, 0);
 
-        public Grid(bool loadReadyMap)
+        private static Point NexusCenterIndex = new Point(Globals.MapDimensions.X / 2, 1);
+        public Dictionary<NexusTile, Point> OuterNexusTiles = new Dictionary<NexusTile, Point>();
+
+        public Grid()
         {
             Tiles = new Tile[Globals.MapDimensions.X, Globals.MapDimensions.Y];
 
@@ -26,24 +28,34 @@ namespace Grupp5Game
             {
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
-                    if (Assets.BigGrid25x12[y * 25 + x] != '0' && loadReadyMap)
-                    {
-                        NumberOfPathTiles++;
-                        Tiles[x, y] = new PathTile(x, y);
-                    }
-                    else
-                    {
-                        Tiles[x, y] = new TerrainTile(x, y);
-                    }
+                    if (y == 0 || y == Globals.MapDimensions.Y - 1) Tiles[x, y] = new MountainTile(x, y);
+                    else Tiles[x, y] = new GrassTile(x, y);
                 }
             }
 
             PathTileOrder = new List<Tile>();
 
-            Tiles[0, 0] = new PathTile(0, 0);
-            PathTileOrder.Add(Tiles[0, 0]);
+            Tiles[0, Globals.MapDimensions.Y / 2] = new PathTile(0, Globals.MapDimensions.Y / 2);
+            PathTileOrder.Add(Tiles[0, Globals.MapDimensions.Y / 2]);
 
-            Tiles[NexusIndex.X, NexusIndex.Y] = new NexusTile(NexusIndex.X, NexusIndex.Y);
+            SpawnInNexusTiles();
+        }
+
+        private void SpawnInNexusTiles()
+        {
+            Tiles[NexusCenterIndex.X, NexusCenterIndex.Y] = new NexusTile(NexusCenterIndex.X, NexusCenterIndex.Y, true);
+
+            NexusTile nt1 = new NexusTile(NexusCenterIndex.X - 1, NexusCenterIndex.Y, false);
+            NexusTile nt2 = new NexusTile(NexusCenterIndex.X + 1, NexusCenterIndex.Y, false);
+            NexusTile nt3 = new NexusTile(NexusCenterIndex.X, NexusCenterIndex.Y + 1, false);
+
+            OuterNexusTiles.Add(nt1, new Point(NexusCenterIndex.X - 1, NexusCenterIndex.Y));
+            OuterNexusTiles.Add(nt2, new Point(NexusCenterIndex.X + 1, NexusCenterIndex.Y));
+            OuterNexusTiles.Add(nt3, new Point(NexusCenterIndex.X, NexusCenterIndex.Y + 1));
+
+            Tiles[NexusCenterIndex.X - 1, NexusCenterIndex.Y] = nt1;
+            Tiles[NexusCenterIndex.X + 1, NexusCenterIndex.Y] = nt2;
+            Tiles[NexusCenterIndex.X, NexusCenterIndex.Y + 1] = nt3;
         }
 
         public void Update(GameTime gameTime)
@@ -86,6 +98,7 @@ namespace Grupp5Game
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
                 selected is not PathTile &&
+                selected is not MountainTile &&
                 selected is not NexusTile)
             {
                 foreach (var neighbor in GetNeighborTiles(selected))
@@ -106,6 +119,7 @@ namespace Grupp5Game
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
                 selected is not PathTile &&
+                selected is not MountainTile &&
                 selected is not NexusTile &&
                 neighbours.Count == 1 &&
                 neighbours.Contains(PathTileOrder.Last()) &&
@@ -118,10 +132,7 @@ namespace Grupp5Game
 
                 NumberOfPathTiles++;
             }
-               
-            
         }
-
         public List<Tile> GetNeighborTiles(Tile selected)
         {
             var neighbors = new List<Tile>();

@@ -135,17 +135,31 @@ namespace Grupp5Game
 
         public MapCreationScene()
         {
-            MapGrid = new Grid(false);
+            MapGrid = new Grid();
         }
         public override void Update(GameTime gameTime)
         {
             MapGrid.Update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.P) && 
-                MapGrid.GetNeighborTiles(MapGrid.Tiles[Grid.NexusIndex.X, Grid.NexusIndex.Y]).Count == 1)
+            bool playButton = Keyboard.GetState().IsKeyDown(Keys.P);
+            bool canPlay = false;
+
+            foreach (var nexus in MapGrid.OuterNexusTiles)
             {
-                Game1.CurrentScene = new PlayMapScene(MapGrid);
+                int numberOfAdjacentPaths = MapGrid.GetNeighborTiles(nexus.Key).Count;
+
+                if (numberOfAdjacentPaths == 1) 
+                {
+                    canPlay = true;
+                }
+                else if (numberOfAdjacentPaths > 1)
+                {
+                    canPlay = false;
+                    break;
+                }
             }
+
+            if (playButton && canPlay) Game1.CurrentScene = new PlayMapScene(MapGrid);
 
             if (!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) 
             {
@@ -154,7 +168,7 @@ namespace Grupp5Game
                 Tile tileToRemove = MapGrid.PathTileOrder.Last();
 
                 MapGrid.Tiles[tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y]
-                    = new TerrainTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
+                    = new GrassTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
 
                 MapGrid.PathTileOrder.Remove(MapGrid.PathTileOrder.Last());
 
@@ -222,6 +236,12 @@ namespace Grupp5Game
             {
                 enemy.Draw(this);
             }
+
+            Globals.SpriteBatch.Draw(
+                Assets.Overlay, 
+                new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), 
+                null, 
+                Color.White);
             foreach (Projectile projectile in Projectiles)
             {
                 projectile.Draw();
