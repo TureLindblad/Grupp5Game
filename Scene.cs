@@ -235,6 +235,10 @@ namespace Grupp5Game
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
+        private Color fadeColor = Color.White;
+        private Color fadeColor2 = Color.White;
+        private Color fadeColor3 = Color.White;
+        private bool hasPressed1Key = false;
         private KeyboardState LastKeyboardState { get; set; }
         private KeyboardState CurrentKeyboardState { get; set; }
 
