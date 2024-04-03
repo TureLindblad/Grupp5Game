@@ -40,7 +40,9 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Assets.Overlay = Content.Load<Texture2D>("Overlay");
+            Assets.Overlay = Content.Load<Texture2D>("Overlay/Overlay");
+            Assets.FullHeart = Content.Load<Texture2D>("Overlay/FullHeart");
+            Assets.EmptyHeart = Content.Load<Texture2D>("Overlay/EmptyHeart");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
