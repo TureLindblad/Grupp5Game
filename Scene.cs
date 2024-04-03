@@ -184,6 +184,10 @@ namespace Grupp5Game
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
+        private Color fadeColor = Color.White;
+        private Color fadeColor2 = Color.White;
+        private Color fadeColor3 = Color.White;
+        private bool hasPressed1Key = false;
         PlayMapObject archer;
         PlayMapObject magic;
         PlayMapObject artillery;
@@ -239,6 +243,32 @@ namespace Grupp5Game
 
             MapGrid.Update();
 
+            if(Mouse.GetState().RightButton == ButtonState.Pressed)
+            {
+                    hasPressed1Key = false;
+                    fadeColor = fadeColor2 = fadeColor3 = Color.White;
+            }
+            else
+            {
+                switch (Keyboard.GetState().GetPressedKeys().FirstOrDefault())
+                {
+                    case Keys.D1 when !hasPressed1Key:
+                        hasPressed1Key = true;
+                        fadeColor = Color.Red;
+                        break;
+                    case Keys.D2 when !hasPressed1Key:
+                        hasPressed1Key = true;
+                        fadeColor2 = Color.Red;
+                        break;
+                    case Keys.D3 when !hasPressed1Key:
+                        hasPressed1Key = true;
+                        fadeColor3 = Color.Red;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
             for (int i = 0; i < EnemyList.Count; i++)
             {
                 EnemyList[i].Update(this);
@@ -249,19 +279,19 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-            archer.Draw(this);
-            magic.Draw(this);
-            artillery.Draw(this);
+            archer.Draw(this, Color.White);
+            magic.Draw(this, Color.White);
+            artillery.Draw(this, Color.White);
 
-            frame.Draw(this);
-            frame2.Draw(this);
-            frame3.Draw(this);
+            frame.Draw(this, fadeColor2);
+            frame2.Draw(this, fadeColor3);
+            frame3.Draw(this, fadeColor);
 
-            archerButton.Draw(this);
-            artilleryButton.Draw(this);
-            magicButton.Draw(this);
+            archerButton.Draw(this, Color.White);
+            artilleryButton.Draw(this, Color.White);
+            magicButton.Draw(this, Color.White);
 
-            upgradeButton.Draw(this);
+            upgradeButton.Draw(this, Color.White);
 
             MapGrid.Draw();
 

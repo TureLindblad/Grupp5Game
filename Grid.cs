@@ -17,6 +17,9 @@ namespace Grupp5Game
         public readonly int MaxNumberOfPathTiles = 27;
         public List<Tile> PathTileOrder { get; private set; }
         public static Point NexusIndex = new Point(Globals.MapDimensions.X / 2, 0);
+        private bool hasPressed1Key = false;
+        private bool hasPressed2Key = false;
+        private bool hasPressed3Key = false;
 
         public Grid(bool loadReadyMap)
         {
@@ -84,19 +87,61 @@ namespace Grupp5Game
 
         private void TowerPlacingTool(Tile selected)
         {
-            if (Mouse.GetState().RightButton == ButtonState.Pressed &&
-                selected is not PathTile &&
-                selected is not NexusTile)
+            switch (Keyboard.GetState().GetPressedKeys().FirstOrDefault())
+            {
+                case Keys.D1 when !hasPressed1Key:
+                    hasPressed1Key = true;
+                    break;
+                case Keys.D2 when !hasPressed2Key:
+                    hasPressed2Key = true;
+                    break;
+                case Keys.D3 when !hasPressed3Key:
+                    hasPressed3Key = true;
+                    break;
+                default:
+                    break;
+            }
+            if (hasPressed1Key && Mouse.GetState().RightButton == ButtonState.Pressed &&
+            selected is not PathTile && selected is not NexusTile)
             {
                 foreach (var neighbor in GetNeighborTiles(selected))
                 {
                     if (neighbor is PathTile)
                     {
                         Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 10);
+
+                        hasPressed1Key = false;
                         break;
                     }
                 }
-                
+            }
+            else if (hasPressed2Key && Mouse.GetState().RightButton == ButtonState.Pressed &&
+            selected is not PathTile && selected is not NexusTile)
+            {
+                foreach (var neighbor in GetNeighborTiles(selected))
+                {
+                    if (neighbor is PathTile)
+                    {
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 10);
+
+                        hasPressed2Key = false;
+                        break;
+                    }
+                }
+            }
+            else if (hasPressed3Key && Mouse.GetState().RightButton == ButtonState.Pressed &&
+            selected is not PathTile && selected is not NexusTile)
+            {
+                foreach (var neighbor in GetNeighborTiles(selected))
+                {
+                    if (neighbor is PathTile)
+                    {
+                        Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new BuildingTile(selected.IndexPosition.X, selected.IndexPosition.Y, 10);
+
+                        hasPressed3Key = false;
+                        break;
+                    }
+                }
             }
         }
 

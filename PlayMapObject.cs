@@ -24,9 +24,9 @@ namespace Grupp5Game
         {
 
         }
-        public void Draw(PlayMapScene playMapScene)
+        public void Draw(PlayMapScene playMapScene, Color color)
         {
-            Globals.SpriteBatch.Draw(texture, rect, Color.White);
+            Globals.SpriteBatch.Draw(texture, rect, color);
         }
         public void TopRightCorner(int windowHeight, int windowWidth)
         {
@@ -34,6 +34,10 @@ namespace Grupp5Game
             int elementY = windowHeight - rect.Height;
             rect = new Rectangle(elementX, elementY, rect.Width, rect.Height);
         }
-
+        public bool IsClicked()
+        {
+            return rect.Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y)) &&
+                Mouse.GetState().LeftButton == ButtonState.Pressed;
+        }
     }
 }
