@@ -40,7 +40,7 @@ namespace Grupp5Game
         {
             return new Vector2(
                 x * 0.73f * textureDim + textureDim / 2,
-                y * 0.98f * textureDim + (x % 2 * textureDim / 2) + textureDim / 2);
+                y * 0.99f * textureDim + (x % 2 * textureDim / 2) + textureDim / 2);
         }
 
         public virtual void Update(GameTime gameTime)
