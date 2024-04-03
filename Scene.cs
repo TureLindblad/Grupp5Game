@@ -199,9 +199,7 @@ namespace Grupp5Game
 
     public class PlayMapScene : Scene
     {
-        public int PlayerGold { get; set; }
-        public int EnemiesKilled { get; set; }
-        public int CurrentWave { get; set; }
+        public Overlay GameOverlay { get; }
         public TowerTypes SelectedTowerToPlace { get; set; }
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
@@ -211,8 +209,7 @@ namespace Grupp5Game
         public PlayMapScene(Grid drawnGrid)
         {
             SelectedTowerToPlace = TowerTypes.Archer;
-            PlayerGold = 1000;
-            CurrentWave = 1;
+            GameOverlay = new Overlay(); 
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
@@ -220,6 +217,11 @@ namespace Grupp5Game
 
         public override void Update(GameTime gameTime)
         {
+            /*if (GameOverlay.NexusHealth <= 0)
+            {
+                Game1.CurrentScene = new EndScreenScene();
+            }*/
+
             Spawner.Update(this);
 
             MapGrid.Update(gameTime);
@@ -255,29 +257,7 @@ namespace Grupp5Game
                 projectile.Draw();
             }
 
-            Globals.SpriteBatch.Draw(
-                Assets.Overlay, 
-                new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), 
-                null, 
-                Color.White);
-
-            Globals.SpriteBatch.DrawString(
-                Assets.IntroTextFont,
-                $"{PlayerGold}",
-                new Vector2(110, Globals.WindowSize.Y - 55),
-                Color.Black);
-
-            Globals.SpriteBatch.DrawString(
-                Assets.IntroTextFont,
-                $"{CurrentWave}",
-                new Vector2(445, Globals.WindowSize.Y - 55),
-                Color.Black);
-
-            Globals.SpriteBatch.DrawString(
-                Assets.IntroTextFont,
-                $"{EnemiesKilled}",
-                new Vector2(730, Globals.WindowSize.Y - 55),
-                Color.Black);
+            GameOverlay.Draw();
         }
     }
 

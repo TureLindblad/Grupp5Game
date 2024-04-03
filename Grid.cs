@@ -96,7 +96,7 @@ namespace Grupp5Game
 
         private void TowerPlacingTool(Tile selected)
         {
-            if (Game1.CurrentScene is PlayMapScene mapScene && mapScene.PlayerGold > 0)
+            if (Game1.CurrentScene is PlayMapScene mapScene && mapScene.GameOverlay.PlayerGold > 0)
             {
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
                     selected is not BuildingTile &&
@@ -111,19 +111,19 @@ namespace Grupp5Game
                             if (mapScene.SelectedTowerToPlace == TowerTypes.Archer)
                             {
                                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new ArcherTower(selected.IndexPosition.X, selected.IndexPosition.Y);
-                                mapScene.PlayerGold -= ArcherTower.TowerCost;
+                                mapScene.GameOverlay.PlayerGold -= ArcherTower.TowerCost;
                                 break;
                             }
                             if (mapScene.SelectedTowerToPlace == TowerTypes.Cannon)
                             {
                                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new CannonTower(selected.IndexPosition.X, selected.IndexPosition.Y);
-                                mapScene.PlayerGold -= CannonTower.TowerCost;
+                                mapScene.GameOverlay.PlayerGold -= CannonTower.TowerCost;
                                 break;
                             }
                             if (mapScene.SelectedTowerToPlace == TowerTypes.Magic)
                             {
                                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new MagicTower(selected.IndexPosition.X, selected.IndexPosition.Y);
-                                mapScene.PlayerGold -= MagicTower.TowerCost;
+                                mapScene.GameOverlay.PlayerGold -= MagicTower.TowerCost;
                                 break;
                             }
                         }

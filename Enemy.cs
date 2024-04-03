@@ -50,7 +50,7 @@ namespace Grupp5Game
             if (HealthBar.CurrentHealth <= 0)
             {
                 MarkedForDeletion = true;
-                mapScene.EnemiesKilled++;
+                mapScene.GameOverlay.EnemiesKilled++;
             }
 
             float minDistancePath = float.MaxValue;
@@ -88,10 +88,10 @@ namespace Grupp5Game
             if (closestTowerTile != null && AttacksTower ) nextTile = closestTowerTile;
             else nextTile = closestPathTile;
 
-            HandleMovementToNextTile(nextTile, Math.Min(minDistancePath, minDistanceTower));
+            HandleMovementToNextTile(nextTile, Math.Min(minDistancePath, minDistanceTower), mapScene);
         }
 
-        private void HandleMovementToNextTile(Tile nextTile, float nextMinDistance)
+        private void HandleMovementToNextTile(Tile nextTile, float nextMinDistance, PlayMapScene mapScene)
         {
             Vector2 direction = Vector2.Normalize(nextTile.TexturePosition - Position);
 
@@ -102,6 +102,7 @@ namespace Grupp5Game
                 if (nextTile is NexusTile)
                 {
                     MarkedForDeletion = true;
+                    mapScene.GameOverlay.SubtractHeart();
                 }
                 else if (nextTile is BuildingTile nextTower)
                 {
