@@ -46,6 +46,7 @@ namespace Grupp5Game
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
+            Assets.MountainTexture = Content.Load<Texture2D>("Sprites/MountainHex");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.NexusTexture = Content.Load<Texture2D>("Sprites/NexusHex");
             Assets.NexusTextureOuter = Content.Load<Texture2D>("Sprites/NexusHexOuter");
@@ -63,6 +64,11 @@ namespace Grupp5Game
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
             Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental");
             Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
+            Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
+
+            Assets.ArrowTexture = Content.Load<Texture2D>("Sprites/arrow");
+            Assets.CannonBallTexture = Content.Load<Texture2D>("Sprites/cannon");
+            Assets.MagicProjectileTexture = Content.Load<Texture2D>("Sprites/magic-purple");
         }
 
         protected override void Update(GameTime gameTime)

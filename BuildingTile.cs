@@ -85,7 +85,10 @@ namespace Grupp5Game
 
                 Vector2 direction = Vector2.Normalize(
                     (targetEnemy.Position + targetEnemy.Velocity * Vector2.Distance(targetEnemy.Position, TexturePosition) / Arrow.Speed) - TexturePosition);
-                PlayMapScene.Projectiles.Add(new Arrow(TexturePosition, direction, Assets.BasetowerTexture, Damage));
+
+                PlayMapScene.Projectiles.Add(new Arrow(
+                    TexturePosition + new Vector2(Arrow.ArrowSize / 2, Arrow.ArrowSize / 2), 
+                    direction, Assets.ArrowTexture, Damage));
             }
         }
     }
@@ -114,7 +117,10 @@ namespace Grupp5Game
 
                 Vector2 direction = Vector2.Normalize(
                     (targetEnemy.Position + targetEnemy.Velocity * Vector2.Distance(targetEnemy.Position, TexturePosition) / CannonBall.Speed) - TexturePosition);
-                PlayMapScene.Projectiles.Add(new CannonBall(TexturePosition, direction, Assets.BasetowerTexture, Damage));
+
+                PlayMapScene.Projectiles.Add(new CannonBall(
+                    TexturePosition + new Vector2(CannonBall.CannonBallSize / 2, CannonBall.CannonBallSize / 2), 
+                    direction, Assets.CannonBallTexture, Damage));
             }
         }
     }
@@ -143,7 +149,10 @@ namespace Grupp5Game
 
                 Vector2 direction = Vector2.Normalize(
                     (targetEnemy.Position + targetEnemy.Velocity * Vector2.Distance(targetEnemy.Position, TexturePosition) / MagicProjectile.Speed) - TexturePosition);
-                PlayMapScene.Projectiles.Add(new MagicProjectile(TexturePosition, direction, Assets.BasetowerTexture, Damage));
+
+                PlayMapScene.Projectiles.Add(new MagicProjectile(
+                    TexturePosition + new Vector2(MagicProjectile.MagicProjectileSize / 2, MagicProjectile.MagicProjectileSize / 2), 
+                    direction, Assets.MagicProjectileTexture, Damage));
             }
         }
     }
