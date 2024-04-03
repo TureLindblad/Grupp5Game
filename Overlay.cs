@@ -33,7 +33,7 @@ namespace Grupp5Game
 
         public void SubtractHeart()
         {
-            NexusHealth--;
+            if (NexusHealth > 0) NexusHealth--;
 
             Hearts[NexusHealth] = Assets.EmptyHeart;
         }

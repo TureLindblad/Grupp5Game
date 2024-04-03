@@ -34,22 +34,29 @@ namespace Grupp5Game
         }
         public void Draw()
         {
+
             Globals.SpriteBatch.Draw(Texture, new Rectangle(
                 (int)Position.X - Size / 2, 
                 (int)Position.Y - Size / 2, 
                 Size, 
                 Size), 
-                Color.Red);
+                null,
+                Color.White,
+                Rotation,
+                new Vector2(Texture.Width / 2, Texture.Height / 2),
+                SpriteEffects.None,
+                1f);
         }
     }
     public class Arrow : Projectile
     {
         public static readonly float Speed = 15f;
+        public static readonly int ArrowSize = 40;
         public Arrow(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
             Direction = direction;
-            Size = 15;
+            Size = ArrowSize;
             Texture = texture;
             Damage = damage;
         }
@@ -66,11 +73,12 @@ namespace Grupp5Game
     public class CannonBall : Projectile
     {
         public static readonly float Speed = 10f;
+        public static readonly int CannonBallSize = 25;
         public CannonBall(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
             Direction = direction;
-            Size = 25;
+            Size = CannonBallSize;
             Texture = texture;
             Damage = damage;
         }
@@ -86,11 +94,12 @@ namespace Grupp5Game
     public class MagicProjectile : Projectile
     {
         public static readonly float Speed = 9f;
+        public static readonly int MagicProjectileSize = 50;
         public MagicProjectile(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
             Direction = direction;
-            Size = 20;
+            Size = MagicProjectileSize;
             Texture = texture;
             Damage = damage;
         }

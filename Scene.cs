@@ -189,10 +189,16 @@ namespace Grupp5Game
         {
             MapGrid.Draw();
 
+            Globals.SpriteBatch.Draw(
+                Assets.Overlay,
+                new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y),
+                null,
+                Color.White);
+
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                "UNDO PRESS: U. Number of tiles left: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
-                new Vector2(Globals.WindowSize.X / 2 - 350, Globals.WindowSize.Y - 90),
+                "UNDO: U. Tiles: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
+                new Vector2(1050, Globals.WindowSize.Y - 55),
                 Color.Black);
         }
     }
