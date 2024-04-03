@@ -89,7 +89,7 @@ namespace Grupp5Game
     {
         public MountainTile(int x, int y) : base(x, y)
         {
-            Texture = Assets.TowerTexture;
+            Texture = Assets.MountainTexture;
         }
     }
 
