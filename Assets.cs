@@ -49,6 +49,9 @@ namespace Grupp5Game
         
         
 
+        
+
+       
         public static Texture2D ArrowTexture;
         public static Texture2D CannonBallTexture;
         public static Texture2D MagicProjectileTexture;
