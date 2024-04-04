@@ -99,7 +99,7 @@ namespace Grupp5Game
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DarkGreen);
+            GraphicsDevice.Clear(Color.SandyBrown);
 
             Globals.SpriteBatch.Begin();
 
