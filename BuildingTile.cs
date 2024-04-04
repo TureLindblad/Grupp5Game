@@ -125,17 +125,31 @@ namespace Grupp5Game
         }
     }
 
-    public class MagicTower : BuildingTile
+  public class MagicTower : BuildingTile
+{
+    private bool upgraded = false;
+    public static readonly int TowerCost = 300;
+   
+    public MagicTower(int x, int y) : base(x, y)
     {
-        public static readonly int TowerCost = 300;
-        public MagicTower(int x, int y) : base(x, y)
-        {
-            Texture = Assets.NexusTextureOuter;
-            Range = 180;
-            ShotDelay = TimeSpan.FromSeconds(0.7);
-            Damage = 7;
-        }
+        Texture = Assets.NexusTextureOuter;
+        Range = 180;
+        ShotDelay = TimeSpan.FromSeconds(0.7);
+        Damage = 7;   
+    }
 
+    public void UpgradingTower()
+    {
+        if (!upgraded)
+        {
+            Damage = 100;
+            ShotDelay = TimeSpan.FromSeconds(0); 
+            upgraded = true;
+
+            
+            Texture = Assets.FiretowerTexture;
+        }
+    }
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -155,5 +169,7 @@ namespace Grupp5Game
                     direction, Assets.MagicProjectileTexture, Damage));
             }
         }
+
+    
     }
 }

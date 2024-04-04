@@ -207,6 +207,7 @@ namespace Grupp5Game
     {
         public Overlay GameOverlay { get; }
         public TowerTypes SelectedTowerToPlace { get; set; }
+        public bool UpgradingTower = false;
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
@@ -214,6 +215,7 @@ namespace Grupp5Game
         public static List<Projectile> Projectiles = new List<Projectile>();
         public PlayMapScene(Grid drawnGrid)
         {
+            UpgradingTower = false;
             SelectedTowerToPlace = TowerTypes.Archer;
             GameOverlay = new Overlay(); 
             MapGrid = drawnGrid;
@@ -227,7 +229,7 @@ namespace Grupp5Game
             {
                 Game1.CurrentScene = new EndScreenScene();
             }*/
-
+             MouseState mouseState = Mouse.GetState();
             Spawner.Update(this);
 
             MapGrid.Update(gameTime);
@@ -247,7 +249,42 @@ namespace Grupp5Game
             if (Keyboard.GetState().IsKeyDown(Keys.D1)) SelectedTowerToPlace = TowerTypes.Archer;
             if (Keyboard.GetState().IsKeyDown(Keys.D2)) SelectedTowerToPlace = TowerTypes.Cannon;
             if (Keyboard.GetState().IsKeyDown(Keys.D3)) SelectedTowerToPlace = TowerTypes.Magic;
+            if (Keyboard.GetState().IsKeyDown(Keys.D4) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            
+
+            UpgradeTower(mouseState);
+    }
+
+  private void UpgradeTower(MouseState mouseState)
+{
+    if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed)
+    {
+        Vector2 mousePosition = mouseState.Position.ToVector2();
+
+        
+        for (int x = 0; x < MapGrid.Tiles.GetLength(0); x++)
+        {
+            for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
+            {
+                float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
+                if (distance < MapGrid.Tiles[x, y].TextureResizeDimension)
+                {
+                    
+                    if (MapGrid.Tiles[x, y] is MagicTower magicTower)
+                    {
+                        
+                        magicTower.UpgradingTower();
+                        return; 
+                    }
+                     
+                }
+            }
         }
+    }
+}
+
+
+        
 
         public override void Draw()
         {
@@ -278,5 +315,5 @@ namespace Grupp5Game
         {
 
         }
-    }
-}
+    }}
+
