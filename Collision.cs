@@ -16,6 +16,7 @@ namespace Grupp5Game
                 if (projectile.Bounds.Intersects(enemy.Bounds))
                 {
                     enemy.HealthBar.CurrentHealth -= projectile.Damage;
+                    projectile.ApplyProjectileEffect(enemy);
                     return true;
                 }
             }

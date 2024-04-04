@@ -23,6 +23,7 @@ namespace Grupp5Game
         public int AttackSpeed { get; set; }
         public int Size { get; set; }
         public int Speed { get; set; }
+        public int SpeedMod { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         private List<Tile> CompletedTileList;
@@ -30,10 +31,12 @@ namespace Grupp5Game
         public bool IsAttacking { get; set; }
         public bool MarkedForDeletion { get; set; } = false;
         public HealthBar HealthBar { get; protected set; }
+        public Color TextureColor { get; set; }
 
         public Enemy(Texture2D texture)
         {
             Texture = texture;
+            TextureColor = Color.White;
 
             Position = new Vector2(0, (int)(Globals.WindowSize.Y / 2.0f));
 
@@ -157,7 +160,7 @@ namespace Grupp5Game
                     (int)Position.Y - Size / 2,
                     Size, 
                     Size), 
-                Color.White);
+                TextureColor);
 
         }
     }

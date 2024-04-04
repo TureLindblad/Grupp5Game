@@ -32,6 +32,9 @@ namespace Grupp5Game
                 PlayMapScene.Projectiles.Remove(this);
             }
         }
+
+        public abstract Task ApplyProjectileEffect(Enemy enemy);
+
         public void Draw()
         {
 
@@ -61,6 +64,11 @@ namespace Grupp5Game
             Damage = damage;
         }
 
+        public async override Task ApplyProjectileEffect(Enemy enemy)
+        {
+            await Task.CompletedTask;
+        }
+
         public override void Update(List<Enemy> enemyList)
         {
             base.Update(enemyList);
@@ -83,6 +91,21 @@ namespace Grupp5Game
             Damage = damage;
         }
 
+        public async override Task ApplyProjectileEffect(Enemy enemy)
+        {
+            Task fireDOT = Task.Delay(3000);
+
+            while (!fireDOT.IsCompleted)
+            {
+                enemy.HealthBar.CurrentHealth -= enemy.HealthBar.MaxHealth * 0.1f;
+                enemy.TextureColor = Color.Red;
+
+                await Task.Delay(500);
+
+                enemy.TextureColor = Color.White;
+            }
+        }
+
         public override void Update(List<Enemy> enemyList)
         {
             base.Update(enemyList);
@@ -102,6 +125,26 @@ namespace Grupp5Game
             Size = MagicProjectileSize;
             Texture = texture;
             Damage = damage;
+        }
+
+        public async override Task ApplyProjectileEffect(Enemy enemy)
+        {
+            if (enemy.SpeedMod == 0)
+            {
+                enemy.SpeedMod = enemy.Speed / 2;
+                enemy.Speed = enemy.SpeedMod;
+            }
+            enemy.TextureColor = Color.Blue;
+
+            await Task.Delay(1000);
+
+            if (enemy.SpeedMod != 0)
+            {
+                enemy.Speed *= 2;
+                enemy.SpeedMod = 0;
+            }
+            
+            enemy.TextureColor = Color.White;
         }
 
         public override void Update(List<Enemy> enemyList)
