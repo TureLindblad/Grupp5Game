@@ -159,10 +159,6 @@ namespace Grupp5Game
             undoButton.Update();
 
             playButtonMap.Update();
-            if(playButtonMap.IsClicked())
-            {
-                Game1.CurrentScene = new PlayMapScene(MapGrid);
-            }
 
             bool playButton = Keyboard.GetState().IsKeyDown(Keys.P);
             bool canPlay = false;
@@ -182,7 +178,11 @@ namespace Grupp5Game
                 }
             }
 
-            if (playButton && canPlay) Game1.CurrentScene = new PlayMapScene(MapGrid);
+            if ((playButton && canPlay) || 
+            (playButtonMap.IsClicked() && canPlay && lastMouseState != currentMouseState))
+            {
+             Game1.CurrentScene = new PlayMapScene(MapGrid);
+            }
 
             if ((!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) ||           
                 (undoButton.IsClicked() && lastMouseState != currentMouseState))
