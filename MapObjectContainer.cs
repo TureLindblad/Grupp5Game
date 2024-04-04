@@ -73,21 +73,21 @@ namespace Grupp5Game
             }
         }
 
-        public void Draw(PlayMapScene mapScene)
+        public void Draw()
         {
-            archer.Draw(mapScene);
-            magic.Draw(mapScene);
-            artillery.Draw(mapScene);
+            archer.Draw();
+            magic.Draw();
+            artillery.Draw();
 
-            artilleryFrame.Draw(mapScene);
-            magicFrame.Draw(mapScene);
-            archerFrame.Draw(mapScene);
+            artilleryFrame.Draw();
+            magicFrame.Draw();
+            archerFrame.Draw();
 
-            archerButton.Draw(mapScene);
-            artilleryButton.Draw(mapScene);
-            magicButton.Draw(mapScene);
+            archerButton.Draw();
+            artilleryButton.Draw();
+            magicButton.Draw();
 
-            upgradeButton.Draw(mapScene);
+            upgradeButton.Draw();
         }
     }
 }

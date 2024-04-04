@@ -70,6 +70,8 @@ namespace Grupp5Game
             Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental");
             Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
+            Assets.PlayBtnMapScene = Content.Load<Texture2D>("Buttons/playbtnmapscene");
+            Assets.UndoButton = Content.Load<Texture2D>("Buttons/UndoButton");
 
             Assets.ArrowTexture = Content.Load<Texture2D>("Sprites/arrow");
             Assets.CannonBallTexture = Content.Load<Texture2D>("Sprites/cannon");

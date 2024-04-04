@@ -81,7 +81,7 @@ namespace Grupp5Game
 
         public override void Update(GameTime gameTime)
         {
-            playButton.Update(this);
+            playButton.Update();
             if (playButton.IsClicked())
             {
                 Game1.CurrentScene = new MapCreationScene();
@@ -112,9 +112,9 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-            frame.Draw(this);
-            playButton.Draw(this);
-            inputBox.Draw(this);
+            frame.Draw();
+            playButton.Draw();
+            inputBox.Draw();
             Vector2 playerNameSize = nameFont.MeasureString(playerName);
 
             string titleText = "ENTER YOUR NAME";
@@ -136,14 +136,33 @@ namespace Grupp5Game
     {
         private bool UndoIsPressed;
         public Grid MapGrid { get; private set; }
+        PlayMapObject playButtonMap;
+        PlayMapObject undoButton;
+        private MouseState lastMouseState;
+        private MouseState currentMouseState;
 
         public MapCreationScene()
         {
+            Point buttonSize = new Point(126, 120);
+            playButtonMap = new PlayMapObject(Assets.PlayBtnMapScene, buttonSize);
+            playButtonMap.TopRightCorner(Globals.WindowSize.Y - 300, Globals.WindowSize.X - 10);
+            undoButton = new PlayMapObject(Assets.UndoButton, buttonSize);
+            undoButton.TopRightCorner(Globals.WindowSize.Y - 500, Globals.WindowSize.X - 10);
             MapGrid = new Grid();
         }
         public override void Update(GameTime gameTime)
         {
+            lastMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
             MapGrid.Update(gameTime);
+            
+            undoButton.Update();
+
+            playButtonMap.Update();
+            if(playButtonMap.IsClicked())
+            {
+                Game1.CurrentScene = new PlayMapScene(MapGrid);
+            }
 
             bool playButton = Keyboard.GetState().IsKeyDown(Keys.P);
             bool canPlay = false;
@@ -165,7 +184,8 @@ namespace Grupp5Game
 
             if (playButton && canPlay) Game1.CurrentScene = new PlayMapScene(MapGrid);
 
-            if (!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) 
+            if ((!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) ||           
+                (undoButton.IsClicked() && lastMouseState != currentMouseState))
             {
                 UndoIsPressed = true;
 
@@ -188,6 +208,7 @@ namespace Grupp5Game
         public override void Draw()
         {
             MapGrid.Draw();
+            
 
             Globals.SpriteBatch.Draw(
                 Assets.Overlay,
@@ -200,6 +221,9 @@ namespace Grupp5Game
                 "UNDO: U. Tiles: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
                 new Vector2(1050, Globals.WindowSize.Y - 55),
                 Color.Black);
+
+            playButtonMap.Draw();
+            undoButton.Draw();
         }
     }
 
@@ -286,7 +310,7 @@ namespace Grupp5Game
 
             GameOverlay.Draw();
 
-            MapObjects.Draw(this);
+            MapObjects.Draw();
         }
     }
 
