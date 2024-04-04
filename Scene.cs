@@ -208,6 +208,7 @@ namespace Grupp5Game
         public Overlay GameOverlay { get; }
         public TowerTypes SelectedTowerToPlace { get; set; }
         public bool UpgradingTower = false;
+        
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
@@ -223,7 +224,8 @@ namespace Grupp5Game
         public PlayMapScene(Grid drawnGrid)
         {
             UpgradingTower = false;
-            SelectedTowerToPlace = TowerTypes.Archer;
+            MapObjects = new MapObjectContainer();
+            SelectedTowerToPlace = null;
             GameOverlay = new Overlay(); 
             Point Seize = new Point(126, 120);
             Point frameSeize = new Point(140, 132);
