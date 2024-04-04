@@ -46,7 +46,5 @@ namespace Grupp5Game
          
         
         public static Texture2D FrostElementalTexture { get; internal set; }
-
-        public static Texture2D FrostElementalTexture { get; internal set; }
     }
 }

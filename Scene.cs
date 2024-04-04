@@ -206,68 +206,30 @@ namespace Grupp5Game
     public class PlayMapScene : Scene
     {
         public Overlay GameOverlay { get; }
-        public TowerTypes SelectedTowerToPlace { get; set; }
+        private readonly MapObjectContainer MapObjects;
+        public TowerTypes? SelectedTowerToPlace { get; set; }
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
-        private Color fadeColor = Color.White;
-        private Color fadeColor2 = Color.White;
-        private Color fadeColor3 = Color.White;
-        private bool hasPressed1Key = false;
-        PlayMapObject archer;
-        PlayMapObject magic;
-        PlayMapObject artillery;
-        PlayMapObject frame;
-        PlayMapObject frame2;
-        PlayMapObject frame3;
-        PlayMapObject archerButton;
-        PlayMapObject artilleryButton;
-        PlayMapObject magicButton;
-        PlayMapObject upgradeButton;
+        private KeyboardState LastKeyboardState { get; set; }
+        private KeyboardState CurrentKeyboardState { get; set; }
 
         public static List<Projectile> Projectiles = new List<Projectile>();
         public PlayMapScene(Grid drawnGrid)
         {
-            Point Seize = new Point(126, 120);
-            Point frameSeize = new Point(140, 132);
-            Point buttonSeize = new Point(140, 51);
-            archer = new PlayMapObject(Assets.Archer, Seize);
-            magic = new PlayMapObject(Assets.Magic, Seize);
-            artillery = new PlayMapObject(Assets.Artillery, Seize);
-
-            frame = new PlayMapObject(Assets.Frame, frameSeize);
-            frame2 = new PlayMapObject(Assets.Frame, frameSeize);
-            frame3 = new PlayMapObject(Assets.Frame, frameSeize);
-
-            archerButton = new PlayMapObject(Assets.PriceButton, buttonSeize);
-            artilleryButton = new PlayMapObject(Assets.PriceButton, buttonSeize);
-            magicButton = new PlayMapObject(Assets.PriceButton, buttonSeize);
-
-            upgradeButton = new PlayMapObject(Assets.UpgradeButton, new Point(182, 80));
-
-            SelectedTowerToPlace = TowerTypes.Archer;
+            MapObjects = new MapObjectContainer();
+            SelectedTowerToPlace = null;
             GameOverlay = new Overlay(); 
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
-
-            archer.TopRightCorner(Globals.WindowSize.Y - 750, Globals.WindowSize.X);
-            frame3.TopRightCorner(Globals.WindowSize.Y - 745, Globals.WindowSize.X + 10);
-            archerButton.TopRightCorner(Globals.WindowSize.Y - 690, Globals.WindowSize.X + 10);
-
-            magic.TopRightCorner(Globals.WindowSize.Y - 350, Globals.WindowSize.X);
-            frame2.TopRightCorner(Globals.WindowSize.Y - 345, Globals.WindowSize.X + 10);
-            magicButton.TopRightCorner(Globals.WindowSize.Y - 290, Globals.WindowSize.X + 10);
-
-            artillery.TopRightCorner(Globals.WindowSize.Y - 550, Globals.WindowSize.X);
-            frame.TopRightCorner(Globals.WindowSize.Y - 545, Globals.WindowSize.X + 10);
-            artilleryButton.TopRightCorner(Globals.WindowSize.Y - 490, Globals.WindowSize.X + 10);
-
-            upgradeButton.TopRightCorner(Globals.WindowSize.Y - 75, Globals.WindowSize.X + 20);
         }
 
         public override void Update(GameTime gameTime)
         {
+            LastKeyboardState = CurrentKeyboardState;
+            CurrentKeyboardState = Keyboard.GetState();
+
             /*if (GameOverlay.NexusHealth <= 0)
             {
                 Game1.CurrentScene = new EndScreenScene();
@@ -276,32 +238,6 @@ namespace Grupp5Game
             Spawner.Update(this);
 
             MapGrid.Update(gameTime);
-
-            if(Mouse.GetState().RightButton == ButtonState.Pressed)
-            {
-                    hasPressed1Key = false;
-                    fadeColor = fadeColor2 = fadeColor3 = Color.White;
-            }
-            else
-            {
-                switch (Keyboard.GetState().GetPressedKeys().FirstOrDefault())
-                {
-                    case Keys.D1 when !hasPressed1Key:
-                        hasPressed1Key = true;
-                        fadeColor = Color.Red;
-                        break;
-                    case Keys.D2 when !hasPressed1Key:
-                        hasPressed1Key = true;
-                        fadeColor2 = Color.Red;
-                        break;
-                    case Keys.D3 when !hasPressed1Key:
-                        hasPressed1Key = true;
-                        fadeColor3 = Color.Red;
-                        break;
-                    default:
-                        break;
-                }
-            }
 
             for (int i = 0; i < EnemyList.Count; i++)
             {
@@ -315,27 +251,27 @@ namespace Grupp5Game
                 Projectiles[i].Update(EnemyList);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D1)) SelectedTowerToPlace = TowerTypes.Archer;
-            if (Keyboard.GetState().IsKeyDown(Keys.D2)) SelectedTowerToPlace = TowerTypes.Cannon;
-            if (Keyboard.GetState().IsKeyDown(Keys.D3)) SelectedTowerToPlace = TowerTypes.Magic;
+            if (LastKeyboardState.IsKeyDown(Keys.D1) && CurrentKeyboardState.IsKeyUp(Keys.D1))
+            {
+                if (SelectedTowerToPlace == TowerTypes.Archer) SelectedTowerToPlace = null;
+                else SelectedTowerToPlace = TowerTypes.Archer;
+            }
+            if (LastKeyboardState.IsKeyDown(Keys.D2) && CurrentKeyboardState.IsKeyUp(Keys.D2))
+            {
+                if (SelectedTowerToPlace == TowerTypes.Cannon) SelectedTowerToPlace = null;
+                else SelectedTowerToPlace = TowerTypes.Cannon;
+            }
+            if (LastKeyboardState.IsKeyDown(Keys.D3) && CurrentKeyboardState.IsKeyUp(Keys.D3))
+            {
+                if (SelectedTowerToPlace == TowerTypes.Magic) SelectedTowerToPlace = null;
+                else SelectedTowerToPlace = TowerTypes.Magic;
+            }
+
+            MapObjects.Update(this);
         }
 
         public override void Draw()
         {
-            archer.Draw(this, Color.White);
-            magic.Draw(this, Color.White);
-            artillery.Draw(this, Color.White);
-
-            frame.Draw(this, fadeColor2);
-            frame2.Draw(this, fadeColor3);
-            frame3.Draw(this, fadeColor);
-
-            archerButton.Draw(this, Color.White);
-            artilleryButton.Draw(this, Color.White);
-            magicButton.Draw(this, Color.White);
-
-            upgradeButton.Draw(this, Color.White);
-
             MapGrid.Draw();
 
             foreach (Enemy enemy in EnemyList)
@@ -349,6 +285,8 @@ namespace Grupp5Game
             }
 
             GameOverlay.Draw();
+
+            MapObjects.Draw(this);
         }
     }
 
