@@ -228,7 +228,7 @@ namespace Grupp5Game
         public override void Update(GameTime gameTime)
         {
             LastKeyboardState = CurrentKeyboardState;
-            CurrentKeyboardState = Keyboard.GetState();
+            CurrentKeyboardState = Keyboard.GetState(); 
 
             /*if (GameOverlay.NexusHealth <= 0)
             {

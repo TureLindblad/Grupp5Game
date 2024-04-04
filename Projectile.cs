@@ -33,7 +33,17 @@ namespace Grupp5Game
             }
         }
 
-        public abstract Task ApplyProjectileEffect(Enemy enemy);
+        public virtual async Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null) { await Task.CompletedTask; }
+
+        public async void DamageAnimation(Enemy enemy)
+        {
+            Color lastEnemyColor = enemy.TextureColor;
+            enemy.TextureColor = Color.Red;
+
+            await Task.Delay(50);
+
+            enemy.TextureColor = lastEnemyColor;
+        }
 
         public void Draw()
         {
@@ -64,9 +74,20 @@ namespace Grupp5Game
             Damage = damage;
         }
 
-        public async override Task ApplyProjectileEffect(Enemy enemy)
+        public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
         {
-            await Task.CompletedTask;
+            Color lastEnemyColor = enemy.TextureColor;
+            Task fireDOT = Task.Delay(3000);
+            enemy.TextureColor = Color.Orange;
+
+            while (!fireDOT.IsCompleted)
+            {
+                enemy.HealthBar.CurrentHealth -= enemy.HealthBar.MaxHealth * 0.1f;
+
+                await Task.Delay(500);
+            }
+
+            enemy.TextureColor = lastEnemyColor;
         }
 
         public override void Update(List<Enemy> enemyList)
@@ -82,6 +103,7 @@ namespace Grupp5Game
     {
         public static readonly float Speed = 10f;
         public static readonly int CannonBallSize = 25;
+        public static readonly int SplashRadius = 500;
         public CannonBall(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
@@ -91,19 +113,17 @@ namespace Grupp5Game
             Damage = damage;
         }
 
-        public async override Task ApplyProjectileEffect(Enemy enemy)
+        public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
         {
-            Task fireDOT = Task.Delay(3000);
-
-            while (!fireDOT.IsCompleted)
+            if (splashEnemies != null)
             {
-                enemy.HealthBar.CurrentHealth -= enemy.HealthBar.MaxHealth * 0.1f;
-                enemy.TextureColor = Color.Red;
-
-                await Task.Delay(500);
-
-                enemy.TextureColor = Color.White;
+                foreach (Enemy splashEnemy in splashEnemies)
+                {
+                    splashEnemy.HealthBar.CurrentHealth -= Damage;
+                }
             }
+
+            await Task.CompletedTask;
         }
 
         public override void Update(List<Enemy> enemyList)
@@ -127,8 +147,9 @@ namespace Grupp5Game
             Damage = damage;
         }
 
-        public async override Task ApplyProjectileEffect(Enemy enemy)
+        public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
         {
+            Color lastEnemyColor = enemy.TextureColor;
             if (enemy.SpeedMod == 0)
             {
                 enemy.SpeedMod = enemy.Speed / 2;
@@ -144,7 +165,7 @@ namespace Grupp5Game
                 enemy.SpeedMod = 0;
             }
             
-            enemy.TextureColor = Color.White;
+            enemy.TextureColor = lastEnemyColor;
         }
 
         public override void Update(List<Enemy> enemyList)
