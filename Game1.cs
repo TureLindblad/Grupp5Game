@@ -52,6 +52,8 @@ namespace Grupp5Game
             Assets.NexusTextureOuter = Content.Load<Texture2D>("Sprites/NexusHexOuter");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
             Assets.FrostEnemyTexture = Content.Load<Texture2D>("Sprites/FrostEnemy");
+            Assets.FrostEnemy2Texture = Content.Load<Texture2D>("Sprites/FrostEnemy2");
+            Assets.FrostEnemy3Texture = Content.Load<Texture2D>("Sprites/FrostEnemy3");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
             Assets.PlayButton = Content.Load<Texture2D>("Buttons/play_btn");
@@ -62,6 +64,8 @@ namespace Grupp5Game
             Assets.MapCreationFont = Content.Load<SpriteFont>("Text/MapCreation");
             Assets.TowerBuildingTexture = Content.Load<Texture2D>("Sprites/TowerBuildtile");
             Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental");
+            Assets.FireEnemy2Texture = Content.Load<Texture2D>("Sprites/FireElemental2");
+            Assets.FireEnemy3Texture = Content.Load<Texture2D>("Sprites/FireElemental3");
             Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
             Assets.FastEnemyTexture = Content.Load<Texture2D>("Sprites/FastEnemy");
@@ -69,6 +73,7 @@ namespace Grupp5Game
             Assets.ArrowTexture = Content.Load<Texture2D>("Sprites/arrow");
             Assets.CannonBallTexture = Content.Load<Texture2D>("Sprites/cannon");
             Assets.MagicProjectileTexture = Content.Load<Texture2D>("Sprites/magic-purple");
+            
         }
 
         protected override void Update(GameTime gameTime)
