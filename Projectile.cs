@@ -113,19 +113,6 @@ namespace Grupp5Game
             Damage = damage;
         }
 
-        public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
-        {
-            if (splashEnemies != null)
-            {
-                foreach (Enemy splashEnemy in splashEnemies)
-                {
-                    splashEnemy.HealthBar.CurrentHealth -= Damage;
-                }
-            }
-
-            await Task.CompletedTask;
-        }
-
         public override void Update(List<Enemy> enemyList, PlayMapScene mapScene)
         {
             base.Update(enemyList, mapScene);

@@ -15,12 +15,11 @@ namespace Grupp5Game
             {
                 if (projectile.Bounds.Intersects(enemy.Bounds))
                 {
-                    enemy.HealthBar.CurrentHealth -= projectile.Damage;
-                    if (projectile is CannonBall)
+                    if (projectile is not CannonBall)
                     {
-                        _ = projectile.ApplyProjectileEffect(enemy, GetEnemiesForSplashDamage(enemy, enemyList));
+                        enemy.HealthBar.CurrentHealth -= projectile.Damage;
+                        _ = projectile.ApplyProjectileEffect(enemy);
                     }
-                    else _ = projectile.ApplyProjectileEffect(enemy);
 
                     projectile.DamageAnimation(enemy);
                     
@@ -29,21 +28,6 @@ namespace Grupp5Game
             }
 
             return false;
-        }
-
-        private static List<Enemy> GetEnemiesForSplashDamage(Enemy targetEnemy, List<Enemy> otherEnemies)
-        {
-            List<Enemy> enemiesInRange = new List<Enemy>();
-
-            foreach (Enemy enemy in otherEnemies)
-            {
-                if (Vector2.Distance(targetEnemy.Position, enemy.Position) <= CannonBall.SplashDiameter / 2)
-                {
-                    enemiesInRange.Add(enemy);
-                }
-            }
-
-            return enemiesInRange;
         }
     }
 }

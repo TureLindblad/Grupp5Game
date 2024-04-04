@@ -303,6 +303,11 @@ namespace Grupp5Game
                 SpecialAbilities.SpawnManyExplosions(this);
             }
 
+            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9))
+            {
+                SpecialAbilities.FreezeAllEnemies(this);
+            }
+
             MapObjects.Update(this);
         }
 
@@ -334,7 +339,7 @@ namespace Grupp5Game
         {
             if (projectile is CannonBall)
             {
-                Explosions.Add(new Explosion(projectile.Position));
+                Explosions.Add(new Explosion(projectile.Position, CannonBall.SplashDiameter, projectile.Damage, this));
             }
 
             Projectiles.Remove(projectile);

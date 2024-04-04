@@ -20,7 +20,7 @@ namespace Grupp5Game
                     new Vector2(
                         rnd.Next(CannonBall.SplashDiameter / 2, Globals.WindowSize.X - CannonBall.SplashDiameter / 2),
                         rnd.Next(CannonBall.SplashDiameter / 2, Globals.WindowSize.Y - CannonBall.SplashDiameter / 2))
-                    ));
+                    , 100, 300, mapScene));
                     await Task.Delay(40);
                 }
 
@@ -30,7 +30,23 @@ namespace Grupp5Game
 
         public static void FreezeAllEnemies(PlayMapScene mapScene)
         {
+            foreach (Enemy enemy in mapScene.EnemyList)
+            {
+                FreezeTimer(enemy);
+            }
+        }
 
+        private static async void FreezeTimer(Enemy enemy)
+        {
+            int lastEnemySpeed = enemy.Speed;
+            Color lastEnemyColor = enemy.TextureColor;
+            enemy.Speed = 0;
+            enemy.TextureColor = Color.Blue;
+
+            await Task.Delay(5000);
+
+            enemy.Speed = lastEnemySpeed;
+            enemy.TextureColor = lastEnemyColor;
         }
     }
 }

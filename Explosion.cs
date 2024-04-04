@@ -10,12 +10,15 @@ namespace Grupp5Game
     public class Explosion
     {
         public Vector2 Position { get; set; }
+        public int Diameter { get; set; }
         public bool MarkedForDeletion { get; set; }
 
-        public Explosion(Vector2 position)
+        public Explosion(Vector2 position, int explosionDamage, int diameter, PlayMapScene mapScene)
         {
             Position = position;
             MarkedForDeletion = false;
+            Diameter = diameter;
+            DamageEnemies(mapScene.EnemyList, explosionDamage);
             DeletionTimer();
         }
 
@@ -25,13 +28,24 @@ namespace Grupp5Game
             MarkedForDeletion = true;
         }
 
+        private void DamageEnemies(List<Enemy> enemyList, int explosionDamage)
+        {
+            foreach (Enemy enemy in enemyList)
+            {
+                if (Vector2.Distance(Position, enemy.Position) <= Diameter / 2)
+                {
+                    enemy.HealthBar.CurrentHealth -= explosionDamage;
+                }
+            }
+        }
+
         public void Draw()
         {
             Globals.SpriteBatch.Draw(Assets.ExplosionTexture, new Rectangle(
-                (int)Position.X - CannonBall.SplashDiameter / 2,
-                (int)Position.Y - CannonBall.SplashDiameter / 2,
-                CannonBall.SplashDiameter,
-                CannonBall.SplashDiameter),
+                (int)Position.X - Diameter / 2,
+                (int)Position.Y - Diameter / 2,
+                Diameter,
+                Diameter),
                 Color.White);
         }
     }
