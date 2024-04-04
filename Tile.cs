@@ -19,8 +19,7 @@ namespace Grupp5Game
 
         public Tile(int x, int y)
         {
-            Texture = Assets.GrassTexture;
-
+            Texture = Assets.SandTexture;
             IndexPosition = new Point(x, y);
 
             int rightUIWidth = 120;
@@ -69,9 +68,9 @@ namespace Grupp5Game
         }
     }
 
-    public class GrassTile : Tile
+    public class SandTile : Tile
     {
-        public GrassTile(int x, int y) : base(x, y) 
+        public SandTile(int x, int y) : base(x, y) 
         {
             Texture = Assets.SandTexture;
         }
@@ -81,7 +80,7 @@ namespace Grupp5Game
     {
         public MountainTile(int x, int y) : base(x, y)
         {
-            Texture = Assets.MountainTexture;
+            Texture = Assets.SandMountainTexture;
         }
     }
 
@@ -89,7 +88,39 @@ namespace Grupp5Game
     {
         public PathTile(int x, int y) : base(x, y)
         {
-            Texture = Assets.GrassTexture;
+            Texture = Assets.StoneTexture;
+        }
+    }
+
+    public class SandMountainTile : Tile
+    {
+        public SandMountainTile(int x, int y) : base(x, y)
+        {
+            Texture = Assets.SandMountainTexture;
+        }
+    }
+
+    public class BedouinTile : Tile
+    {
+        public BedouinTile(int x, int y) : base(x, y)
+        {
+            Texture = Assets.BedouinTexture;
+        }
+    }
+
+    public class SandRockTile : Tile
+    {
+        public SandRockTile(int x, int y) : base(x, y)
+        {
+            Texture = Assets.SandRockTexture;
+        }
+    }
+
+    public class OasisTile : Tile
+    {
+        public OasisTile(int x, int y) : base(x, y)
+        {
+            Texture = Assets.OasisTexture;
         }
     }
 }

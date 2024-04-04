@@ -192,7 +192,7 @@ namespace Grupp5Game
                 Tile tileToRemove = MapGrid.PathTileOrder.Last();
 
                 MapGrid.Tiles[tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y]
-                    = new GrassTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
+                    = new SandTile(tileToRemove.IndexPosition.X, tileToRemove.IndexPosition.Y);
 
                 MapGrid.PathTileOrder.Remove(MapGrid.PathTileOrder.Last());
 
@@ -218,7 +218,7 @@ namespace Grupp5Game
 
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                "UNDO: U. Tiles: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
+                "Tiles: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
                 new Vector2(1050, Globals.WindowSize.Y - 55),
                 Color.Black);
 
@@ -249,6 +249,7 @@ namespace Grupp5Game
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
+            SceneryCreation.CreateScenery(this);
         }
 
         public override void Update(GameTime gameTime)

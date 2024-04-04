@@ -253,6 +253,54 @@
 /processorParam:TextureFormat=Color
 /build:Overlay/Overlay.png
 
+#begin Scenery/BedouinHex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Scenery/BedouinHex.png
+
+#begin Scenery/OasisHex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Scenery/OasisHex.png
+
+#begin Scenery/SandMountainHex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Scenery/SandMountainHex.png
+
+#begin Scenery/SandRocksHex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Scenery/SandRocksHex.png
+
 #begin Sprites/arrow.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -421,18 +469,6 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/GigaBoss.png
 
-#begin Sprites/GrassHex.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/GrassHex.png
-
 #begin Sprites/magic-purple.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -493,7 +529,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/SandHex.png
 
-#begin Sprites/Towerbuildtile.png
+#begin Sprites/StoneHex.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -503,7 +539,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Towerbuildtile.png
+/build:Sprites/StoneHex.png
 
 #begin Text/IntroText.spritefont
 /importer:FontDescriptionImporter

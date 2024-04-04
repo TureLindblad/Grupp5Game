@@ -30,7 +30,7 @@ namespace Grupp5Game
                 for (int y = 0; y < Tiles.GetLength(1); y++)
                 {
                     if (y == 0 || y == Globals.MapDimensions.Y - 1) Tiles[x, y] = new MountainTile(x, y);
-                    else Tiles[x, y] = new GrassTile(x, y);
+                    else Tiles[x, y] = new SandTile(x, y);
                 }
             }
 

@@ -15,8 +15,8 @@ namespace Grupp5Game
         public static SpriteFont IntroTextFont;
         public static SpriteFont MapCreationFont;
         public static Texture2D IntroTextTexture;
-        public static Texture2D GrassTexture;
         public static Texture2D SandTexture;
+        public static Texture2D StoneTexture;
         public static Texture2D MountainTexture;
         public static Texture2D TowerTexture;
         public static Texture2D NexusTexture;
@@ -34,8 +34,6 @@ namespace Grupp5Game
         public static Texture2D FrostEnemyTexture;
         public static Texture2D FrostEnemy2Texture;
         public static Texture2D FrostEnemy3Texture;
-
-        public static Texture2D TowerBuildingTexture;
 
         public static Texture2D FireEnemyTexture;
         public static Texture2D FireEnemy2Texture;
@@ -59,6 +57,10 @@ namespace Grupp5Game
         public static Texture2D FrostNova;
          
         public static Texture2D ExplosionTexture;
-        
+
+        public static Texture2D OasisTexture;
+        public static Texture2D SandMountainTexture;
+        public static Texture2D SandRockTexture;
+        public static Texture2D BedouinTexture;
     }
 }
