@@ -20,8 +20,7 @@ namespace Grupp5Game
         private static Point NexusCenterIndex = new Point(Globals.MapDimensions.X / 2, 1);
         public Dictionary<NexusTile, Point> OuterNexusTiles = new Dictionary<NexusTile, Point>();
 
-        private static Point NexusCenterIndex = new Point(Globals.MapDimensions.X / 2, 1);
-        public Dictionary<NexusTile, Point> OuterNexusTiles = new Dictionary<NexusTile, Point>();
+        
 
         public Grid()
         {

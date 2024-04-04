@@ -46,20 +46,12 @@ namespace Grupp5Game
 
         public static Texture2D FlyingEnemyTexture;
         public static Texture2D FastEnemyTexture;
-        
-        
-
-        
-
-       
         public static Texture2D ArrowTexture;
         public static Texture2D CannonBallTexture;
         public static Texture2D MagicProjectileTexture;
         public static Texture2D FiretowerTexture;
 
        
-        public static Texture2D ArrowTexture;
-        public static Texture2D CannonBallTexture;
-        public static Texture2D MagicProjectileTexture;
+        
     }
 }

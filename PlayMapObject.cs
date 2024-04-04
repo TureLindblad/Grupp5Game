@@ -22,11 +22,11 @@ namespace Grupp5Game
             this.rect = new Rectangle(0, 0, size.X, size.Y);
             Color = Color.White;
         }
-        public void Update(PlayMapScene playMapScene)
+        public void Update()
         {
 
         }
-        public void Draw(PlayMapScene playMapScene)
+        public void Draw()
         {
             Globals.SpriteBatch.Draw(texture, rect, Color);
         }

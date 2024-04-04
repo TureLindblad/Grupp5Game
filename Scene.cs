@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace Grupp5Game
     {
         Archer, Cannon, Magic
     }
+
     public abstract class Scene
     {
         public abstract void Update(GameTime gameTime);
@@ -76,7 +78,6 @@ namespace Grupp5Game
             frame.CenterElement(Globals.WindowSize.Y, Globals.WindowSize.X);
             playButton.CenterElement(Globals.WindowSize.Y + 200, Globals.WindowSize.X);
             inputBox.CenterElement(Globals.WindowSize.Y - 100, Globals.WindowSize.X);
-
         }
 
         public override void Update(GameTime gameTime)
@@ -141,6 +142,7 @@ namespace Grupp5Game
         {
             MapGrid = new Grid();
         }
+
         public override void Update(GameTime gameTime)
         {
             MapGrid.Update(gameTime);
@@ -152,7 +154,7 @@ namespace Grupp5Game
             {
                 int numberOfAdjacentPaths = MapGrid.GetNeighborTiles(nexus.Key).Count;
 
-                if (numberOfAdjacentPaths == 1) 
+                if (numberOfAdjacentPaths == 1)
                 {
                     canPlay = true;
                 }
@@ -206,44 +208,24 @@ namespace Grupp5Game
     public class PlayMapScene : Scene
     {
         public Overlay GameOverlay { get; }
-        public TowerTypes SelectedTowerToPlace { get; set; }
+
+        private readonly MapObjectContainer MapObjects;
+        public TowerTypes? SelectedTowerToPlace { get; set; }
         public bool UpgradingTower = false;
-        
+
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
-        private Color fadeColor = Color.White;
-        private Color fadeColor2 = Color.White;
-        private Color fadeColor3 = Color.White;
-        private bool hasPressed1Key = false;
-        PlayMapObject archer;
-        PlayMapObject magic;
-        PlayMapObject artillery;
+        private KeyboardState LastKeyboardState { get; set; }
+        private KeyboardState CurrentKeyboardState { get; set; }
 
         public static List<Projectile> Projectiles = new List<Projectile>();
+
         public PlayMapScene(Grid drawnGrid)
         {
-            UpgradingTower = false;
             MapObjects = new MapObjectContainer();
             SelectedTowerToPlace = null;
-            GameOverlay = new Overlay(); 
-            Point Seize = new Point(126, 120);
-            Point frameSeize = new Point(140, 132);
-            Point buttonSeize = new Point(140, 51);
-            archer = new PlayMapObject(Assets.Archer, Seize);
-            magic = new PlayMapObject(Assets.Magic, Seize);
-            artillery = new PlayMapObject(Assets.Artillery, Seize);
-
-            frame = new PlayMapObject(Assets.Frame, frameSeize);
-            frame2 = new PlayMapObject(Assets.Frame, frameSeize);
-            frame3 = new PlayMapObject(Assets.Frame, frameSeize);
-
-            archerButton = new PlayMapObject(Assets.PriceButton, buttonSeize);
-            artilleryButton = new PlayMapObject(Assets.PriceButton, buttonSeize);
-            magicButton = new PlayMapObject(Assets.PriceButton, buttonSeize);
-
-            upgradeButton = new PlayMapObject(Assets.UpgradeButton, new Point(182, 80));
-
+            GameOverlay = new Overlay();
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
@@ -258,7 +240,7 @@ namespace Grupp5Game
             {
                 Game1.CurrentScene = new EndScreenScene();
             }*/
-             MouseState mouseState = Mouse.GetState();
+            MouseState mouseState = Mouse.GetState();
             Spawner.Update(this);
 
             MapGrid.Update(gameTime);
@@ -275,45 +257,51 @@ namespace Grupp5Game
                 Projectiles[i].Update(EnemyList);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D1)) SelectedTowerToPlace = TowerTypes.Archer;
-            if (Keyboard.GetState().IsKeyDown(Keys.D2)) SelectedTowerToPlace = TowerTypes.Cannon;
-            if (Keyboard.GetState().IsKeyDown(Keys.D3)) SelectedTowerToPlace = TowerTypes.Magic;
-            if (Keyboard.GetState().IsKeyDown(Keys.D4) && Mouse.GetState().LeftButton == ButtonState.Pressed)
-            
-
-            UpgradeTower(mouseState);
-    }
-
-  private void UpgradeTower(MouseState mouseState)
-{
-    if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed)
-    {
-        Vector2 mousePosition = mouseState.Position.ToVector2();
-
-        
-        for (int x = 0; x < MapGrid.Tiles.GetLength(0); x++)
-        {
-            for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
+            if (LastKeyboardState.IsKeyDown(Keys.D1) && CurrentKeyboardState.IsKeyUp(Keys.D1))
             {
-                float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
-                if (distance < MapGrid.Tiles[x, y].TextureResizeDimension)
+                if (SelectedTowerToPlace == TowerTypes.Archer) SelectedTowerToPlace = null;
+                else SelectedTowerToPlace = TowerTypes.Archer;
+            }
+            if (LastKeyboardState.IsKeyDown(Keys.D2) && CurrentKeyboardState.IsKeyUp(Keys.D2))
+            {
+                if (SelectedTowerToPlace == TowerTypes.Cannon) SelectedTowerToPlace = null;
+                else SelectedTowerToPlace = TowerTypes.Cannon;
+            }
+            if (LastKeyboardState.IsKeyDown(Keys.D3) && CurrentKeyboardState.IsKeyUp(Keys.D3))
+            {
+                if (SelectedTowerToPlace == TowerTypes.Magic) SelectedTowerToPlace = null;
+                else SelectedTowerToPlace = TowerTypes.Magic;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D4) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                UpgradeTower(mouseState);
+            }
+        }
+
+        private void UpgradeTower(MouseState mouseState)
+        {
+            if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed)
+            {
+                Vector2 mousePosition = mouseState.Position.ToVector2();
+
+                for (int x = 0; x < MapGrid.Tiles.GetLength(0); x++)
                 {
-                    
-                    if (MapGrid.Tiles[x, y] is MagicTower magicTower)
+                    for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
                     {
-                        
-                        magicTower.UpgradingTower();
-                        return; 
+                        float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
+                        if (distance < MapGrid.Tiles[x, y].TextureResizeDimension)
+                        {
+                            if (MapGrid.Tiles[x, y] is MagicTower magicTower)
+                            {
+                                magicTower.UpgradingTower();
+                                return;
+                            }
+                        }
                     }
-                     
                 }
             }
         }
-    }
-}
-
-
-        
 
         public override void Draw()
         {
@@ -329,30 +317,22 @@ namespace Grupp5Game
                 projectile.Draw();
             }
 
-            foreach (Projectile projectile in Projectiles)
-            {
-                projectile.Draw();
-            }
-
-          
-           
-
             GameOverlay.Draw();
 
             MapObjects.Draw(this);
         }
     }
 
-    public class EndScreenScene() : Scene
+    public class EndScreenScene : Scene
     {
         public override void Update(GameTime gameTime)
         {
-
+            
         }
 
         public override void Draw()
         {
-
+            
         }
-    }}
-
+    }
+}

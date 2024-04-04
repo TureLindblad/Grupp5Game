@@ -85,13 +85,7 @@ namespace Grupp5Game
         }
     }
 
-    public class MountainTile : Tile
-    {
-        public MountainTile(int x, int y) : base(x, y)
-        {
-            Texture = Assets.MountainTexture;
-        }
-    }
+   
 
     public class PathTile : Tile
     {

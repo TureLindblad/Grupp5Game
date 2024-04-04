@@ -14,14 +14,12 @@ namespace Grupp5Game
     {
         public GoblinEnemy(Texture2D texture) : base (texture) 
         {
-            MaxHealth = 20;
-            CurrentHealth = MaxHealth;
+            
             HealthBar = new HealthBar(25);
             Size = 30;
-            Speed = 5;
             Speed = 3;
-            PhysArmor = 5;
             GoldValue = 50;
+            
         }
     }
     public class FrostEnemy : Tier1Enemy
@@ -31,7 +29,7 @@ namespace Grupp5Game
             Size = 35;
             HealthBar = new HealthBar(35);
             Speed = 2;
-            AttacksTower = true;
+           
         }
     }
     public class FireEnemy : Tier1Enemy
@@ -43,20 +41,6 @@ namespace Grupp5Game
             Speed = 2;
             MagicArmor = 5;
             GoldValue = 50;
-        }
-    }
-    public class FireEnemy : Tier1Enemy
-    {
-        public FireEnemy(Texture2D texture) : base(texture)
-        {
-            Size = 35;
-            MaxHealth = 35;
-            CurrentHealth = MaxHealth;
-            Speed = 5;
-            HealthBar = new HealthBar(40);
-            Speed = 4;
-            MagicArmor = 3;
-            GoldValue = 8;
         }
     }
 }
