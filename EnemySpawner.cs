@@ -10,6 +10,7 @@ namespace Grupp5Game
         public static int Tier3Enemy = 0;
         public static int EnemyWave = 0;
         public static int FlyingEnemies = 2;
+        public static int FastEnemies = 1;
     }
     public class EnemySpawner
     {
@@ -19,6 +20,7 @@ namespace Grupp5Game
         private int Tier3Enemy;
         private int EnemyWave;
         private int FlyingEnemies;
+        private int FastEnemies;
         public EnemySpawner()
         {
             Tier1Enemy = 0;
@@ -26,6 +28,7 @@ namespace Grupp5Game
             Tier3Enemy = 0;
             FlyingEnemies = 0;
             EnemyWave = 0;
+            FastEnemies = 0;
             CanSpawn = true;
         }
         public void Update(PlayMapScene mapScene)
@@ -35,7 +38,7 @@ namespace Grupp5Game
                 if (Tier1Enemy < CurrentWave.Tier1Enemy)
                 {
                     mapScene.EnemyList.Add(GetTier1Enemy());
-                    Tier1Enemy++;
+                    Tier1Enemy+=2;
                     EnemeySpawnTimer();
                 }
                 else if (Tier2Enemy < CurrentWave.Tier2Enemy)
@@ -54,6 +57,12 @@ namespace Grupp5Game
                 {
                     mapScene.EnemyList.Add(new FlyingEnemy(Assets.FlyingEnemyTexture));
                     FlyingEnemies++;
+                    EnemeySpawnTimer();
+                }
+                else if (FastEnemies < CurrentWave.FastEnemies)
+                {
+                    mapScene.EnemyList.Add(new FastEnemy(Assets.FastEnemyTexture));
+                    FastEnemies++;
                     EnemeySpawnTimer();
                 }
 
@@ -82,45 +91,39 @@ namespace Grupp5Game
             return newEnemey;
         }
 
-        private Tier1Enemy GetTier2Enemy()
+        private Tier2Enemy GetTier2Enemy()
         {
             Random rnd = new Random();
-            Tier1Enemy newEnemey = null;
+            Tier2Enemy newEnemey = null;
 
-            switch (rnd.Next(1, 2))
+            switch (rnd.Next(0, 2))
             {
-                /*case 0:
-                    newEnemey = new GoblinEnemy(Assets.EnemyGoblinTexture);
-                    break;*/
-                case 1:
-                    newEnemey = new FrostEnemy(Assets.FrostEnemyTexture);
+                case 0:
+                    newEnemey = new FireEnemy2(Assets.FireEnemy2Texture);
                     break;
-                /*case 2:
-                    newEnemey = new FireEnemy(Assets.FireEnemyTexture);
-                    break;*/
+                case 1:
+                    newEnemey = new FrostEnemy2(Assets.FrostEnemy2Texture);
+                    break;
+
             }
 
             return newEnemey;
         }
 
-        private Tier1Enemy GetTier3Enemy()
+        private Tier3Enemy GetTier3Enemy()
         {
             Random rnd = new Random();
-            Tier1Enemy newEnemey = null;
+            Tier3Enemy newEnemey = null;
 
-            switch (rnd.Next(2, 3))
+            switch (rnd.Next(0, 2))
             {
-                /*case 0:
-                    newEnemey = new GoblinEnemy(Assets.EnemyGoblinTexture);
+                case 0:
+                    newEnemey = new FireEnemy3(Assets.FireEnemy3Texture);
                     break;
                 case 1:
-                    newEnemey = new FrostEnemy(Assets.FrostEnemyTexture);
-                    break;*/
-                case 2:
-                    newEnemey = new FireEnemy(Assets.FireEnemyTexture);
-                    break;
+                    newEnemey = new FrostEnemy3(Assets.FireEnemyTexture);
+                    break;              
             }
-
             return newEnemey;
         }
 
@@ -128,18 +131,21 @@ namespace Grupp5Game
         {
             if (mapScene.EnemyList.Count == 0)
             {
+                WaveTimer();
                 mapScene.GameOverlay.CurrentWave++;
 
                 Tier1Enemy = 0;
                 Tier2Enemy = 0;
                 Tier3Enemy = 0;
                 FlyingEnemies = 0;
+                FastEnemies = 0;
                 
                 EnemyWave++;
 
                 if (EnemyWave % 4 == 0)
                 {
                     CurrentWave.Tier1Enemy--;
+                    CurrentWave.FastEnemies++;
                 }
                 if (EnemyWave % 2== 0)
                 {
