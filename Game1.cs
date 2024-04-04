@@ -26,7 +26,7 @@ namespace Grupp5Game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Globals.Graphics.IsFullScreen = true;
+            Globals.Graphics.IsFullScreen = false;
         }
 
         protected override void Initialize()
