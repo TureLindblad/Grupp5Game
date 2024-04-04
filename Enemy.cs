@@ -23,10 +23,10 @@ namespace Grupp5Game
         public int AttackSpeed { get; set; }
         public int Size { get; set; }
         public int Speed { get; set; }
+        public int GoldValue { get; set; }
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         private List<Tile> CompletedTileList;
-        protected bool AttacksTower { get; set; }
         public bool IsAttacking { get; set; }
         public bool MarkedForDeletion { get; set; } = false;
         public HealthBar HealthBar { get; protected set; }
@@ -40,7 +40,6 @@ namespace Grupp5Game
             Velocity = Vector2.Zero;
 
             CompletedTileList = new List<Tile>();
-            
         }
 
         public void Update(PlayMapScene mapScene)
@@ -50,13 +49,13 @@ namespace Grupp5Game
             {
                 MarkedForDeletion = true;
                 mapScene.GameOverlay.EnemiesKilled++;
+                mapScene.GameOverlay.PlayerGold += GoldValue;
             }
 
             float minDistancePath = float.MaxValue;
             float minDistanceTower = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestPathTile = null;
-            BuildingTile closestTowerTile = null;
             Tile nextTile;
 
             for (int x = 0; x < tiles.GetLength(0); x++)
@@ -73,21 +72,11 @@ namespace Grupp5Game
                         closestPathTile = tiles[x, y];
                     }
 
-                    if (tiles[x, y] is BuildingTile towerTile && distance < minDistanceTower && CheckAttackingPositions(towerTile) )
-                    {
-                        minDistanceTower = distance;
-                        if (minDistanceTower < tiles[0,0].TextureResizeDimension * 1.3)
-                        {
-                            closestTowerTile = towerTile;
-                        }
-                    }
+
                 }
             }
 
-            if (closestTowerTile != null && AttacksTower ) nextTile = closestTowerTile;
-            else nextTile = closestPathTile;
-
-            HandleMovementToNextTile(nextTile, Math.Min(minDistancePath, minDistanceTower), mapScene);
+            HandleMovementToNextTile(closestPathTile, Math.Min(minDistancePath, minDistanceTower), mapScene);
         }
 
         private void HandleMovementToNextTile(Tile nextTile, float nextMinDistance, PlayMapScene mapScene)
@@ -103,10 +92,6 @@ namespace Grupp5Game
                     MarkedForDeletion = true;
                     mapScene.GameOverlay.SubtractHeart();
                 }
-                else if (nextTile is BuildingTile nextTower)
-                {
-                    HandleTowerAttack(nextTower, ref direction);
-                }
                 else
                 {
                     CompletedTileList.Add(nextTile);
@@ -115,35 +100,6 @@ namespace Grupp5Game
 
             if (!IsAttacking) Position += Velocity;
             else Velocity = Vector2.Zero;
-        }
-
-        private void HandleTowerAttack(BuildingTile nextTower, ref Vector2 direction)
-        {
-            foreach (var li in nextTower.AttackingPositions)
-            {
-                if (!li.Item2)
-                {
-                    direction = Vector2.Normalize(li.Item1 - Position);
-
-                    Velocity = direction * Speed;
-
-                    if (Vector2.Distance(Position, li.Item1) < Speed * 1.5)
-                    {
-                        nextTower.AttackingPositions[nextTower.AttackingPositions.IndexOf(li)] = Tuple.Create(li.Item1, true);
-                        IsAttacking = true;
-                        break;
-                    }
-                }
-            }
-        }
-        private static bool CheckAttackingPositions(BuildingTile towerTile)
-        {
-            foreach (var li in towerTile.AttackingPositions)
-            {
-                if (!li.Item2) return true;
-            }
-
-            return false;
         }
 
         public virtual void Draw(PlayMapScene mapScene)
@@ -158,8 +114,6 @@ namespace Grupp5Game
                     Size, 
                     Size), 
                 Color.White);
-
         }
     }
-    
 }

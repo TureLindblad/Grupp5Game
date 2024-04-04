@@ -17,7 +17,8 @@ namespace Grupp5Game
             HealthBar = new HealthBar(25);
             Size = 30;
             Speed = 3;
-            AttacksTower = false;
+            PhysArmor = 5;
+            GoldValue = 50;
         }
     }
     public class FrostEnemy : Tier1Enemy
@@ -27,7 +28,8 @@ namespace Grupp5Game
             Size = 35;
             HealthBar = new HealthBar(35);
             Speed = 2;
-            AttacksTower = true;
+            MagicArmor = 5;
+            GoldValue = 50;
         }
     }
     public class FireEnemy : Tier1Enemy
@@ -37,7 +39,8 @@ namespace Grupp5Game
             Size = 35;
             HealthBar = new HealthBar(40);
             Speed = 4;
-            AttacksTower = true;
+            MagicArmor = 3;
+            GoldValue = 8;
         }
     }
 }
