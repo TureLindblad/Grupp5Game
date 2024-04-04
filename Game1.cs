@@ -40,10 +40,13 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Assets.Overlay = Content.Load<Texture2D>("Overlay");
+            Assets.Overlay = Content.Load<Texture2D>("Overlay/Overlay");
+            Assets.FullHeart = Content.Load<Texture2D>("Overlay/FullHeart");
+            Assets.EmptyHeart = Content.Load<Texture2D>("Overlay/EmptyHeart");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.GrassTexture = Content.Load<Texture2D>("Sprites/GrassHex");
             Assets.SandTexture = Content.Load<Texture2D>("Sprites/SandHex");
+            Assets.MountainTexture = Content.Load<Texture2D>("Sprites/MountainHex");
             Assets.TowerTexture = Content.Load<Texture2D>("TowerHex");
             Assets.NexusTexture = Content.Load<Texture2D>("Sprites/NexusHex");
             Assets.NexusTextureOuter = Content.Load<Texture2D>("Sprites/NexusHexOuter");
@@ -62,6 +65,10 @@ namespace Grupp5Game
             Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
             Assets.FastEnemyTexture = Content.Load<Texture2D>("Sprites/FastEnemy");
+
+            Assets.ArrowTexture = Content.Load<Texture2D>("Sprites/arrow");
+            Assets.CannonBallTexture = Content.Load<Texture2D>("Sprites/cannon");
+            Assets.MagicProjectileTexture = Content.Load<Texture2D>("Sprites/magic-purple");
         }
 
         protected override void Update(GameTime gameTime)

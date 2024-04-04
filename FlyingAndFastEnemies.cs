@@ -28,7 +28,7 @@ namespace Grupp5Game
                     Texture,
                     new Rectangle(
                     (int)Position.X - Size / 2 + 5, //5 hjälper men vet inte varför den behövs 
-                    (int)Position.Y - Size / 2 - 50,
+                    (int)Position.Y - Size / 2,
                     Size,
                     Size),
                     Color.White);

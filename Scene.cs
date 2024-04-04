@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
+    public enum TowerTypes
+    {
+        Archer, Cannon, Magic
+    }
     public abstract class Scene
     {
         public abstract void Update(GameTime gameTime);
@@ -185,16 +189,24 @@ namespace Grupp5Game
         {
             MapGrid.Draw();
 
+            Globals.SpriteBatch.Draw(
+                Assets.Overlay,
+                new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y),
+                null,
+                Color.White);
+
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                "UNDO PRESS: U. Number of tiles left: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
-                new Vector2(Globals.WindowSize.X / 2 - 350, Globals.WindowSize.Y - 90),
+                "UNDO: U. Tiles: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
+                new Vector2(1050, Globals.WindowSize.Y - 55),
                 Color.Black);
         }
     }
 
     public class PlayMapScene : Scene
     {
+        public Overlay GameOverlay { get; }
+        public TowerTypes SelectedTowerToPlace { get; set; }
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
@@ -202,7 +214,8 @@ namespace Grupp5Game
         public static List<Projectile> Projectiles = new List<Projectile>();
         public PlayMapScene(Grid drawnGrid)
         {
-            //Projectiles = new List<Projectile>();
+            SelectedTowerToPlace = TowerTypes.Archer;
+            GameOverlay = new Overlay(); 
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
@@ -210,6 +223,11 @@ namespace Grupp5Game
 
         public override void Update(GameTime gameTime)
         {
+            /*if (GameOverlay.NexusHealth <= 0)
+            {
+                Game1.CurrentScene = new EndScreenScene();
+            }*/
+
             Spawner.Update(this);
 
             MapGrid.Update(gameTime);
@@ -224,8 +242,11 @@ namespace Grupp5Game
             for (int i = 0; i < Projectiles.Count; i++)
             {
                 Projectiles[i].Update(EnemyList);
-
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D1)) SelectedTowerToPlace = TowerTypes.Archer;
+            if (Keyboard.GetState().IsKeyDown(Keys.D2)) SelectedTowerToPlace = TowerTypes.Cannon;
+            if (Keyboard.GetState().IsKeyDown(Keys.D3)) SelectedTowerToPlace = TowerTypes.Magic;
         }
 
         public override void Draw()
@@ -242,11 +263,7 @@ namespace Grupp5Game
                 projectile.Draw();
             }
 
-            Globals.SpriteBatch.Draw(
-                Assets.Overlay, 
-                new Rectangle(0, 0, Globals.WindowSize.X, Globals.WindowSize.Y), 
-                null, 
-                Color.White);
+            GameOverlay.Draw();
         }
     }
 
