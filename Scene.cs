@@ -245,24 +245,13 @@ namespace Grupp5Game
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
-
-            archer.TopRightCorner(Globals.WindowSize.Y - 750, Globals.WindowSize.X);
-            frame3.TopRightCorner(Globals.WindowSize.Y - 745, Globals.WindowSize.X + 10);
-            archerButton.TopRightCorner(Globals.WindowSize.Y - 690, Globals.WindowSize.X + 10);
-
-            magic.TopRightCorner(Globals.WindowSize.Y - 350, Globals.WindowSize.X);
-            frame2.TopRightCorner(Globals.WindowSize.Y - 345, Globals.WindowSize.X + 10);
-            magicButton.TopRightCorner(Globals.WindowSize.Y - 290, Globals.WindowSize.X + 10);
-
-            artillery.TopRightCorner(Globals.WindowSize.Y - 550, Globals.WindowSize.X);
-            frame.TopRightCorner(Globals.WindowSize.Y - 545, Globals.WindowSize.X + 10);
-            artilleryButton.TopRightCorner(Globals.WindowSize.Y - 490, Globals.WindowSize.X + 10);
-
-            upgradeButton.TopRightCorner(Globals.WindowSize.Y - 75, Globals.WindowSize.X + 20);
         }
 
         public override void Update(GameTime gameTime)
         {
+            LastKeyboardState = CurrentKeyboardState;
+            CurrentKeyboardState = Keyboard.GetState();
+
             /*if (GameOverlay.NexusHealth <= 0)
             {
                 Game1.CurrentScene = new EndScreenScene();
@@ -271,32 +260,6 @@ namespace Grupp5Game
             Spawner.Update(this);
 
             MapGrid.Update(gameTime);
-
-            if(Mouse.GetState().RightButton == ButtonState.Pressed)
-            {
-                    hasPressed1Key = false;
-                    fadeColor = fadeColor2 = fadeColor3 = Color.White;
-            }
-            else
-            {
-                switch (Keyboard.GetState().GetPressedKeys().FirstOrDefault())
-                {
-                    case Keys.D1 when !hasPressed1Key:
-                        hasPressed1Key = true;
-                        fadeColor = Color.Red;
-                        break;
-                    case Keys.D2 when !hasPressed1Key:
-                        hasPressed1Key = true;
-                        fadeColor2 = Color.Red;
-                        break;
-                    case Keys.D3 when !hasPressed1Key:
-                        hasPressed1Key = true;
-                        fadeColor3 = Color.Red;
-                        break;
-                    default:
-                        break;
-                }
-            }
 
             for (int i = 0; i < EnemyList.Count; i++)
             {
@@ -352,20 +315,6 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-            archer.Draw(this, Color.White);
-            magic.Draw(this, Color.White);
-            artillery.Draw(this, Color.White);
-
-            frame.Draw(this, fadeColor2);
-            frame2.Draw(this, fadeColor3);
-            frame3.Draw(this, fadeColor);
-
-            archerButton.Draw(this, Color.White);
-            artilleryButton.Draw(this, Color.White);
-            magicButton.Draw(this, Color.White);
-
-            upgradeButton.Draw(this, Color.White);
-
             MapGrid.Draw();
 
             foreach (Enemy enemy in EnemyList)
@@ -384,6 +333,8 @@ namespace Grupp5Game
             }
 
             GameOverlay.Draw();
+
+            MapObjects.Draw(this);
         }
     }
 

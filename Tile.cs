@@ -73,7 +73,7 @@ namespace Grupp5Game
     {
         public GrassTile(int x, int y) : base(x, y) 
         {
-            Texture = Assets.GrassTexture;
+            Texture = Assets.SandTexture;
         }
     }
 
@@ -89,7 +89,7 @@ namespace Grupp5Game
     {
         public PathTile(int x, int y) : base(x, y)
         {
-            Texture = Assets.SandTexture;
+            Texture = Assets.GrassTexture;
         }
     }
 }
