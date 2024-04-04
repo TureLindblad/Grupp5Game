@@ -32,11 +32,17 @@ namespace Grupp5Game
         public static Texture2D Artillery;
         public static Texture2D UpgradeButton;
         public static Texture2D FrostEnemyTexture;
+        public static Texture2D FrostEnemy2Texture;
+        public static Texture2D FrostEnemy3Texture;
+
         public static Texture2D TowerBuildingTexture;
         public static Texture2D PriceButton;
         public static Texture2D InputBox;
        public static Texture2D BasetowerTexture;
         public static Texture2D FireEnemyTexture;
+        public static Texture2D FireEnemy2Texture;
+        public static Texture2D FireEnemy3Texture;
+
         public static Texture2D FlyingEnemyTexture;
         public static Texture2D FastEnemyTexture;
         
