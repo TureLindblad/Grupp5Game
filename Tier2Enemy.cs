@@ -6,6 +6,7 @@ namespace Grupp5Game
     {
         public Tier2Enemy(Texture2D texture) : base(texture)
         {
+
         }
     }
 
@@ -17,6 +18,7 @@ namespace Grupp5Game
             HealthBar = new HealthBar(55);
             Speed = 2;
             MagicArmor = 5;
+            PhysArmor = 10;
             GoldValue = 100;
         }
     }
@@ -27,6 +29,7 @@ namespace Grupp5Game
             Size = 50;
             HealthBar = new HealthBar(55);
             Speed = 2;
+            PhysArmor = 10;
             MagicArmor = 5;
             GoldValue = 100;
         }

@@ -7,10 +7,10 @@ namespace Grupp5Game
         public BossEnemy(Texture2D texture) : base(texture) 
         {
             Size = 100;
-            HealthBar = new HealthBar(1000);
+            HealthBar = new HealthBar(2000);
             Speed = 2;
-            MagicArmor = 50;
-            PhysArmor = 50;
+            MagicArmor = 15;
+            PhysArmor = 15;
             GoldValue = 1000;
         }
     }

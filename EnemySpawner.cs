@@ -113,9 +113,7 @@ namespace Grupp5Game
                 case 1:
                     newEnemey = new FrostEnemy2(Assets.FrostEnemy2Texture);
                     break;
-
             }
-
             return newEnemey;
         }
 

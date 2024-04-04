@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Grupp5Game
 {
@@ -15,8 +10,18 @@ namespace Grupp5Game
             {
                 if (projectile.Bounds.Intersects(enemy.Bounds))
                 {
-                    enemy.HealthBar.CurrentHealth -= projectile.Damage;
-                    return true;
+                    if (projectile is MagicProjectile)
+                    {
+                        enemy.HealthBar.CurrentHealth -= ((projectile.MagicDamage - enemy.MagicArmor)
+                                                           + (projectile.MagicDamage / 2));
+                        return true;
+                    }
+                    if (projectile is Arrow)
+                    {
+                        enemy.HealthBar.CurrentHealth -= ((projectile.PhysDamage - enemy.PhysArmor)
+                                                           + (projectile.PhysDamage / 2));
+                        return true;
+                    }
                 }
             }
 
