@@ -215,7 +215,7 @@ namespace Grupp5Game
         private KeyboardState CurrentKeyboardState { get; set; }
 
         public static List<Projectile> Projectiles = new List<Projectile>();
-        private List<Explosion> Explosions = new List<Explosion>();
+        public List<Explosion> Explosions = new List<Explosion>();
 
         public PlayMapScene(Grid drawnGrid)
         {
@@ -272,6 +272,11 @@ namespace Grupp5Game
             {
                 if (SelectedTowerToPlace == TowerTypes.Magic) SelectedTowerToPlace = null;
                 else SelectedTowerToPlace = TowerTypes.Magic;
+            }
+
+            if (LastKeyboardState.IsKeyDown(Keys.D4) && CurrentKeyboardState.IsKeyUp(Keys.D4))
+            {
+                SpecialAbilities.SpawnManyExplosions(this);
             }
 
             MapObjects.Update(this);
