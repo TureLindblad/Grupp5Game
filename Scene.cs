@@ -339,7 +339,7 @@ namespace Grupp5Game
         {
             if (projectile is CannonBall)
             {
-                Explosions.Add(new Explosion(projectile.Position, CannonBall.SplashDiameter, projectile.Damage, this));
+                Explosions.Add(new Explosion(projectile.Position, CannonBall.SplashDiameter, projectile.PhysDamage, this));
             }
 
             Projectiles.Remove(projectile);
