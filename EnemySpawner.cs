@@ -11,6 +11,7 @@ namespace Grupp5Game
         public static int EnemyWave = 0;
         public static int FlyingEnemies = 2;
         public static int FastEnemies = 1;
+        public static int BossEnemies = 0;
     }
     public class EnemySpawner
     {
@@ -21,6 +22,7 @@ namespace Grupp5Game
         private int EnemyWave;
         private int FlyingEnemies;
         private int FastEnemies;
+        private int BossEnemies;
         public EnemySpawner()
         {
             Tier1Enemy = 0;
@@ -29,6 +31,7 @@ namespace Grupp5Game
             FlyingEnemies = 0;
             EnemyWave = 0;
             FastEnemies = 0;
+            BossEnemies = 0;
             CanSpawn = true;
         }
         public void Update(PlayMapScene mapScene)
@@ -65,6 +68,12 @@ namespace Grupp5Game
                     FastEnemies++;
                     EnemeySpawnTimer();
                 }
+                else if (BossEnemies  < CurrentWave.BossEnemies)
+                {
+                    mapScene.EnemyList.Add(new BossEnemy(Assets.BossEnemyTexture));
+                    BossEnemies++;
+                    EnemeySpawnTimer();
+                }
 
                 HandleEndOfWave(mapScene);
             }
@@ -75,17 +84,17 @@ namespace Grupp5Game
             Random rnd = new Random();
             Tier1Enemy newEnemey = null;
 
-            switch(rnd.Next(0,1))
+            switch(rnd.Next(0,3))
             {
                 case 0:
                     newEnemey = new GoblinEnemy(Assets.EnemyGoblinTexture);
                     break;
-                /*case 1:
+                case 1:
                     newEnemey = new FrostEnemy(Assets.FrostEnemyTexture);
                     break;
                 case 2:
-                    newEnemey = new FireEnemy(Assets.FireEnemyTexture);
-                    break;*/
+                    newEnemey = new FireEnemy(Assets.FireEnemy2Texture);
+                    break;
             }
 
             return newEnemey;
@@ -99,7 +108,7 @@ namespace Grupp5Game
             switch (rnd.Next(0, 2))
             {
                 case 0:
-                    newEnemey = new FireEnemy2(Assets.FireEnemy2Texture);
+                    newEnemey = new FireEnemy2(Assets.FireEnemyTexture);
                     break;
                 case 1:
                     newEnemey = new FrostEnemy2(Assets.FrostEnemy2Texture);
@@ -121,7 +130,7 @@ namespace Grupp5Game
                     newEnemey = new FireEnemy3(Assets.FireEnemy3Texture);
                     break;
                 case 1:
-                    newEnemey = new FrostEnemy3(Assets.FireEnemyTexture);
+                    newEnemey = new FrostEnemy3(Assets.FrostEnemy3Texture);
                     break;              
             }
             return newEnemey;
@@ -131,7 +140,7 @@ namespace Grupp5Game
         {
             if (mapScene.EnemyList.Count == 0)
             {
-                WaveTimer();
+/*                WaveTimer();*/
                 mapScene.GameOverlay.CurrentWave++;
 
                 Tier1Enemy = 0;
@@ -159,9 +168,12 @@ namespace Grupp5Game
                 {
                     CurrentWave.FlyingEnemies++;
                 }
+                if (EnemyWave % 5 == 0)
+                {
+                    CurrentWave.BossEnemies++;
+                }
             }
         }
-
         private async void EnemeySpawnTimer()
         {
             CanSpawn = false;
