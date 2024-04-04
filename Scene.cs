@@ -215,6 +215,8 @@ namespace Grupp5Game
         private KeyboardState CurrentKeyboardState { get; set; }
 
         public static List<Projectile> Projectiles = new List<Projectile>();
+        private List<Explosion> Explosions = new List<Explosion>();
+
         public PlayMapScene(Grid drawnGrid)
         {
             MapObjects = new MapObjectContainer();
@@ -248,7 +250,12 @@ namespace Grupp5Game
 
             for (int i = 0; i < Projectiles.Count; i++)
             {
-                Projectiles[i].Update(EnemyList);
+                Projectiles[i].Update(EnemyList, this);
+            }
+
+            for (int i = 0; i < Explosions.Count; i++)
+            {
+                if (Explosions[i].MarkedForDeletion) Explosions.Remove(Explosions[i]);
             }
 
             if (LastKeyboardState.IsKeyDown(Keys.D1) && CurrentKeyboardState.IsKeyUp(Keys.D1))
@@ -284,9 +291,24 @@ namespace Grupp5Game
                 projectile.Draw();
             }
 
+            foreach (Explosion explosion in Explosions)
+            {
+                explosion.Draw();
+            }
+
             GameOverlay.Draw();
 
             MapObjects.Draw(this);
+        }
+
+        public void RemoveProjectile(Projectile projectile)
+        {
+            if (projectile is CannonBall)
+            {
+                Explosions.Add(new Explosion(projectile.Position));
+            }
+
+            Projectiles.Remove(projectile);
         }
     }
 

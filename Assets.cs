@@ -51,7 +51,7 @@ namespace Grupp5Game
         public static Texture2D MagicProjectileTexture;
         public static Texture2D PriceButton;
         public static Texture2D InputBox;
-         
+        public static Texture2D ExplosionTexture;
         
     }
 }

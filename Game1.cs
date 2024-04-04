@@ -79,6 +79,7 @@ namespace Grupp5Game
             Assets.ArrowTexture = Content.Load<Texture2D>("Sprites/arrow");
             Assets.CannonBallTexture = Content.Load<Texture2D>("Sprites/cannon");
             Assets.MagicProjectileTexture = Content.Load<Texture2D>("Sprites/magic-purple");
+            Assets.ExplosionTexture = Content.Load<Texture2D>("Sprites/ExplosionTexture");
             
         }
 

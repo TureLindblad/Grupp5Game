@@ -37,7 +37,7 @@ namespace Grupp5Game
 
             foreach (Enemy enemy in otherEnemies)
             {
-                if (Vector2.Distance(targetEnemy.Position, enemy.Position) <= CannonBall.SplashRadius)
+                if (Vector2.Distance(targetEnemy.Position, enemy.Position) <= CannonBall.SplashDiameter / 2)
                 {
                     enemiesInRange.Add(enemy);
                 }
