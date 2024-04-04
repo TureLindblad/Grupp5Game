@@ -24,6 +24,17 @@ namespace Grupp5Game
                     }
                 }
             }
+                    if (projectile is not CannonBall)
+                    {
+                        enemy.HealthBar.CurrentHealth -= projectile.Damage;
+                        _ = projectile.ApplyProjectileEffect(enemy);
+                    }
+
+                    projectile.DamageAnimation(enemy);
+                    
+                    return true;
+                }
+            }
 
             return false;
         }

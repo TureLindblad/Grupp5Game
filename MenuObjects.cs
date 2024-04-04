@@ -20,11 +20,11 @@ namespace Grupp5Game
             this.rect = new Rectangle(0, 0, size.X, size.Y);
         }
 
-        public void Update(StartScreenScene startScreenScene)
+        public void Update()
         {
         }
 
-        public void Draw(StartScreenScene startScreenScene)
+        public void Draw()
         {
             Globals.SpriteBatch.Draw(texture, rect, Color.White);
         }

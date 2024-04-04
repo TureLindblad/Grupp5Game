@@ -26,13 +26,26 @@ namespace Grupp5Game
         public int MagicDamage { get; set; }
         public float Rotation { get; set; }
 
-        public virtual void Update(List<Enemy> enemyList)
+        public virtual void Update(List<Enemy> enemyList, PlayMapScene mapScene)
         {
             if (Collision.CheckCollisionAndDamageEnemy(this, enemyList))
             {
-                PlayMapScene.Projectiles.Remove(this);
+                mapScene.RemoveProjectile(this);
             }
         }
+
+        public virtual async Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null) { await Task.CompletedTask; }
+
+        public async void DamageAnimation(Enemy enemy)
+        {
+            Color lastEnemyColor = enemy.TextureColor;
+            enemy.TextureColor = Color.Red;
+
+            await Task.Delay(50);
+
+            enemy.TextureColor = lastEnemyColor;
+        }
+
         public void Draw()
         {
 
@@ -62,9 +75,25 @@ namespace Grupp5Game
             PhysDamage = damage;
         }
 
-        public override void Update(List<Enemy> enemyList)
+        public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
         {
-            base.Update(enemyList);
+            Color lastEnemyColor = enemy.TextureColor;
+            Task fireDOT = Task.Delay(3000);
+            enemy.TextureColor = Color.Orange;
+
+            while (!fireDOT.IsCompleted)
+            {
+                enemy.HealthBar.CurrentHealth -= enemy.HealthBar.MaxHealth * 0.1f;
+
+                await Task.Delay(500);
+            }
+
+            enemy.TextureColor = lastEnemyColor;
+        }
+
+        public override void Update(List<Enemy> enemyList, PlayMapScene mapScene)
+        {
+            base.Update(enemyList, mapScene);
 
             Position += Direction * Speed;
             Rotation = (float)Math.Atan2(Direction.Y, Direction.X);
@@ -75,6 +104,7 @@ namespace Grupp5Game
     {
         public static readonly float Speed = 10f;
         public static readonly int CannonBallSize = 25;
+        public static readonly int SplashDiameter = 150;
         public CannonBall(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
@@ -84,9 +114,9 @@ namespace Grupp5Game
             PhysDamage = damage;
         }
 
-        public override void Update(List<Enemy> enemyList)
+        public override void Update(List<Enemy> enemyList, PlayMapScene mapScene)
         {
-            base.Update(enemyList);
+            base.Update(enemyList, mapScene);
 
             Position += Direction * Speed;
         }
@@ -105,9 +135,30 @@ namespace Grupp5Game
             MagicDamage = damage;
         }
 
-        public override void Update(List<Enemy> enemyList)
+        public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
         {
-            base.Update(enemyList);
+            Color lastEnemyColor = enemy.TextureColor;
+            if (enemy.SpeedMod == 0)
+            {
+                enemy.SpeedMod = enemy.Speed / 2;
+                enemy.Speed = enemy.SpeedMod;
+            }
+            enemy.TextureColor = Color.Blue;
+
+            await Task.Delay(1000);
+
+            if (enemy.SpeedMod != 0)
+            {
+                enemy.Speed *= 2;
+                enemy.SpeedMod = 0;
+            }
+            
+            enemy.TextureColor = lastEnemyColor;
+        }
+
+        public override void Update(List<Enemy> enemyList, PlayMapScene mapScene)
+        {
+            base.Update(enemyList, mapScene);
 
             Position += Direction * Speed;
             Rotation = (float)Math.Atan2(Direction.Y, Direction.X);

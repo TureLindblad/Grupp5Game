@@ -81,7 +81,7 @@ namespace Grupp5Game
 
         public override void Update(GameTime gameTime)
         {
-            playButton.Update(this);
+            playButton.Update();
             if (playButton.IsClicked())
             {
                 Game1.CurrentScene = new MapCreationScene();
@@ -112,9 +112,9 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-            frame.Draw(this);
-            playButton.Draw(this);
-            inputBox.Draw(this);
+            frame.Draw();
+            playButton.Draw();
+            inputBox.Draw();
             Vector2 playerNameSize = nameFont.MeasureString(playerName);
 
             string titleText = "ENTER YOUR NAME";
@@ -136,14 +136,29 @@ namespace Grupp5Game
     {
         private bool UndoIsPressed;
         public Grid MapGrid { get; private set; }
+        PlayMapObject playButtonMap;
+        PlayMapObject undoButton;
+        private MouseState lastMouseState;
+        private MouseState currentMouseState;
 
         public MapCreationScene()
         {
+            Point buttonSize = new Point(126, 120);
+            playButtonMap = new PlayMapObject(Assets.PlayBtnMapScene, buttonSize);
+            playButtonMap.TopRightCorner(Globals.WindowSize.Y - 300, Globals.WindowSize.X - 10);
+            undoButton = new PlayMapObject(Assets.UndoButton, buttonSize);
+            undoButton.TopRightCorner(Globals.WindowSize.Y - 500, Globals.WindowSize.X - 10);
             MapGrid = new Grid();
         }
         public override void Update(GameTime gameTime)
         {
+            lastMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
             MapGrid.Update(gameTime);
+            
+            undoButton.Update();
+
+            playButtonMap.Update();
 
             bool playButton = Keyboard.GetState().IsKeyDown(Keys.P);
             bool canPlay = false;
@@ -163,9 +178,14 @@ namespace Grupp5Game
                 }
             }
 
-            if (playButton && canPlay) Game1.CurrentScene = new PlayMapScene(MapGrid);
+            if ((playButton && canPlay) || 
+            (playButtonMap.IsClicked() && canPlay && lastMouseState != currentMouseState))
+            {
+             Game1.CurrentScene = new PlayMapScene(MapGrid);
+            }
 
-            if (!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) 
+            if ((!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) ||           
+                (undoButton.IsClicked() && lastMouseState != currentMouseState) && MapGrid.PathTileOrder.Count > 1)
             {
                 UndoIsPressed = true;
 
@@ -188,6 +208,7 @@ namespace Grupp5Game
         public override void Draw()
         {
             MapGrid.Draw();
+            
 
             Globals.SpriteBatch.Draw(
                 Assets.Overlay,
@@ -200,6 +221,9 @@ namespace Grupp5Game
                 "UNDO: U. Tiles: " + (MapGrid.MaxNumberOfPathTiles - MapGrid.NumberOfPathTiles),
                 new Vector2(1050, Globals.WindowSize.Y - 55),
                 Color.Black);
+
+            playButtonMap.Draw();
+            undoButton.Draw();
         }
     }
 
@@ -215,6 +239,8 @@ namespace Grupp5Game
         private KeyboardState CurrentKeyboardState { get; set; }
 
         public static List<Projectile> Projectiles = new List<Projectile>();
+        public List<Explosion> Explosions = new List<Explosion>();
+
         public PlayMapScene(Grid drawnGrid)
         {
             MapObjects = new MapObjectContainer();
@@ -228,7 +254,7 @@ namespace Grupp5Game
         public override void Update(GameTime gameTime)
         {
             LastKeyboardState = CurrentKeyboardState;
-            CurrentKeyboardState = Keyboard.GetState();
+            CurrentKeyboardState = Keyboard.GetState(); 
 
             /*if (GameOverlay.NexusHealth <= 0)
             {
@@ -248,7 +274,12 @@ namespace Grupp5Game
 
             for (int i = 0; i < Projectiles.Count; i++)
             {
-                Projectiles[i].Update(EnemyList);
+                Projectiles[i].Update(EnemyList, this);
+            }
+
+            for (int i = 0; i < Explosions.Count; i++)
+            {
+                if (Explosions[i].MarkedForDeletion) Explosions.Remove(Explosions[i]);
             }
 
             if (LastKeyboardState.IsKeyDown(Keys.D1) && CurrentKeyboardState.IsKeyUp(Keys.D1))
@@ -265,6 +296,16 @@ namespace Grupp5Game
             {
                 if (SelectedTowerToPlace == TowerTypes.Magic) SelectedTowerToPlace = null;
                 else SelectedTowerToPlace = TowerTypes.Magic;
+            }
+
+            if (LastKeyboardState.IsKeyDown(Keys.D8) && CurrentKeyboardState.IsKeyUp(Keys.D8))
+            {
+                SpecialAbilities.SpawnManyExplosions(this);
+            }
+
+            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9))
+            {
+                SpecialAbilities.FreezeAllEnemies(this);
             }
 
             MapObjects.Update(this);
@@ -284,9 +325,24 @@ namespace Grupp5Game
                 projectile.Draw();
             }
 
+            foreach (Explosion explosion in Explosions)
+            {
+                explosion.Draw();
+            }
+
             GameOverlay.Draw();
 
-            MapObjects.Draw(this);
+            MapObjects.Draw();
+        }
+
+        public void RemoveProjectile(Projectile projectile)
+        {
+            if (projectile is CannonBall)
+            {
+                Explosions.Add(new Explosion(projectile.Position, CannonBall.SplashDiameter, projectile.Damage, this));
+            }
+
+            Projectiles.Remove(projectile);
         }
     }
 

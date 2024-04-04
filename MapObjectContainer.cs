@@ -15,10 +15,14 @@ namespace Grupp5Game
         private PlayMapObject artilleryFrame;
         private PlayMapObject magicFrame;
         private PlayMapObject archerFrame;
+        private PlayMapObject rainOfFireFrame;
+        private PlayMapObject frostNovaFrame;
         private PlayMapObject archerButton;
         private PlayMapObject artilleryButton;
         private PlayMapObject magicButton;
         private PlayMapObject upgradeButton;
+        private PlayMapObject rainOfFire;
+        private PlayMapObject frostNova;
 
         public MapObjectContainer()
         {
@@ -32,10 +36,15 @@ namespace Grupp5Game
             archerFrame = new PlayMapObject(Assets.Frame, frameSize);
             artilleryFrame = new PlayMapObject(Assets.Frame, frameSize);
             magicFrame = new PlayMapObject(Assets.Frame, frameSize);
+            rainOfFireFrame = new PlayMapObject(Assets.Frame, new Point(110, 71));
+            frostNovaFrame = new PlayMapObject(Assets.Frame, new Point(110, 71));
 
             archerButton = new PlayMapObject(Assets.PriceButton, buttonSize);
             artilleryButton = new PlayMapObject(Assets.PriceButton, buttonSize);
             magicButton = new PlayMapObject(Assets.PriceButton, buttonSize);
+
+            rainOfFire = new PlayMapObject(Assets.RainOfFire, new Point(101, 64));
+            frostNova = new PlayMapObject(Assets.FrostNova, new Point(101, 64));
 
             upgradeButton = new PlayMapObject(Assets.UpgradeButton, new Point(155, 65));
 
@@ -51,7 +60,13 @@ namespace Grupp5Game
             artilleryFrame.TopRightCorner(Globals.WindowSize.Y - 545, Globals.WindowSize.X - 10);
             artilleryButton.TopRightCorner(Globals.WindowSize.Y - 490, Globals.WindowSize.X - 10);
 
-            upgradeButton.TopRightCorner(Globals.WindowSize.Y - 75, Globals.WindowSize.X);
+            frostNova.TopRightCorner(Globals.WindowSize.Y -140, Globals.WindowSize.X - 30);
+            frostNovaFrame.TopRightCorner(Globals.WindowSize.Y -135, Globals.WindowSize.X - 25);
+
+            rainOfFire.TopRightCorner(Globals.WindowSize.Y -220, Globals.WindowSize.X - 30);
+            rainOfFireFrame.TopRightCorner(Globals.WindowSize.Y -215, Globals.WindowSize.X - 25);
+
+            upgradeButton.TopRightCorner(Globals.WindowSize.Y - 65, Globals.WindowSize.X);
         }
         public void Update(PlayMapScene mapScene)
         {
@@ -73,21 +88,27 @@ namespace Grupp5Game
             }
         }
 
-        public void Draw(PlayMapScene mapScene)
+        public void Draw()
         {
-            archer.Draw(mapScene);
-            magic.Draw(mapScene);
-            artillery.Draw(mapScene);
+            archer.Draw();
+            magic.Draw();
+            artillery.Draw();
 
-            artilleryFrame.Draw(mapScene);
-            magicFrame.Draw(mapScene);
-            archerFrame.Draw(mapScene);
+            artilleryFrame.Draw();
+            magicFrame.Draw();
+            archerFrame.Draw();
 
-            archerButton.Draw(mapScene);
-            artilleryButton.Draw(mapScene);
-            magicButton.Draw(mapScene);
+            archerButton.Draw();
+            artilleryButton.Draw();
+            magicButton.Draw();
 
-            upgradeButton.Draw(mapScene);
+            rainOfFire.Draw();
+            rainOfFireFrame.Draw();
+
+            frostNova.Draw();
+            frostNovaFrame.Draw();
+
+            upgradeButton.Draw();
         }
     }
 }
