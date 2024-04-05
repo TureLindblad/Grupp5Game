@@ -46,7 +46,8 @@ namespace Grupp5Game
                 for (int y = 0; y < Globals.MapDimensions.Y; y++)
                 {
                     Tile tile = mapScene.MapGrid.Tiles[x, y];
-                    if (HasCloseTileOfType<OasisTile>(mapScene, mapScene.MapGrid.Tiles[x, y], 1) &&
+                    if (!HasCloseTileOfType<PathTile>(mapScene, mapScene.MapGrid.Tiles[x, y], 1) && 
+                        HasCloseTileOfType<OasisTile>(mapScene, mapScene.MapGrid.Tiles[x, y], 1) &&
                         !HasCloseTileOfType<BedouinTile>(mapScene, mapScene.MapGrid.Tiles[x, y], 1) &&
                         rnd.Next(0, 100) < 20 &&
                         mapScene.MapGrid.Tiles[x, y] is not OasisTile && 
