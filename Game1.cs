@@ -12,6 +12,7 @@ namespace Grupp5Game
         public static Point MapDimensions = new Point(25, 11);
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
+        public static GameTime GameTime { get; set; }
     }
 
     public class Game1 : Game
@@ -26,7 +27,7 @@ namespace Grupp5Game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Globals.Graphics.IsFullScreen = true;
+            Globals.Graphics.IsFullScreen = false;
         }
 
         protected override void Initialize()
@@ -90,10 +91,14 @@ namespace Grupp5Game
             Assets.SandMountainTexture = Content.Load<Texture2D>("Scenery/SandMountainHex");
             Assets.SandRockTexture = Content.Load<Texture2D>("Scenery/SandRocksHex");
             Assets.BedouinTexture = Content.Load<Texture2D>("Scenery/BedouinHex");
+
+            Assets.ExplosionAtlas = Content.Load<Texture2D>("Explosion");
         }
 
         protected override void Update(GameTime gameTime)
         {
+            Globals.GameTime = gameTime;
+
             if (Keyboard.GetState().IsKeyDown(Keys.Escape)) Exit();
 
             CurrentScene.Update(gameTime);

@@ -347,7 +347,7 @@ namespace Grupp5Game
         }
     }
 
-    public class EndScreenScene() : Scene
+    public class EndScreenScene : Scene
     {
         public override void Update(GameTime gameTime)
         {

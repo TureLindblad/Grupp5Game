@@ -12,6 +12,7 @@ namespace Grupp5Game
         public Vector2 Position { get; set; }
         public int Diameter { get; set; }
         public bool MarkedForDeletion { get; set; }
+        public Animation animation { get; set; }
 
         public Explosion(Vector2 position, int explosionDamage, int diameter, PlayMapScene mapScene)
         {
@@ -20,11 +21,12 @@ namespace Grupp5Game
             Diameter = diameter;
             DamageEnemies(mapScene.EnemyList, explosionDamage);
             DeletionTimer();
+            animation = new Animation(Assets.ExplosionAtlas, 8);
         }
 
         private async void DeletionTimer()
         {
-            await Task.Delay(200);
+            await Task.Delay(400);
             MarkedForDeletion = true;
         }
 
@@ -41,12 +43,7 @@ namespace Grupp5Game
 
         public void Draw()
         {
-            Globals.SpriteBatch.Draw(Assets.ExplosionTexture, new Rectangle(
-                (int)Position.X - Diameter / 2,
-                (int)Position.Y - Diameter / 2,
-                Diameter,
-                Diameter),
-                Color.White);
+            animation.Draw(new Rectangle((int)Position.X - Diameter/ 2, (int)Position.Y - Diameter / 2, Diameter, Diameter));
         }
     }
 }
