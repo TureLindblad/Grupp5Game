@@ -62,6 +62,9 @@ namespace Grupp5Game
         public static Texture2D SandMountainTexture;
         public static Texture2D SandRockTexture;
         public static Texture2D BedouinTexture;
-        internal static Texture2D ExplosionAtlas;
+        public static Texture2D ExplosionAtlas;
+        public static Texture2D ArcherTowerTexture;
+        public static Texture2D MagicTowerTexture;
+        public static Texture2D CannonTowerTexture;
     }
 }
