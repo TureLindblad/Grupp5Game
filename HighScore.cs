@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +13,14 @@ namespace Grupp5Game
     public class HighScore
     {
         public static string CurrentPlayerName { get; set; }
+        private readonly Texture2D Texture;
         public static List<Tuple<string, int>> LoadedHighScore { get; set; } = new List<Tuple<string, int>>();
+
+        public HighScore()
+        {
+            Texture = Assets.LeaderBoard;
+        }
+
         public static void LoadSavedData()
         {
             string fileName = "SavedData.json";
@@ -43,6 +51,11 @@ namespace Grupp5Game
 
         public void Draw()
         {
+            Globals.SpriteBatch.Draw(Texture, 
+                new Rectangle(50, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2, 
+                    (int)(Texture.Width * 0.8), (int)(Texture.Height * 0.8)), 
+                Color.White);
+
             string topFive = "";
             foreach (Tuple<string, int> score in GetTopFive())
             {
