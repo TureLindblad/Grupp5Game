@@ -9,6 +9,7 @@ namespace Grupp5Game
 {
     public static class SpecialAbilities
     {
+        private static int CooldownBar = 100;
         public static async void SpawnManyExplosions(PlayMapScene mapScene)
         {
             Random rnd = new Random();
@@ -47,6 +48,27 @@ namespace Grupp5Game
 
             enemy.Speed = lastEnemySpeed;
             enemy.TextureColor = lastEnemyColor;
+        }
+
+        private static async void CooldownTimer(int time)
+        {
+            Task delay = Task.Delay(time);
+            
+            while (delay.IsCompleted)
+            {
+                await Task.Delay(50);
+            }
+        }
+
+        public static void Draw()
+        {
+            Rectangle cooldownRect = new Rectangle(
+                (int)100,
+                (int)100,
+                CooldownBar,
+                20);
+
+            Globals.SpriteBatch.Draw(Assets.NameBox, cooldownRect, Color.White);
         }
     }
 }

@@ -333,6 +333,8 @@ namespace Grupp5Game
             GameOverlay.Draw();
 
             MapObjects.Draw();
+
+            SpecialAbilities.Draw();
         }
 
         public void RemoveProjectile(Projectile projectile)
