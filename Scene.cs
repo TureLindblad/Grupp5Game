@@ -240,6 +240,7 @@ namespace Grupp5Game
 
         public static List<Projectile> Projectiles = new List<Projectile>();
         public List<Explosion> Explosions = new List<Explosion>();
+        public List<MagicBolt> MagicBolts = new List<MagicBolt>();
 
         public PlayMapScene(Grid drawnGrid)
         {
@@ -281,6 +282,11 @@ namespace Grupp5Game
             for (int i = 0; i < Explosions.Count; i++)
             {
                 if (Explosions[i].MarkedForDeletion) Explosions.Remove(Explosions[i]);
+            }
+
+            for (int i = 0; i < MagicBolts.Count; i++)
+            {
+                if (MagicBolts[i].MarkedForDeletion) MagicBolts.Remove(MagicBolts[i]);
             }
 
             if (LastKeyboardState.IsKeyDown(Keys.D1) && CurrentKeyboardState.IsKeyUp(Keys.D1))
@@ -331,6 +337,12 @@ namespace Grupp5Game
                 explosion.Draw();
             }
 
+            foreach (MagicBolt magicBolt in MagicBolts)
+            {
+                magicBolt.Draw();
+            }
+
+
             GameOverlay.Draw();
 
             MapObjects.Draw();
@@ -341,6 +353,10 @@ namespace Grupp5Game
             if (projectile is CannonBall)
             {
                 Explosions.Add(new Explosion(projectile.Position, projectile.PhysDamage, CannonBall.SplashDiameter, this));
+            } 
+            if (projectile is MagicProjectile)
+            {
+                MagicBolts.Add(new MagicBolt(projectile.Position, projectile.MagicDamage, 100, this));
             }
 
             Projectiles.Remove(projectile);
