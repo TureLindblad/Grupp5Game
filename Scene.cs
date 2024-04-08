@@ -299,12 +299,14 @@ namespace Grupp5Game
                 else SelectedTowerToPlace = TowerTypes.Magic;
             }
 
-            if (LastKeyboardState.IsKeyDown(Keys.D8) && CurrentKeyboardState.IsKeyUp(Keys.D8))
+            if (LastKeyboardState.IsKeyDown(Keys.D8) && CurrentKeyboardState.IsKeyUp(Keys.D8) &&
+                SpecialAbilities.RainOfFireCooldown == 0)
             {
                 SpecialAbilities.SpawnManyExplosions(this);
             }
 
-            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9))
+            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9) &&
+                SpecialAbilities.FrostNovaCooldown == 0)
             {
                 SpecialAbilities.FreezeAllEnemies(this);
             }
@@ -334,8 +336,6 @@ namespace Grupp5Game
             GameOverlay.Draw();
 
             MapObjects.Draw();
-
-            SpecialAbilities.Draw();
         }
 
         public void RemoveProjectile(Projectile projectile)

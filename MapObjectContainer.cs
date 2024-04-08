@@ -24,6 +24,10 @@ namespace Grupp5Game
         private PlayMapObject rainOfFire;
         private PlayMapObject frostNova;
 
+        public static Point AbilitiesSize = new Point(101, 64);
+        public static Point RainOfFirePosition = new Point(Globals.WindowSize.X - 30, Globals.WindowSize.Y - 220);
+        public static Point FrostNovaPosition = new Point(Globals.WindowSize.X - 30, Globals.WindowSize.Y - 140);
+
         public MapObjectContainer()
         {
             Point size = new Point(126, 120);
@@ -43,8 +47,8 @@ namespace Grupp5Game
             artilleryButton = new PlayMapObject(Assets.PriceButton, buttonSize);
             magicButton = new PlayMapObject(Assets.PriceButton, buttonSize);
 
-            rainOfFire = new PlayMapObject(Assets.RainOfFire, new Point(101, 64));
-            frostNova = new PlayMapObject(Assets.FrostNova, new Point(101, 64));
+            rainOfFire = new PlayMapObject(Assets.RainOfFire, AbilitiesSize);
+            frostNova = new PlayMapObject(Assets.FrostNova, AbilitiesSize);
 
             upgradeButton = new PlayMapObject(Assets.UpgradeButton, new Point(155, 65));
 
@@ -60,10 +64,10 @@ namespace Grupp5Game
             artilleryFrame.TopRightCorner(Globals.WindowSize.Y - 545, Globals.WindowSize.X - 10);
             artilleryButton.TopRightCorner(Globals.WindowSize.Y - 490, Globals.WindowSize.X - 10);
 
-            frostNova.TopRightCorner(Globals.WindowSize.Y -140, Globals.WindowSize.X - 30);
+            frostNova.TopRightCorner(FrostNovaPosition.Y, FrostNovaPosition.X);
             frostNovaFrame.TopRightCorner(Globals.WindowSize.Y -135, Globals.WindowSize.X - 25);
 
-            rainOfFire.TopRightCorner(Globals.WindowSize.Y -220, Globals.WindowSize.X - 30);
+            rainOfFire.TopRightCorner(RainOfFirePosition.Y, RainOfFirePosition.X);
             rainOfFireFrame.TopRightCorner(Globals.WindowSize.Y -215, Globals.WindowSize.X - 25);
 
             upgradeButton.TopRightCorner(Globals.WindowSize.Y - 65, Globals.WindowSize.X);
@@ -103,9 +107,11 @@ namespace Grupp5Game
             magicButton.Draw();
 
             rainOfFire.Draw();
+            SpecialAbilities.DrawFireRainCooldown();
             rainOfFireFrame.Draw();
 
             frostNova.Draw();
+            SpecialAbilities.DrawFrostNovaCooldown();
             frostNovaFrame.Draw();
 
             upgradeButton.Draw();
