@@ -79,6 +79,7 @@ namespace Grupp5Game
         {
             if (!upgraded)
             {
+                Texture = Assets.ArcherTowerUpgradeTexture;
                 Damage = 35;
                 ShotDelay = TimeSpan.FromSeconds(0.5);
                 upgraded = true;
@@ -131,7 +132,7 @@ namespace Grupp5Game
         {
             if (!upgraded)
             {
-
+                Texture = Assets.CannonTowerUpgradeTexture;
                 Damage = 35;
                 ShotDelay = TimeSpan.FromSeconds(0.6);
                 upgraded = true;
@@ -181,6 +182,7 @@ namespace Grupp5Game
         {
             if (!upgraded)
             {
+                Texture = Assets.MagicTowerUpgradeTexture;
                 Damage = 35;
                 ShotDelay = TimeSpan.FromSeconds(0.6);
                 upgraded = true;

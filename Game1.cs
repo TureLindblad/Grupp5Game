@@ -27,7 +27,7 @@ namespace Grupp5Game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Globals.Graphics.IsFullScreen = false;
+            Globals.Graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -75,8 +75,11 @@ namespace Grupp5Game
             Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
             Assets.ArcherTowerTexture = Content.Load<Texture2D>("TowerTextures/ArcherTower");
+            Assets.ArcherTowerUpgradeTexture = Content.Load<Texture2D>("TowerTextures/ArcherTowerUpgrade");
             Assets.CannonTowerTexture = Content.Load<Texture2D>("TowerTextures/CannonTower");
+            Assets.CannonTowerUpgradeTexture = Content.Load<Texture2D>("TowerTextures/CannonTowerUpgrade");
             Assets.MagicTowerTexture = Content.Load<Texture2D>("TowerTextures/MagicTower");
+            Assets.MagicTowerUpgradeTexture = Content.Load<Texture2D>("TowerTextures/MagicTowerUpgrade");
             Assets.PlayBtnMapScene = Content.Load<Texture2D>("Buttons/playbtnmapscene");
             Assets.UndoButton = Content.Load<Texture2D>("Buttons/UndoButton");
             Assets.RainOfFire = Content.Load<Texture2D>("Image/RainOfFire");

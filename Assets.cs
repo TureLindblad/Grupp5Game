@@ -66,8 +66,11 @@ namespace Grupp5Game
         public static Texture2D BedouinTexture;
         public static Texture2D ExplosionAtlas;
         public static Texture2D ArcherTowerTexture;
+        public static Texture2D ArcherTowerUpgradeTexture;
         public static Texture2D MagicTowerTexture;
+        public static Texture2D MagicTowerUpgradeTexture;
         public static Texture2D CannonTowerTexture;
+        public static Texture2D CannonTowerUpgradeTexture;
         public static Texture2D MagicBoltAtlas;
 
         public static Texture2D BackgroundImage;

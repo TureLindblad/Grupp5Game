@@ -355,6 +355,7 @@ namespace Grupp5Game
             if (Keyboard.GetState().IsKeyDown(Keys.D4) && SelectedTowerTile != null)
             {
                 SelectedTowerTile.UpgradingTower();
+                SelectedTowerTile = null;
             }
 
             MapObjects.Update(this);

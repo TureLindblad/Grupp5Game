@@ -701,6 +701,18 @@
 /processorParam:TextureFormat=Color
 /build:TowerTextures/ArcherTower.png
 
+#begin TowerTextures/ArcherTowerUpgrade.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TowerTextures/ArcherTowerUpgrade.png
+
 #begin TowerTextures/CannonTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -713,6 +725,18 @@
 /processorParam:TextureFormat=Color
 /build:TowerTextures/CannonTower.png
 
+#begin TowerTextures/CannonTowerUpgrade.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TowerTextures/CannonTowerUpgrade.png
+
 #begin TowerTextures/MagicTower.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -724,4 +748,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TowerTextures/MagicTower.png
+
+#begin TowerTextures/MagicTowerUpgrade.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TowerTextures/MagicTowerUpgrade.png
 
