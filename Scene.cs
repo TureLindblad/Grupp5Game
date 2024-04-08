@@ -229,6 +229,7 @@ namespace Grupp5Game
 
     public class PlayMapScene : Scene
     {
+        
         public Overlay GameOverlay { get; }
         private readonly MapObjectContainer MapObjects;
         public TowerTypes? SelectedTowerToPlace { get; set; }
@@ -263,10 +264,10 @@ namespace Grupp5Game
             LastKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState(); 
 
-            /*if (GameOverlay.NexusHealth <= 0)
+            if (GameOverlay.NexusHealth <= 0)
             {
                 Game1.CurrentScene = new EndScreenScene();
-            }*/
+            }
 
             Spawner.Update(this);
 
@@ -349,9 +350,9 @@ namespace Grupp5Game
 
         public void RemoveProjectile(Projectile projectile)
         {
-            if (projectile is CannonBall)
+            if (projectile is CannonBall cannonBall)
             {
-                Explosions.Add(new Explosion(projectile.Position, projectile.PhysDamage, CannonBall.SplashDiameter, this));
+                Explosions.Add(new Explosion(projectile.Position, projectile.PhysDamage, cannonBall.SplashDiameter, this));
             }
 
             Projectiles.Remove(projectile);
@@ -359,7 +360,10 @@ namespace Grupp5Game
 
         public void UpgradeTower(MouseState mouseState)
         {
-            if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed)
+            if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed
+            || SelectedTowerToPlace == TowerTypes.Archer && mouseState.LeftButton == ButtonState.Pressed
+            || SelectedTowerToPlace == TowerTypes.Cannon && mouseState.LeftButton == ButtonState.Pressed)
+            
             {
                 Vector2 mousePosition = mouseState.Position.ToVector2();
 
@@ -373,8 +377,19 @@ namespace Grupp5Game
                             if (MapGrid.Tiles[x, y] is MagicTower magicTower)
                             {
                                 magicTower.UpgradingTower();
-                                return;
+                                
                             }
+                            else if (MapGrid.Tiles[x, y] is ArcherTower archerTower)
+                            {
+                                archerTower.UpgradingTower();
+                            }
+                              else if (MapGrid.Tiles[x, y] is CannonTower cannonTower)
+                              
+                            {
+                                cannonTower.UpgradingTower();
+                                
+                            }
+                              return;
                         }
                     }
                 }
