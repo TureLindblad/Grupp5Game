@@ -255,12 +255,12 @@ namespace Grupp5Game
         public override void Update(GameTime gameTime)
         {
             LastKeyboardState = CurrentKeyboardState;
-            CurrentKeyboardState = Keyboard.GetState(); 
+            CurrentKeyboardState = Keyboard.GetState();
 
-            /*if (GameOverlay.NexusHealth <= 0)
+            if (GameOverlay.NexusHealth <= 0)
             {
-                Game1.CurrentScene = new EndScreenScene();
-            }*/
+                Game1.CurrentScene = new EndScreenScene(GameOverlay.CurrentWave);
+            }
 
             Spawner.Update(this);
 
@@ -351,6 +351,11 @@ namespace Grupp5Game
 
     public class EndScreenScene : Scene
     {
+        public EndScreenScene(int lastWave)
+        {
+            HighScore.SaveData(lastWave);
+        }
+
         public override void Update(GameTime gameTime)
         {
 
@@ -358,7 +363,7 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-
+            HighScore.DrawHighScore();
         }
     }
 }

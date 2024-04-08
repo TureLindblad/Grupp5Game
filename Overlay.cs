@@ -28,7 +28,7 @@ namespace Grupp5Game
                 Hearts[i] = Assets.FullHeart;
             }
 
-            NexusHealth = 10;
+            NexusHealth = 1;
         }
 
         public void SubtractHeart()
