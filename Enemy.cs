@@ -25,7 +25,6 @@ namespace Grupp5Game
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
         private List<Tile> CompletedTileList;
-        public bool IsAttacking { get; set; }
         public bool MarkedForDeletion { get; set; } = false;
         public HealthBar HealthBar { get; protected set; }
         public Color TextureColor { get; set; }
@@ -83,7 +82,7 @@ namespace Grupp5Game
 
             Velocity = direction * Speed;
 
-            if (nextMinDistance < nextTile.TextureResizeDimension / 2 && !IsAttacking)
+            if (nextMinDistance < nextTile.TextureResizeDimension / 2)
             {
                 if (nextTile is NexusTile)
                 {
@@ -96,8 +95,7 @@ namespace Grupp5Game
                 }
             }
 
-            if (!IsAttacking) Position += Velocity;
-            else Velocity = Vector2.Zero;
+            Position += Velocity;
         }
 
         public virtual void Draw(PlayMapScene mapScene)

@@ -138,7 +138,7 @@ namespace Grupp5Game
         {
             if (mapScene.EnemyList.Count == 0)
             {
-/*                WaveTimer();*/
+                //WaveTimer();
                 mapScene.GameOverlay.CurrentWave++;
 
                 Tier1Enemy = 0;
@@ -156,6 +156,7 @@ namespace Grupp5Game
                 }
                 if (EnemyWave % 2== 0)
                 {
+                    Globals.HealthMod++;
                     CurrentWave.Tier2Enemy++;
                 }
                 if (EnemyWave % 3 == 0)
@@ -168,6 +169,7 @@ namespace Grupp5Game
                 }
                 if (EnemyWave % 5 == 0)
                 {
+                    Globals.HealthMod++;
                     CurrentWave.BossEnemies++;
                 }
             }

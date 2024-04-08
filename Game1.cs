@@ -13,6 +13,7 @@ namespace Grupp5Game
         public static GraphicsDeviceManager Graphics { get; set; }
         public static SpriteBatch SpriteBatch { get; set; }
         public static GameTime GameTime { get; set; }
+        public static int HealthMod { get; set; } = 1;
     }
 
     public class Game1 : Game

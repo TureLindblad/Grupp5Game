@@ -1,0 +1,347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Grupp5Game.Enemy" Collapsed="true">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAEggAgAQAAAAABAAAAAAIEABIAECAmggA=</HashCode>
+      <FileName>Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.BossEnemy" Collapsed="true">
+    <Position X="4.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BossEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.FlyingAndFastEnemies" Collapsed="true">
+    <Position X="6.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FlyingAndFastEnemies.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Tier1Enemy" Collapsed="true">
+    <Position X="8.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tier1Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Tier2Enemy" Collapsed="true">
+    <Position X="11" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tier2Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Tier3Enemy" Collapsed="true">
+    <Position X="13.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tier3Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Assets" Collapsed="true">
+    <Position X="19.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gFFkFgAECIANEnDiECgIQAAIAoZSAAABBRJABBgRgJE=</HashCode>
+      <FileName>Assets.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Animation" Collapsed="true">
+    <Position X="19.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAGAAQAAAQAAAgAAAAAAAABBACAAAAAAAAIIAAAAACA=</HashCode>
+      <FileName>Animation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Collision" Collapsed="true">
+    <Position X="14.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Collision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.EndObjectContainer" Collapsed="true">
+    <Position X="19.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUAAAAAAAAQAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EndObjectContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.EnemySpawner" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARACAAABAAAAAAAAAAQIBgAAAAAAAAAAQCBABCAhAA=</HashCode>
+      <FileName>EnemySpawner.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Explosion" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAgAQAAAIAAAAAAAAAAAIABIAAAAAA=</HashCode>
+      <FileName>Explosion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Globals" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAQCAEAAAAAgA=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Game1" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAwAAAAAIAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Grid" Collapsed="true">
+    <Position X="19.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAADCAgAgABAAAgAAAAAAAAIAggAACQAAAAA=</HashCode>
+      <FileName>Grid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.HealthBar" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAAAAACgAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HealthBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.HighScore" Collapsed="true">
+    <Position X="20.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAgAAAAAAAAAQAAAgAAAAAAIIAAAAAAA=</HashCode>
+      <FileName>HighScore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.MagicBolt" Collapsed="true">
+    <Position X="20.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAgAQAAAIAAAAAAAAAAAIABIAAAAAA=</HashCode>
+      <FileName>MagicBolt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.MapObjectContainer" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAACABAwAAAACAAAAIABIEABACEAEAQAAQABQ=</HashCode>
+      <FileName>MapObjectContainer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.MenuObjects" Collapsed="true">
+    <Position X="18" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAAAAgAAAIAAIAAAAAAAAkAAAAAAAAAAAAA=</HashCode>
+      <FileName>MenuObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Overlay" Collapsed="true">
+    <Position X="20.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAACCAggAAAIAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Overlay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.PlayMapObject" Collapsed="true">
+    <Position X="19.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACAAAAgAAAIAAIAAAAAAAAgAAAAAAgAAQAAA=</HashCode>
+      <FileName>PlayMapObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Projectile" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAgoAgCCAAAAAAAAAAQAAAAAIAAAAEEgA=</HashCode>
+      <FileName>Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Arrow" Collapsed="true">
+    <Position X="8" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAACAAAAAABABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.CannonBall" Collapsed="true">
+    <Position X="5.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAABAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.MagicProjectile" Collapsed="true">
+    <Position X="10.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAACAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Scene" Collapsed="true">
+    <Position X="9.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.IntroScene" Collapsed="true">
+    <Position X="12" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAACAAAAAAAAAAgAAAAACAAAAAAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.StartScreenScene" Collapsed="true">
+    <Position X="5.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAIAAgAAAAEACAAAAAAAQAIACAAgAQgAAAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.MapCreationScene" Collapsed="true">
+    <Position X="9.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAIBAgAAAAAAAAAAAAAAAAAAAAAAAIAQQAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.PlayMapScene" Collapsed="true">
+    <Position X="14.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEgAAAYAAgAAgAAAAIABAAAAAEAAABQAACAAgAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.EndScreenScene" Collapsed="true">
+    <Position X="7.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.SceneryCreation" Collapsed="true">
+    <Position X="14.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAAAAAAA=</HashCode>
+      <FileName>SceneryCreation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.SpecialAbilities" Collapsed="true">
+    <Position X="14.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAEAAgAAAAAAAAAAAABIACAAgAAEAAAAgAAAAAAA=</HashCode>
+      <FileName>SpecialAbilities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.Tile" Collapsed="true">
+    <Position X="9" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAAQAAACAQAgAAAACAAAAAAAAAAAAAAAIAAAgAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.NexusTile" Collapsed="true">
+    <Position X="5.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.SandTile" Collapsed="true">
+    <Position X="12.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.MountainTile" Collapsed="true">
+    <Position X="1.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.PathTile" Collapsed="true">
+    <Position X="8" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.SandMountainTile" Collapsed="true">
+    <Position X="14.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.BedouinTile" Collapsed="true">
+    <Position X="3.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.SandRockTile" Collapsed="true">
+    <Position X="10.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.OasisTile" Collapsed="true">
+    <Position X="17" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.BuildingTile" Collapsed="true">
+    <Position X="9" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQAAACABACAiAAAAAAAAACAAAAAAAABAAQAAAAAAAA=</HashCode>
+      <FileName>BuildingTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.ArcherTower" Collapsed="true">
+    <Position X="9" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>BuildingTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.CannonTower" Collapsed="true">
+    <Position X="6.75" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>BuildingTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grupp5Game.MagicTower" Collapsed="true">
+    <Position X="11.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>BuildingTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Grupp5Game.CurrentWave" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABACAAABAAAAAAAAAAQAAAAAAAAAAAAAQCAAACAAAA=</HashCode>
+      <FileName>EnemySpawner.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="Grupp5Game.TowerTypes" Collapsed="true">
+    <Position X="9.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAFAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Scene.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
