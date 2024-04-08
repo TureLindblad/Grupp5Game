@@ -29,6 +29,7 @@ namespace Grupp5Game
                             {
                                 FinalDamage = projectile.MagicDamage / 2;
                                 enemy.HealthBar.CurrentHealth -= FinalDamage;
+                                _ = projectile.ApplyProjectileEffect(enemy);
                             }
                         }
 

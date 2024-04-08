@@ -13,7 +13,7 @@ namespace Grupp5Game
     {
         public FireEnemy3(Texture2D texture) : base(texture)
         {
-            HealthBar = new HealthBar(100);
+            HealthBar = new HealthBar(200 * Globals.HealthMod);
             Size = 70;
             Speed = 2;
             PhysArmor = 10;
@@ -24,7 +24,7 @@ namespace Grupp5Game
     {
         public FrostEnemy3(Texture2D texture) : base(texture)
         {
-            HealthBar = new HealthBar(100);
+            HealthBar = new HealthBar(200 * Globals.HealthMod);
             Size = 70;
             Speed = 2;
             PhysArmor = 10;
