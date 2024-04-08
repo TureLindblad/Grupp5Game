@@ -22,7 +22,8 @@ namespace Grupp5Game
         public int Size { get; set; }
         public Vector2 Direction { get; set; }
         public Texture2D Texture { get; set; }
-        public int Damage { get; set; }
+        public int PhysDamage { get; set; }
+        public int MagicDamage { get; set; }
         public float Rotation { get; set; }
 
         public virtual void Update(List<Enemy> enemyList, PlayMapScene mapScene)
@@ -71,7 +72,7 @@ namespace Grupp5Game
             Direction = direction;
             Size = ArrowSize;
             Texture = texture;
-            Damage = damage;
+            PhysDamage = damage;
         }
 
         public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
@@ -110,7 +111,7 @@ namespace Grupp5Game
             Direction = direction;
             Size = CannonBallSize;
             Texture = texture;
-            Damage = damage;
+            PhysDamage = damage;
         }
 
         public override void Update(List<Enemy> enemyList, PlayMapScene mapScene)
@@ -131,7 +132,7 @@ namespace Grupp5Game
             Direction = direction;
             Size = MagicProjectileSize;
             Texture = texture;
-            Damage = damage;
+            MagicDamage = damage;
         }
 
         public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)

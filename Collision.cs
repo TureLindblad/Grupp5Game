@@ -1,9 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Grupp5Game
 {
@@ -17,12 +12,22 @@ namespace Grupp5Game
                 {
                     if (projectile is not CannonBall)
                     {
-                        enemy.HealthBar.CurrentHealth -= projectile.Damage;
-                        _ = projectile.ApplyProjectileEffect(enemy);
+                        if (projectile is MagicProjectile)
+                        {
+                            enemy.HealthBar.CurrentHealth -= ((projectile.MagicDamage - enemy.MagicArmor)
+                                                               + (projectile.MagicDamage / 2));
+                            _ = projectile.ApplyProjectileEffect(enemy);
+                        }
+                        if (projectile is Arrow)
+                        {
+                            enemy.HealthBar.CurrentHealth -= ((projectile.PhysDamage - enemy.PhysArmor)
+                                                               + (projectile.PhysDamage / 2));
+                            _ = projectile.ApplyProjectileEffect(enemy);
+                        }
                     }
 
                     projectile.DamageAnimation(enemy);
-                    
+
                     return true;
                 }
             }
@@ -31,5 +36,6 @@ namespace Grupp5Game
         }
     }
 }
+
 
 

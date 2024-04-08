@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
@@ -14,7 +9,6 @@ namespace Grupp5Game
 
         }
     }
-
     public class FireEnemy3 : Tier3Enemy
     {
         public FireEnemy3(Texture2D texture) : base(texture)

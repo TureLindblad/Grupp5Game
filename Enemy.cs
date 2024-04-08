@@ -1,10 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
@@ -59,7 +56,6 @@ namespace Grupp5Game
             float minDistanceTower = float.MaxValue;
             Tile[,] tiles = mapScene.MapGrid.Tiles;
             Tile closestPathTile = null;
-            Tile nextTile;
 
             for (int x = 0; x < tiles.GetLength(0); x++)
             {

@@ -28,7 +28,7 @@ namespace Grupp5Game
             Size = 35;
             HealthBar = new HealthBar(35);
             Speed = 2;
-            MagicArmor = 5;
+            MagicArmor = 7;
             GoldValue = 50;
         }
     }
@@ -39,7 +39,7 @@ namespace Grupp5Game
             Size = 35;
             HealthBar = new HealthBar(40);
             Speed = 4;
-            MagicArmor = 3;
+            MagicArmor = 7;
             GoldValue = 8;
         }
     }

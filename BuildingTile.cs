@@ -1,6 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -66,7 +64,7 @@ namespace Grupp5Game
         public static readonly int TowerCost = 150;
         public ArcherTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.NexusTexture;
+            Texture = Assets.ArcherTowerTexture;
             Range = 200;
             ShotDelay = TimeSpan.FromSeconds(0.4);
             Damage = 5;
@@ -98,7 +96,7 @@ namespace Grupp5Game
         public static readonly int TowerCost = 250;
         public CannonTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.BasetowerTexture;
+            Texture = Assets.CannonTowerTexture;
             Range = 130;
             ShotDelay = TimeSpan.FromSeconds(1);
             Damage = 10;
@@ -130,7 +128,7 @@ namespace Grupp5Game
         public static readonly int TowerCost = 300;
         public MagicTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.NexusTextureOuter;
+            Texture = Assets.MagicTowerTexture;
             Range = 180;
             ShotDelay = TimeSpan.FromSeconds(0.7);
             Damage = 7;
