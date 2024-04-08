@@ -19,7 +19,7 @@ namespace Grupp5Game
             Speed = 2;
             MagicArmor = 5;
             PhysArmor = 10;
-            GoldValue = 100;
+            GoldValue = 110;
         }
     }
     public class FireEnemy2 : Tier2Enemy
@@ -31,7 +31,7 @@ namespace Grupp5Game
             Speed = 2;
             PhysArmor = 10;
             MagicArmor = 5;
-            GoldValue = 100;
+            GoldValue = 110;
         }
     }
 }

@@ -83,10 +83,24 @@ namespace Grupp5Game
 
             while (!fireDOT.IsCompleted)
             {
-                enemy.HealthBar.CurrentHealth -= enemy.HealthBar.MaxHealth * 0.1f;
+                enemy.IsBurning = true;
 
-                await Task.Delay(500);
+                if (enemy.IsBurning)
+                {
+                    float damage = enemy.HealthBar.MaxHealth * 0.1f;
+
+                    if (damage > 100)
+                    {
+                        damage = 100 ;
+                    }
+
+                    enemy.HealthBar.CurrentHealth -= damage;
+
+                    await Task.Delay(500);
+                }
             }
+
+            enemy.IsBurning = false;
 
             enemy.TextureColor = lastEnemyColor;
         }
@@ -125,7 +139,7 @@ namespace Grupp5Game
     public class MagicProjectile : Projectile
     {
         public static readonly float Speed = 9f;
-        public static readonly int MagicProjectileSize = 50;
+        public static readonly int MagicProjectileSize = 30;
         public MagicProjectile(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;

@@ -10,19 +10,46 @@ namespace Grupp5Game
             {
                 if (projectile.Bounds.Intersects(enemy.Bounds))
                 {
+                    int FinalDamage;
+
                     if (projectile is not CannonBall)
                     {
                         if (projectile is MagicProjectile)
                         {
-                            enemy.HealthBar.CurrentHealth -= ((projectile.MagicDamage - enemy.MagicArmor)
-                                                               + (projectile.MagicDamage / 2));
-                            _ = projectile.ApplyProjectileEffect(enemy);
+                            FinalDamage = ((projectile.MagicDamage - enemy.MagicArmor)
+                                          + (projectile.MagicDamage / 2));
+
+                            if(FinalDamage > 0) 
+                            {
+                                enemy.HealthBar.CurrentHealth -= FinalDamage;
+
+                                _ = projectile.ApplyProjectileEffect(enemy);
+                            }
+                            else if(FinalDamage < 0)
+                            {
+                                FinalDamage = projectile.MagicDamage / 2;
+                                enemy.HealthBar.CurrentHealth -= FinalDamage;
+                            }
                         }
+
                         if (projectile is Arrow)
                         {
-                            enemy.HealthBar.CurrentHealth -= ((projectile.PhysDamage - enemy.PhysArmor)
-                                                               + (projectile.PhysDamage / 2));
-                            _ = projectile.ApplyProjectileEffect(enemy);
+                            FinalDamage = ((projectile.PhysDamage - enemy.PhysArmor)
+                                          + (projectile.PhysDamage / 2));
+
+                            if (FinalDamage > 0 && !enemy.IsBurning)
+                            {
+                                enemy.HealthBar.CurrentHealth -= FinalDamage;
+
+                                _ = projectile.ApplyProjectileEffect(enemy);
+                            }
+
+                            else if (FinalDamage < 0 && !enemy.IsBurning)
+                            {
+                                FinalDamage = projectile.PhysDamage / 2;
+                                enemy.HealthBar.CurrentHealth -= FinalDamage;
+                                _ = projectile.ApplyProjectileEffect(enemy);
+                            }
                         }
                     }
 

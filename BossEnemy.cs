@@ -11,7 +11,7 @@ namespace Grupp5Game
             Speed = 2;
             MagicArmor = 15;
             PhysArmor = 15;
-            GoldValue = 1000;
+            GoldValue = 450;
         }
     }
 }

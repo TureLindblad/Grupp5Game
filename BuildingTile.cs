@@ -61,7 +61,7 @@ namespace Grupp5Game
 
     public class ArcherTower : BuildingTile
     {
-        public static readonly int TowerCost = 150;
+        public static int TowerCost { get; set; } = 150;
         public ArcherTower(int x, int y) : base(x, y)
         {
             Texture = Assets.ArcherTowerTexture;
@@ -93,7 +93,7 @@ namespace Grupp5Game
 
     public class CannonTower : BuildingTile
     {
-        public static readonly int TowerCost = 250;
+        public static int TowerCost { get; set; } = 100;
         public CannonTower(int x, int y) : base(x, y)
         {
             Texture = Assets.CannonTowerTexture;
@@ -125,7 +125,7 @@ namespace Grupp5Game
 
     public class MagicTower : BuildingTile
     {
-        public static readonly int TowerCost = 300;
+        public static int TowerCost { get; set; } = 125;
         public MagicTower(int x, int y) : base(x, y)
         {
             Texture = Assets.MagicTowerTexture;
