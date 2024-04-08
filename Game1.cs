@@ -27,7 +27,7 @@ namespace Grupp5Game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            Globals.Graphics.IsFullScreen = false;
+            Globals.Graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()
@@ -66,7 +66,7 @@ namespace Grupp5Game
             Assets.Archer = Content.Load<Texture2D>("Image/archerimage");
             Assets.Magic = Content.Load<Texture2D>("Image/magicimage");
             Assets.Artillery = Content.Load<Texture2D>("Image/artilleryimage");
-            Assets.UpgradeButton = Content.Load<Texture2D>("Image/upgbutton");
+            Assets.UpgradeButton = Content.Load<Texture2D>("Buttons/upgradebutton");
             Assets.PriceButton = Content.Load<Texture2D>("Buttons/pricebutton");
             Assets.InputBox = Content.Load<Texture2D>("Image/inputbox");
             Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental2");

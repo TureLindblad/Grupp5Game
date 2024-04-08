@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Grupp5Game
 {
     public class MapObjectContainer
     {
+        private SpriteFont archerPrice;
+        private SpriteFont cannonPrice;
+        private SpriteFont magicPrice;
         private PlayMapObject archer;
         private PlayMapObject magic;
         private PlayMapObject artillery;
@@ -33,6 +37,10 @@ namespace Grupp5Game
             Point size = new Point(126, 120);
             Point frameSize = new Point(140, 132);
             Point buttonSize = new Point(140, 51);
+
+            archerPrice = Assets.Title;
+            cannonPrice = Assets.Title;
+            magicPrice = Assets.Title;
             
             archer = new PlayMapObject(Assets.Archer, size);
             magic = new PlayMapObject(Assets.Magic, size);
@@ -71,7 +79,7 @@ namespace Grupp5Game
             rainOfFire.TopRightCorner(RainOfFirePosition.Y, RainOfFirePosition.X);
             rainOfFireFrame.TopRightCorner(Globals.WindowSize.Y -215, Globals.WindowSize.X - 25);
 
-            upgradeButton.TopRightCorner(Globals.WindowSize.Y - 65, Globals.WindowSize.X);
+            upgradeButton.TopRightCorner(Globals.WindowSize.Y - 25, Globals.WindowSize.X);
         }
         public void Update(PlayMapScene mapScene)
         {
@@ -116,6 +124,24 @@ namespace Grupp5Game
             frostNovaFrame.Draw();
 
             upgradeButton.Draw();
+
+            string archerCost = "150";
+            Vector2 stringSize = archerPrice.MeasureString(archerCost);
+
+            float stringSizeX = Globals.WindowSize.X - stringSize.X - 20;
+            float stringSizeY = 20;
+
+            Globals.SpriteBatch.DrawString(archerPrice, archerCost, new Vector2(stringSizeX - 35, stringSizeY + 147), Color.Black);
+
+            string cannonCost = "250";
+            Vector2 stringSize2 = cannonPrice.MeasureString(archerCost);
+
+            Globals.SpriteBatch.DrawString(cannonPrice, cannonCost, new Vector2(stringSizeX - 35, stringSizeY + 347), Color.Black);
+
+            string magicCost = "300";
+            Vector2 stringSize3 = magicPrice.MeasureString(archerCost);
+
+            Globals.SpriteBatch.DrawString(magicPrice, magicCost, new Vector2(stringSizeX - 35, stringSizeY + 547), Color.Black);
         }
     }
 }

@@ -263,10 +263,10 @@ namespace Grupp5Game
             LastKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState();
 
-            if (GameOverlay.NexusHealth <= 0)
+            /*if (GameOverlay.NexusHealth <= 0)
             {
                 Game1.CurrentScene = new EndScreenScene(GameOverlay);
-            }
+            }*/
 
             Spawner.Update(this);
 

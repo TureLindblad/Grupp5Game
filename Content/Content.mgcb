@@ -97,6 +97,18 @@
 /processorParam:TextureFormat=Color
 /build:Buttons/UndoButton.png
 
+#begin Buttons/upgradebutton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Buttons/upgradebutton.png
+
 #begin Explosion.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -505,6 +517,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/GigaBoss.png
 
+#begin Sprites/GrassHex.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/GrassHex.png
+
 #begin Sprites/magic-purple.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -576,6 +600,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/StoneHex.png
+
+#begin Sprites/Towerbuildtile.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Towerbuildtile.png
 
 #begin Text/IntroText.spritefont
 /importer:FontDescriptionImporter
