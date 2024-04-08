@@ -27,15 +27,13 @@ namespace Grupp5Game
         {
 
         }
-<<<<<<< HEAD
         public void Draw()
         {
             Globals.SpriteBatch.Draw(texture, rect, Color);
-=======
+        }
         public void Draw(PlayMapScene playMapScene, Color color)
         {
             Globals.SpriteBatch.Draw(texture, rect, color);
->>>>>>> ebbc96d (bygger ut torn med knappar)
         }
         public void TopRightCorner(int windowHeight, int windowWidth)
         {
