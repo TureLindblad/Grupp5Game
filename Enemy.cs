@@ -29,6 +29,7 @@ namespace Grupp5Game
         public bool MarkedForDeletion { get; set; } = false;
         public HealthBar HealthBar { get; protected set; }
         public Color TextureColor { get; set; }
+        public bool IsBurning { get; set; } = false;
 
         public Enemy(Texture2D texture)
         {
@@ -70,8 +71,6 @@ namespace Grupp5Game
                         minDistancePath = distance;
                         closestPathTile = tiles[x, y];
                     }
-
-
                 }
             }
 
@@ -113,7 +112,6 @@ namespace Grupp5Game
                     Size, 
                     Size), 
                 TextureColor);
-
         }
     }
 }
