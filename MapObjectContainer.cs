@@ -129,7 +129,7 @@ namespace Grupp5Game
 
             upgradeButton.Draw();
 
-            string archerCost = "150";
+            string archerCost = ArcherTower.TowerCost.ToString();
             Vector2 stringSize = archerPrice.MeasureString(archerCost);
 
             float stringSizeX = Globals.WindowSize.X - stringSize.X - 20;
@@ -137,12 +137,12 @@ namespace Grupp5Game
 
             Globals.SpriteBatch.DrawString(archerPrice, archerCost, new Vector2(stringSizeX - 35, stringSizeY + 147), Color.Black);
 
-            string cannonCost = "250";
+            string cannonCost = CannonTower.TowerCost.ToString();
             Vector2 stringSize2 = cannonPrice.MeasureString(archerCost);
 
             Globals.SpriteBatch.DrawString(cannonPrice, cannonCost, new Vector2(stringSizeX - 35, stringSizeY + 347), Color.Black);
 
-            string magicCost = "300";
+            string magicCost = MagicTower.TowerCost.ToString();
             Vector2 stringSize3 = magicPrice.MeasureString(archerCost);
 
             Globals.SpriteBatch.DrawString(magicPrice, magicCost, new Vector2(stringSizeX - 35, stringSizeY + 547), Color.Black);
