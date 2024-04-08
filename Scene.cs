@@ -21,6 +21,7 @@ namespace Grupp5Game
 
     public class IntroScene : Scene
     {
+        
         private static float IntroTextResize = Math.Min(
             Globals.WindowSize.X / (float)Assets.IntroTextTexture.Width,
             Globals.WindowSize.Y / (float)Assets.IntroTextTexture.Height);
@@ -35,6 +36,11 @@ namespace Grupp5Game
 
         public override void Draw()
         {
+            Globals.SpriteBatch.Draw(Assets.BackgroundImage,
+                new Rectangle(
+                    0,0, Globals.WindowSize.X, Globals.WindowSize.Y)
+                ,Color.White);
+
             Globals.SpriteBatch.Draw(Assets.IntroTextTexture,
                 new Rectangle(
                     Globals.WindowSize.X / 2 - IntroTextWidth / 2,
@@ -47,7 +53,7 @@ namespace Grupp5Game
                 Assets.IntroTextFont,
                 "PRESS SPACE TO CONTINUE",
                 new Vector2(Globals.WindowSize.X / 2 - 280, Globals.WindowSize.Y - 90),
-                Color.Black);
+                Color.White);
         }
     }
 
@@ -112,6 +118,11 @@ namespace Grupp5Game
 
         public override void Draw()
         {
+            Globals.SpriteBatch.Draw(Assets.BackgroundImage,
+                new Rectangle(
+                0, 0, Globals.WindowSize.X, Globals.WindowSize.Y)
+                , Color.White);
+
             frame.Draw();
             playButton.Draw();
             inputBox.Draw();
@@ -123,7 +134,7 @@ namespace Grupp5Game
             float titleX = (Globals.WindowSize.X - titleSize.X) / 2;
             float titleY = (Globals.WindowSize.Y - titleSize.Y) / 2;
 
-            Globals.SpriteBatch.DrawString(TitleFont, titleText, new Vector2(titleX - 20, titleY - 150), Color.Black);
+            Globals.SpriteBatch.DrawString(TitleFont, titleText, new Vector2(titleX - 20, titleY - 150), Color.White);
 
             float textX = (Globals.WindowSize.X - playerNameSize.X) / 2;
             float textY = (Globals.WindowSize.Y - playerNameSize.Y) / 2;

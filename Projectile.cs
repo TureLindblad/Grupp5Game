@@ -81,25 +81,22 @@ namespace Grupp5Game
             Task fireDOT = Task.Delay(3000);
             enemy.TextureColor = Color.Orange;
 
-            int totalBurnDamage = 0;
-
-            while (!fireDOT.IsCompleted && totalBurnDamage <= 100)
+            while (!fireDOT.IsCompleted)
             {
                 enemy.IsBurning = true;
 
                 if (enemy.IsBurning)
                 {
                     float damage = enemy.HealthBar.MaxHealth * 0.1f;
-                    if (totalBurnDamage + damage > 100)
+
+                    if (damage > 100)
                     {
-                        damage = 100 - totalBurnDamage;
+                        damage = 100 ;
                     }
 
                     enemy.HealthBar.CurrentHealth -= damage;
-                    totalBurnDamage += (int)damage;
 
                     await Task.Delay(500);
-
                 }
             }
 

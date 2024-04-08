@@ -98,6 +98,8 @@ namespace Grupp5Game
 
             Assets.ExplosionAtlas = Content.Load<Texture2D>("Explosion");
             Assets.MagicBoltAtlas = Content.Load<Texture2D>("MagicBolt");
+
+            Assets.BackgroundImage = Content.Load<Texture2D>("Image/EleNexusBackground");
         }
 
         protected override void Update(GameTime gameTime)
