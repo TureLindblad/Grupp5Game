@@ -52,6 +52,8 @@ namespace Grupp5Game
             Assets.NexusTextureOuter = Content.Load<Texture2D>("Sprites/NexusHexOuter");
             Assets.EnemyGoblinTexture = Content.Load<Texture2D>("Sprites/EnemyGoblin");
             Assets.FrostEnemyTexture = Content.Load<Texture2D>("Sprites/FrostEnemy");
+            Assets.FrostEnemy2Texture = Content.Load<Texture2D>("Sprites/FrostEnemy2");
+            Assets.FrostEnemy3Texture = Content.Load<Texture2D>("Sprites/FrostEnemy3");
             Assets.IntroTextTexture = Content.Load<Texture2D>("TextSprites/IntroText");
             Assets.IntroTextFont = Content.Load<SpriteFont>("Text/IntroText");
             Assets.PlayButton = Content.Load<Texture2D>("Buttons/play_btn");
@@ -68,6 +70,8 @@ namespace Grupp5Game
             Assets.PriceButton = Content.Load<Texture2D>("Buttons/pricebutton");
             Assets.InputBox = Content.Load<Texture2D>("Image/inputbox");
             Assets.FireEnemyTexture = Content.Load<Texture2D>("Sprites/FireElemental");
+            Assets.FireEnemy2Texture = Content.Load<Texture2D>("Sprites/FireElemental2");
+            Assets.FireEnemy3Texture = Content.Load<Texture2D>("Sprites/FireElemental3");
             Assets.FlyingEnemyTexture = Content.Load<Texture2D>("Sprites/FlyingEnemy");
             Assets.BasetowerTexture = Content.Load<Texture2D>("Sprites/Basetower");
             Assets.PlayBtnMapScene = Content.Load<Texture2D>("Buttons/playbtnmapscene");
@@ -75,10 +79,13 @@ namespace Grupp5Game
             Assets.RainOfFire = Content.Load<Texture2D>("Image/RainOfFire");
             Assets.FrostNova = Content.Load<Texture2D>("Image/FrostNova");
             Assets.EndScreen = Content.Load<Texture2D>("Image/EndScreen");
+            Assets.FastEnemyTexture = Content.Load<Texture2D>("Sprites/FastEnemy");
 
             Assets.ArrowTexture = Content.Load<Texture2D>("Sprites/arrow");
             Assets.CannonBallTexture = Content.Load<Texture2D>("Sprites/cannon");
             Assets.MagicProjectileTexture = Content.Load<Texture2D>("Sprites/magic-purple");
+            Assets.ExplosionTexture = Content.Load<Texture2D>("Sprites/ExplosionTexture");
+            
         }
 
         protected override void Update(GameTime gameTime)

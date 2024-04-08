@@ -15,7 +15,14 @@ namespace Grupp5Game
             {
                 if (projectile.Bounds.Intersects(enemy.Bounds))
                 {
-                    enemy.HealthBar.CurrentHealth -= projectile.Damage;
+                    if (projectile is not CannonBall)
+                    {
+                        enemy.HealthBar.CurrentHealth -= projectile.Damage;
+                        _ = projectile.ApplyProjectileEffect(enemy);
+                    }
+
+                    projectile.DamageAnimation(enemy);
+                    
                     return true;
                 }
             }
