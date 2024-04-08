@@ -33,6 +33,8 @@ namespace Grupp5Game
             timeSinceLastShot = gameTime.TotalGameTime - TimeAtLastShot;
         }
 
+        public abstract void UpgradingTower();
+
 
         public Enemy GetTargetEnemy()
         {
@@ -73,7 +75,7 @@ namespace Grupp5Game
             Damage = 5;
         }
 
-        public void UpgradingTower()
+        public override void UpgradingTower()
         {
             if (!upgraded)
             {
@@ -125,7 +127,7 @@ namespace Grupp5Game
 
 
         }
-        public void UpgradingTower()
+        public override void UpgradingTower()
         {
             if (!upgraded)
             {
@@ -175,7 +177,7 @@ namespace Grupp5Game
 
         }
 
-        public void UpgradingTower()
+        public override void UpgradingTower()
         {
             if (!upgraded)
             {

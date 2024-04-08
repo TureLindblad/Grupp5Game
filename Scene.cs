@@ -260,9 +260,14 @@ namespace Grupp5Game
         private KeyboardState LastKeyboardState { get; set; }
         private KeyboardState CurrentKeyboardState { get; set; }
 
+        private MouseState LastMouseState { get; set; }
+        private MouseState CurrentMouseState { get; set; }
+
         public static List<Projectile> Projectiles = new List<Projectile>();
         public List<Explosion> Explosions = new List<Explosion>();
         public List<MagicBolt> MagicBolts = new List<MagicBolt>();
+
+        private BuildingTile SelectedTowerTile { get; set; }
 
         public PlayMapScene(Grid drawnGrid)
         {
@@ -278,7 +283,10 @@ namespace Grupp5Game
 
         public override void Update(GameTime gameTime)
         {
-            MouseState mouseState = Mouse.GetState();
+            LastMouseState = CurrentMouseState;
+            CurrentMouseState = Mouse.GetState();
+
+
             LastKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState();
 
@@ -341,9 +349,12 @@ namespace Grupp5Game
                 SpecialAbilities.FreezeAllEnemies(this);
 
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D4) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+
+            LookForSelectedTower(CurrentMouseState);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.D4) && SelectedTowerTile != null)
             {
-                UpgradeTower(mouseState);
+                SelectedTowerTile.UpgradingTower();
             }
 
             MapObjects.Update(this);
@@ -373,6 +384,15 @@ namespace Grupp5Game
                 magicBolt.Draw();
             }
 
+            if (SelectedTowerTile != null)
+            {
+                Globals.SpriteBatch.Draw(Assets.SandTexture, 
+                    new Rectangle((int)SelectedTowerTile.TexturePosition.X - SelectedTowerTile.TextureResizeDimension / 2 + 16, 
+                    (int)SelectedTowerTile.TexturePosition.Y - SelectedTowerTile.TextureResizeDimension / 2 + 13, 
+                    SelectedTowerTile.TextureResizeDimension, 
+                    SelectedTowerTile.TextureResizeDimension), 
+                    Color.Orange * 0.5f);
+            }
 
             GameOverlay.Draw();
 
@@ -393,39 +413,22 @@ namespace Grupp5Game
             Projectiles.Remove(projectile);
         }
 
-        public void UpgradeTower(MouseState mouseState)
+        public void LookForSelectedTower(MouseState mouseState)
         {
-            if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed
-            || SelectedTowerToPlace == TowerTypes.Archer && mouseState.LeftButton == ButtonState.Pressed
-            || SelectedTowerToPlace == TowerTypes.Cannon && mouseState.LeftButton == ButtonState.Pressed)
+            Vector2 mousePosition = mouseState.Position.ToVector2();
 
+            for (int x = 0; x < MapGrid.Tiles.GetLength(0); x++)
             {
-                Vector2 mousePosition = mouseState.Position.ToVector2();
-
-                for (int x = 0; x < MapGrid.Tiles.GetLength(0); x++)
+                for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
                 {
-                    for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
+                    float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
+                    if (distance < MapGrid.Tiles[x, y].TextureResizeDimension && 
+                        CurrentMouseState.LeftButton == ButtonState.Pressed &&
+                        LastMouseState.LeftButton == ButtonState.Released)
                     {
-                        float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
-                        if (distance < MapGrid.Tiles[x, y].TextureResizeDimension)
-                        {
-                            if (MapGrid.Tiles[x, y] is MagicTower magicTower)
-                            {
-                                magicTower.UpgradingTower();
-
-                            }
-                            else if (MapGrid.Tiles[x, y] is ArcherTower archerTower)
-                            {
-                                archerTower.UpgradingTower();
-                            }
-                            else if (MapGrid.Tiles[x, y] is CannonTower cannonTower)
-
-                            {
-                                cannonTower.UpgradingTower();
-
-                            }
-                            return;
-                        }
+                        if (MapGrid.Tiles[x, y] is BuildingTile buildingTile) SelectedTowerTile = buildingTile;
+                        else if (SelectedTowerTile != null) SelectedTowerTile = null;
+                        return;
                     }
                 }
             }

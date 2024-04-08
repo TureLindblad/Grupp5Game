@@ -12,7 +12,7 @@ namespace Grupp5Game
     {
         protected Texture2D Texture;
         public Color TileColor {  get; set; }
-        public readonly int TextureResizeDimension;
+        public int TextureResizeDimension;
         public Vector2 Origin;
         public Vector2 TexturePosition;
         public Point IndexPosition;

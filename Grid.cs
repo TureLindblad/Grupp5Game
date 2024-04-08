@@ -132,6 +132,10 @@ namespace Grupp5Game
 
                 }
             }
+            else if (selected is BuildingTile)
+            {
+
+            }
         }
 
         private void MapCreationTool(Tile selected)
