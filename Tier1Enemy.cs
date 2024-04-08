@@ -38,9 +38,9 @@ namespace Grupp5Game
         {
             Size = 35;
             HealthBar = new HealthBar(40);
-            Speed = 4;
+            Speed = 3;
             MagicArmor = 7;
-            GoldValue = 8;
+            GoldValue = 50;
         }
     }
 }

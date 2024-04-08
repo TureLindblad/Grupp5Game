@@ -21,6 +21,7 @@ namespace Grupp5Game
 
     public class IntroScene : Scene
     {
+        
         private static float IntroTextResize = Math.Min(
             Globals.WindowSize.X / (float)Assets.IntroTextTexture.Width,
             Globals.WindowSize.Y / (float)Assets.IntroTextTexture.Height);
@@ -35,6 +36,11 @@ namespace Grupp5Game
 
         public override void Draw()
         {
+            Globals.SpriteBatch.Draw(Assets.BackgroundImage,
+                new Rectangle(
+                    0,0, Globals.WindowSize.X, Globals.WindowSize.Y)
+                ,Color.White);
+
             Globals.SpriteBatch.Draw(Assets.IntroTextTexture,
                 new Rectangle(
                     Globals.WindowSize.X / 2 - IntroTextWidth / 2,
@@ -47,7 +53,7 @@ namespace Grupp5Game
                 Assets.IntroTextFont,
                 "PRESS SPACE TO CONTINUE",
                 new Vector2(Globals.WindowSize.X / 2 - 280, Globals.WindowSize.Y - 90),
-                Color.Black);
+                Color.White);
         }
     }
 
@@ -61,6 +67,7 @@ namespace Grupp5Game
         bool keyAlreadyPressed = false;
         SpriteFont nameFont;
         SpriteFont TitleFont;
+        private readonly HighScore Leaderboard;
 
         public StartScreenScene()
         {
@@ -77,6 +84,8 @@ namespace Grupp5Game
             playButton.CenterElement(Globals.WindowSize.Y + 200, Globals.WindowSize.X);
             inputBox.CenterElement(Globals.WindowSize.Y - 100, Globals.WindowSize.X);
 
+            Leaderboard = new HighScore();
+            HighScore.LoadSavedData();
         }
 
         public override void Update(GameTime gameTime)
@@ -85,7 +94,8 @@ namespace Grupp5Game
             if (playButton.IsClicked())
             {
                 Game1.CurrentScene = new MapCreationScene();
-                playerNames.Add(playerName);
+                HighScore.CurrentPlayerName = playerName;
+                //playerNames.Add(playerName);
             }
             KeyboardState keyboardState = Keyboard.GetState();
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
@@ -112,6 +122,11 @@ namespace Grupp5Game
 
         public override void Draw()
         {
+            Globals.SpriteBatch.Draw(Assets.BackgroundImage,
+                new Rectangle(
+                0, 0, Globals.WindowSize.X, Globals.WindowSize.Y)
+                , Color.White);
+
             frame.Draw();
             playButton.Draw();
             inputBox.Draw();
@@ -123,12 +138,14 @@ namespace Grupp5Game
             float titleX = (Globals.WindowSize.X - titleSize.X) / 2;
             float titleY = (Globals.WindowSize.Y - titleSize.Y) / 2;
 
-            Globals.SpriteBatch.DrawString(TitleFont, titleText, new Vector2(titleX - 20, titleY - 150), Color.Black);
+            Globals.SpriteBatch.DrawString(TitleFont, titleText, new Vector2(titleX - 20, titleY - 150), Color.White);
 
             float textX = (Globals.WindowSize.X - playerNameSize.X) / 2;
             float textY = (Globals.WindowSize.Y - playerNameSize.Y) / 2;
 
             Globals.SpriteBatch.DrawString(nameFont, playerName, new Vector2(textX, textY - 50), Color.White);
+
+            Leaderboard.Draw();
         }
     }
 
@@ -245,6 +262,7 @@ namespace Grupp5Game
 
         public static List<Projectile> Projectiles = new List<Projectile>();
         public List<Explosion> Explosions = new List<Explosion>();
+        public List<MagicBolt> MagicBolts = new List<MagicBolt>();
 
         public PlayMapScene(Grid drawnGrid)
         {
@@ -262,11 +280,11 @@ namespace Grupp5Game
         {
             MouseState mouseState = Mouse.GetState();
             LastKeyboardState = CurrentKeyboardState;
-            CurrentKeyboardState = Keyboard.GetState(); 
+            CurrentKeyboardState = Keyboard.GetState();
 
             if (GameOverlay.NexusHealth <= 0)
             {
-                Game1.CurrentScene = new EndScreenScene();
+                Game1.CurrentScene = new EndScreenScene(GameOverlay);
             }
 
             Spawner.Update(this);
@@ -290,6 +308,11 @@ namespace Grupp5Game
                 if (Explosions[i].MarkedForDeletion) Explosions.Remove(Explosions[i]);
             }
 
+            for (int i = 0; i < MagicBolts.Count; i++)
+            {
+                if (MagicBolts[i].MarkedForDeletion) MagicBolts.Remove(MagicBolts[i]);
+            }
+
             if (LastKeyboardState.IsKeyDown(Keys.D1) && CurrentKeyboardState.IsKeyUp(Keys.D1))
             {
                 if (SelectedTowerToPlace == TowerTypes.Archer) SelectedTowerToPlace = null;
@@ -306,12 +329,14 @@ namespace Grupp5Game
                 else SelectedTowerToPlace = TowerTypes.Magic;
             }
 
-            if (LastKeyboardState.IsKeyDown(Keys.D8) && CurrentKeyboardState.IsKeyUp(Keys.D8))
+            if (LastKeyboardState.IsKeyDown(Keys.D8) && CurrentKeyboardState.IsKeyUp(Keys.D8) &&
+                SpecialAbilities.RainOfFireCooldown == 0)
             {
                 SpecialAbilities.SpawnManyExplosions(this);
             }
 
-            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9))
+            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9) &&
+                SpecialAbilities.FrostNovaCooldown == 0)
             {
                 SpecialAbilities.FreezeAllEnemies(this);
             
@@ -343,6 +368,12 @@ namespace Grupp5Game
                 explosion.Draw();
             }
 
+            foreach (MagicBolt magicBolt in MagicBolts)
+            {
+                magicBolt.Draw();
+            }
+
+
             GameOverlay.Draw();
 
             MapObjects.Draw();
@@ -352,7 +383,11 @@ namespace Grupp5Game
         {
             if (projectile is CannonBall cannonBall)
             {
-                Explosions.Add(new Explosion(projectile.Position, projectile.PhysDamage, cannonBall.SplashDiameter, this));
+                Explosions.Add(new Explosion(projectile.Position, projectile.PhysDamage, CannonBall.SplashDiameter, this));
+            } 
+            if (projectile is MagicProjectile)
+            {
+                MagicBolts.Add(new MagicBolt(projectile.Position, projectile.MagicDamage, 100, this));
             }
 
             Projectiles.Remove(projectile);
@@ -396,17 +431,24 @@ namespace Grupp5Game
             }
         }
     }
-
     public class EndScreenScene : Scene
     {
+        private readonly EndObjectContainer EndObjects;
+        public EndScreenScene(Overlay overlay)
+        {
+            int finalScore = overlay.CurrentWave * overlay.EnemiesKilled + overlay.PlayerGold;
+            HighScore.SaveData(Tuple.Create(HighScore.CurrentPlayerName, finalScore));
+                EndObjects = new EndObjectContainer();
+            }
+
         public override void Update(GameTime gameTime)
         {
-          
+            EndObjects.Update();
         }
 
         public override void Draw()
         {
-
+            EndObjects.Draw();
         }
     }
 }

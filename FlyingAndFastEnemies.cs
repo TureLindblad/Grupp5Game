@@ -17,7 +17,7 @@ namespace Grupp5Game
             HealthBar = new HealthBar(15);
             Size = 30;
             Speed = 5;
-            GoldValue = 75;
+            GoldValue = 25;
         }
 
     }
@@ -28,7 +28,7 @@ namespace Grupp5Game
             HealthBar = new HealthBar(15);
             Size = 30;
             Speed = 6;
-            GoldValue = 75;
+            GoldValue = 25;
         }
     }
 }

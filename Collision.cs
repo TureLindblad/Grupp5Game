@@ -10,6 +10,8 @@ namespace Grupp5Game
             {
                 if (projectile.Bounds.Intersects(enemy.Bounds))
                 {
+                    int FinalDamage;
+
                     if (projectile is not CannonBall)
                     {
                          if (projectile is MagicProjectile magicProjectile)
