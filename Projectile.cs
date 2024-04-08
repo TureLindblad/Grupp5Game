@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 
 namespace Grupp5Game
 {
-    public abstract class Projectile 
+    public abstract class Projectile
     {
         public Rectangle Bounds
         {
@@ -50,10 +50,10 @@ namespace Grupp5Game
         {
 
             Globals.SpriteBatch.Draw(Texture, new Rectangle(
-                (int)Position.X - Size / 2, 
-                (int)Position.Y - Size / 2, 
-                Size, 
-                Size), 
+                (int)Position.X - Size / 2,
+                (int)Position.Y - Size / 2,
+                Size,
+                Size),
                 null,
                 Color.White,
                 Rotation,
@@ -66,13 +66,15 @@ namespace Grupp5Game
     {
         public static readonly float Speed = 15f;
         public static readonly int ArrowSize = 40;
-        public Arrow(Vector2 position, Vector2 direction, Texture2D texture, int damage)
+        public readonly bool FromUpgraded;
+        public Arrow(Vector2 position, Vector2 direction, Texture2D texture, int damage, bool fromUpgraded)
         {
             Position = position;
             Direction = direction;
             Size = ArrowSize;
             Texture = texture;
             PhysDamage = damage;
+            FromUpgraded = fromUpgraded;
         }
 
         public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
@@ -91,7 +93,7 @@ namespace Grupp5Game
 
                     if (damage > 100)
                     {
-                        damage = 100 ;
+                        damage = 100;
                     }
 
                     enemy.HealthBar.CurrentHealth -= damage;
@@ -116,17 +118,22 @@ namespace Grupp5Game
 
     public class CannonBall : Projectile
     {
+
         public static readonly float Speed = 10f;
         public static readonly int CannonBallSize = 25;
-        public static readonly int SplashDiameter = 150;
-        public CannonBall(Vector2 position, Vector2 direction, Texture2D texture, int damage)
+        public int SplashDiameter { get; set; }
+
+        public CannonBall(Vector2 position, Vector2 direction, Texture2D texture, int damage, int splashDiameter)
         {
             Position = position;
             Direction = direction;
             Size = CannonBallSize;
             Texture = texture;
             PhysDamage = damage;
+
+            SplashDiameter = splashDiameter;
         }
+
 
         public override void Update(List<Enemy> enemyList, PlayMapScene mapScene)
         {
@@ -138,15 +145,19 @@ namespace Grupp5Game
 
     public class MagicProjectile : Projectile
     {
+        public readonly bool FromUpgraded;
         public static readonly float Speed = 9f;
         public static readonly int MagicProjectileSize = 30;
-        public MagicProjectile(Vector2 position, Vector2 direction, Texture2D texture, int damage)
+
+        public bool Upgraded { get; set; }
+        public MagicProjectile(Vector2 position, Vector2 direction, Texture2D texture, int damage, bool fromUpgraded)
         {
             Position = position;
             Direction = direction;
             Size = MagicProjectileSize;
             Texture = texture;
             MagicDamage = damage;
+            FromUpgraded = fromUpgraded;
         }
 
         public async override Task ApplyProjectileEffect(Enemy enemy, List<Enemy> splashEnemies = null)
@@ -166,7 +177,7 @@ namespace Grupp5Game
                 enemy.Speed *= 2;
                 enemy.SpeedMod = 0;
             }
-            
+
             enemy.TextureColor = lastEnemyColor;
         }
 
@@ -176,6 +187,8 @@ namespace Grupp5Game
 
             Position += Direction * Speed;
             Rotation = (float)Math.Atan2(Direction.Y, Direction.X);
+
+
         }
     }
 }

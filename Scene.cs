@@ -21,7 +21,7 @@ namespace Grupp5Game
 
     public class IntroScene : Scene
     {
-        
+
         private static float IntroTextResize = Math.Min(
             Globals.WindowSize.X / (float)Assets.IntroTextTexture.Width,
             Globals.WindowSize.Y / (float)Assets.IntroTextTexture.Height);
@@ -38,8 +38,8 @@ namespace Grupp5Game
         {
             Globals.SpriteBatch.Draw(Assets.BackgroundImage,
                 new Rectangle(
-                    0,0, Globals.WindowSize.X, Globals.WindowSize.Y)
-                ,Color.White);
+                    0, 0, Globals.WindowSize.X, Globals.WindowSize.Y)
+                , Color.White);
 
             Globals.SpriteBatch.Draw(Assets.IntroTextTexture,
                 new Rectangle(
@@ -172,7 +172,7 @@ namespace Grupp5Game
             lastMouseState = currentMouseState;
             currentMouseState = Mouse.GetState();
             MapGrid.Update(gameTime);
-            
+
             undoButton.Update();
 
             playButtonMap.Update();
@@ -184,7 +184,7 @@ namespace Grupp5Game
             {
                 int numberOfAdjacentPaths = MapGrid.GetNeighborTiles(nexus.Key).Count;
 
-                if (numberOfAdjacentPaths == 1) 
+                if (numberOfAdjacentPaths == 1)
                 {
                     canPlay = true;
                 }
@@ -195,13 +195,13 @@ namespace Grupp5Game
                 }
             }
 
-            if ((playButton && canPlay) || 
+            if ((playButton && canPlay) ||
             (playButtonMap.IsClicked() && canPlay && lastMouseState != currentMouseState))
             {
-             Game1.CurrentScene = new PlayMapScene(MapGrid);
+                Game1.CurrentScene = new PlayMapScene(MapGrid);
             }
 
-            if ((!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) ||           
+            if ((!UndoIsPressed && Keyboard.GetState().IsKeyDown(Keys.U) && MapGrid.PathTileOrder.Count > 1) ||
                 (undoButton.IsClicked() && lastMouseState != currentMouseState) && MapGrid.PathTileOrder.Count > 1)
             {
                 UndoIsPressed = true;
@@ -225,7 +225,7 @@ namespace Grupp5Game
         public override void Draw()
         {
             MapGrid.Draw();
-            
+
 
             Globals.SpriteBatch.Draw(
                 Assets.Overlay,
@@ -246,12 +246,17 @@ namespace Grupp5Game
 
     public class PlayMapScene : Scene
     {
+
         public Overlay GameOverlay { get; }
         private readonly MapObjectContainer MapObjects;
         public TowerTypes? SelectedTowerToPlace { get; set; }
         public Grid MapGrid { get; private set; }
         public EnemySpawner Spawner { get; private set; }
         public List<Enemy> EnemyList { get; private set; }
+        private Color fadeColor = Color.White;
+        private Color fadeColor2 = Color.White;
+        private Color fadeColor3 = Color.White;
+        private bool hasPressed1Key = false;
         private KeyboardState LastKeyboardState { get; set; }
         private KeyboardState CurrentKeyboardState { get; set; }
 
@@ -261,9 +266,10 @@ namespace Grupp5Game
 
         public PlayMapScene(Grid drawnGrid)
         {
+
             MapObjects = new MapObjectContainer();
             SelectedTowerToPlace = null;
-            GameOverlay = new Overlay(); 
+            GameOverlay = new Overlay();
             MapGrid = drawnGrid;
             Spawner = new EnemySpawner();
             EnemyList = new List<Enemy>();
@@ -272,13 +278,14 @@ namespace Grupp5Game
 
         public override void Update(GameTime gameTime)
         {
+            MouseState mouseState = Mouse.GetState();
             LastKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState();
 
-            /*if (GameOverlay.NexusHealth <= 0)
+            if (GameOverlay.NexusHealth <= 0)
             {
                 Game1.CurrentScene = new EndScreenScene(GameOverlay);
-            }*/
+            }
 
             Spawner.Update(this);
 
@@ -332,6 +339,11 @@ namespace Grupp5Game
                 SpecialAbilities.FrostNovaCooldown == 0)
             {
                 SpecialAbilities.FreezeAllEnemies(this);
+
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D4) && Mouse.GetState().LeftButton == ButtonState.Pressed)
+            {
+                UpgradeTower(mouseState);
             }
 
             MapObjects.Update(this);
@@ -369,16 +381,54 @@ namespace Grupp5Game
 
         public void RemoveProjectile(Projectile projectile)
         {
-            if (projectile is CannonBall)
+            if (projectile is CannonBall cannonBall)
             {
-                Explosions.Add(new Explosion(projectile.Position, projectile.PhysDamage, CannonBall.SplashDiameter, this));
-            } 
+                Explosions.Add(new Explosion(projectile.Position, projectile.PhysDamage, cannonBall.SplashDiameter, this));
+            }
             if (projectile is MagicProjectile)
             {
                 MagicBolts.Add(new MagicBolt(projectile.Position, projectile.MagicDamage, 100, this));
             }
 
             Projectiles.Remove(projectile);
+        }
+
+        public void UpgradeTower(MouseState mouseState)
+        {
+            if (SelectedTowerToPlace == TowerTypes.Magic && mouseState.LeftButton == ButtonState.Pressed
+            || SelectedTowerToPlace == TowerTypes.Archer && mouseState.LeftButton == ButtonState.Pressed
+            || SelectedTowerToPlace == TowerTypes.Cannon && mouseState.LeftButton == ButtonState.Pressed)
+
+            {
+                Vector2 mousePosition = mouseState.Position.ToVector2();
+
+                for (int x = 0; x < MapGrid.Tiles.GetLength(0); x++)
+                {
+                    for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
+                    {
+                        float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
+                        if (distance < MapGrid.Tiles[x, y].TextureResizeDimension)
+                        {
+                            if (MapGrid.Tiles[x, y] is MagicTower magicTower)
+                            {
+                                magicTower.UpgradingTower();
+
+                            }
+                            else if (MapGrid.Tiles[x, y] is ArcherTower archerTower)
+                            {
+                                archerTower.UpgradingTower();
+                            }
+                            else if (MapGrid.Tiles[x, y] is CannonTower cannonTower)
+
+                            {
+                                cannonTower.UpgradingTower();
+
+                            }
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
     public class EndScreenScene : Scene
@@ -388,8 +438,8 @@ namespace Grupp5Game
         {
             int finalScore = overlay.CurrentWave * overlay.EnemiesKilled + overlay.PlayerGold;
             HighScore.SaveData(Tuple.Create(HighScore.CurrentPlayerName, finalScore));
-                EndObjects = new EndObjectContainer();
-            }
+            EndObjects = new EndObjectContainer();
+        }
 
         public override void Update(GameTime gameTime)
         {

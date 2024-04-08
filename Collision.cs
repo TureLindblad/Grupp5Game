@@ -14,40 +14,22 @@ namespace Grupp5Game
 
                     if (projectile is not CannonBall)
                     {
-                        if (projectile is MagicProjectile)
+                        if (projectile is MagicProjectile magicProjectile)
                         {
-                            FinalDamage = ((projectile.MagicDamage - enemy.MagicArmor)
-                                          + (projectile.MagicDamage / 2));
-
-                            if(FinalDamage > 0) 
+                            enemy.HealthBar.CurrentHealth -= ((projectile.MagicDamage - enemy.MagicArmor)
+                                                               + (projectile.MagicDamage / 2));
+                            if (magicProjectile.FromUpgraded)
                             {
-                                enemy.HealthBar.CurrentHealth -= FinalDamage;
-
                                 _ = projectile.ApplyProjectileEffect(enemy);
-                            }
-                            else if(FinalDamage < 0)
-                            {
-                                FinalDamage = projectile.MagicDamage / 2;
-                                enemy.HealthBar.CurrentHealth -= FinalDamage;
                             }
                         }
-
-                        if (projectile is Arrow)
+                        if (projectile is Arrow arrowProjectile)
                         {
-                            FinalDamage = ((projectile.PhysDamage - enemy.PhysArmor)
-                                          + (projectile.PhysDamage / 2));
+                            enemy.HealthBar.CurrentHealth -= ((projectile.PhysDamage - enemy.PhysArmor)
+                                                               + (projectile.PhysDamage / 2));
 
-                            if (FinalDamage > 0 && !enemy.IsBurning)
+                            if (arrowProjectile.FromUpgraded)
                             {
-                                enemy.HealthBar.CurrentHealth -= FinalDamage;
-
-                                _ = projectile.ApplyProjectileEffect(enemy);
-                            }
-
-                            else if (FinalDamage < 0 && !enemy.IsBurning)
-                            {
-                                FinalDamage = projectile.PhysDamage / 2;
-                                enemy.HealthBar.CurrentHealth -= FinalDamage;
                                 _ = projectile.ApplyProjectileEffect(enemy);
                             }
                         }

@@ -1,4 +1,6 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -6,13 +8,13 @@ namespace Grupp5Game
 {
     public abstract class BuildingTile : Tile
     {
-        protected float Range; 
+        protected float Range;
         public int Damage { get; set; }
         public TimeSpan ShotDelay { get; set; }
         protected TimeSpan timeSinceLastShot = TimeSpan.Zero;
         protected TimeSpan TimeAtLastShot;
         protected bool CanShoot = true;
-        public List<Tuple<Vector2, bool>> AttackingPositions {  get; set; }
+        public List<Tuple<Vector2, bool>> AttackingPositions { get; set; }
         public BuildingTile(int x, int y) : base(x, y)
         {
             AttackingPositions = new List<Tuple<Vector2, bool>>();
@@ -25,13 +27,13 @@ namespace Grupp5Game
             AttackingPositions.Add(Tuple.Create(v2, false));
             AttackingPositions.Add(Tuple.Create(v3, false));
         }
-      
-        protected void UpdateTimeSinceLastShot(GameTime gameTime) 
+
+        protected void UpdateTimeSinceLastShot(GameTime gameTime)
         {
             timeSinceLastShot = gameTime.TotalGameTime - TimeAtLastShot;
         }
 
-     
+
         public Enemy GetTargetEnemy()
         {
             if (Game1.CurrentScene is PlayMapScene mapScene)
@@ -45,7 +47,7 @@ namespace Grupp5Game
                     }
                 }
             }
- 
+
             return null;
         }
 
@@ -57,18 +59,31 @@ namespace Grupp5Game
 
             if (timeSinceLastShot >= ShotDelay) CanShoot = true;
         }
-    }    
+    }
 
     public class ArcherTower : BuildingTile
     {
+        private bool upgraded = false;
         public static int TowerCost { get; set; } = 150;
         public ArcherTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.ArcherTowerTexture;
+            Texture = Assets.NexusTexture;
             Range = 200;
-            ShotDelay = TimeSpan.FromSeconds(0.4);
+            ShotDelay = TimeSpan.FromSeconds(1.5);
             Damage = 5;
         }
+
+        public void UpgradingTower()
+        {
+            if (!upgraded)
+            {
+                Damage = 35;
+                ShotDelay = TimeSpan.FromSeconds(0.8);
+                upgraded = true;
+            }
+        }
+
+
 
         public override void Update(GameTime gameTime)
         {
@@ -85,8 +100,8 @@ namespace Grupp5Game
                     (targetEnemy.Position + targetEnemy.Velocity * Vector2.Distance(targetEnemy.Position, TexturePosition) / Arrow.Speed) - TexturePosition);
 
                 PlayMapScene.Projectiles.Add(new Arrow(
-                    TexturePosition + new Vector2(Arrow.ArrowSize / 2, Arrow.ArrowSize / 2), 
-                    direction, Assets.ArrowTexture, Damage));
+                    TexturePosition + new Vector2(Arrow.ArrowSize / 2, Arrow.ArrowSize / 2),
+                    direction, Assets.ArrowTexture, Damage, upgraded));
             }
         }
     }
@@ -94,12 +109,34 @@ namespace Grupp5Game
     public class CannonTower : BuildingTile
     {
         public static int TowerCost { get; set; } = 100;
+
+        private bool upgraded = false;
+
+        public int SplashDiameter { get; set; }
+
         public CannonTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.CannonTowerTexture;
+            Texture = Assets.BasetowerTexture;
             Range = 130;
-            ShotDelay = TimeSpan.FromSeconds(1);
+            ShotDelay = TimeSpan.FromSeconds(1.0);
             Damage = 10;
+            SplashDiameter = 100;
+
+
+
+        }
+        public void UpgradingTower()
+        {
+            if (!upgraded)
+            {
+
+                Damage = 35;
+                ShotDelay = TimeSpan.FromSeconds(0.5);
+                upgraded = true;
+                SplashDiameter = 400;
+
+
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -117,8 +154,8 @@ namespace Grupp5Game
                     (targetEnemy.Position + targetEnemy.Velocity * Vector2.Distance(targetEnemy.Position, TexturePosition) / CannonBall.Speed) - TexturePosition);
 
                 PlayMapScene.Projectiles.Add(new CannonBall(
-                    TexturePosition + new Vector2(CannonBall.CannonBallSize / 2, CannonBall.CannonBallSize / 2), 
-                    direction, Assets.CannonBallTexture, Damage));
+                    TexturePosition + new Vector2(CannonBall.CannonBallSize / 2, CannonBall.CannonBallSize / 2),
+                    direction, Assets.CannonBallTexture, Damage, SplashDiameter));
             }
         }
     }
@@ -126,13 +163,31 @@ namespace Grupp5Game
     public class MagicTower : BuildingTile
     {
         public static int TowerCost { get; set; } = 125;
+        public bool magicProjectile = false;
+        private bool upgraded = false;
+
         public MagicTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.MagicTowerTexture;
+            Texture = Assets.NexusTextureOuter;
             Range = 180;
-            ShotDelay = TimeSpan.FromSeconds(0.7);
+            ShotDelay = TimeSpan.FromSeconds(1.0);
             Damage = 7;
+
         }
+
+        public void UpgradingTower()
+        {
+            if (!upgraded)
+            {
+                Damage = 35;
+                ShotDelay = TimeSpan.FromSeconds(0.7);
+                upgraded = true;
+                magicProjectile = true;
+
+
+            }
+        }
+
 
         public override void Update(GameTime gameTime)
         {
@@ -149,8 +204,8 @@ namespace Grupp5Game
                     (targetEnemy.Position + targetEnemy.Velocity * Vector2.Distance(targetEnemy.Position, TexturePosition) / MagicProjectile.Speed) - TexturePosition);
 
                 PlayMapScene.Projectiles.Add(new MagicProjectile(
-                    TexturePosition + new Vector2(MagicProjectile.MagicProjectileSize / 2, MagicProjectile.MagicProjectileSize / 2), 
-                    direction, Assets.MagicProjectileTexture, Damage));
+                    TexturePosition + new Vector2(MagicProjectile.MagicProjectileSize / 2, MagicProjectile.MagicProjectileSize / 2),
+                    direction, Assets.MagicProjectileTexture, Damage, upgraded));
             }
         }
     }
