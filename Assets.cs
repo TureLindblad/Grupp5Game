@@ -47,6 +47,7 @@ namespace Grupp5Game
         public static Texture2D UndoButton;
         public static Texture2D RainOfFire;
         public static Texture2D FrostNova;
+        public static Texture2D EndScreen;
          
         
         public static Texture2D FrostElementalTexture { get; internal set; }

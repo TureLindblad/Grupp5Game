@@ -74,6 +74,7 @@ namespace Grupp5Game
             Assets.UndoButton = Content.Load<Texture2D>("Buttons/UndoButton");
             Assets.RainOfFire = Content.Load<Texture2D>("Image/RainOfFire");
             Assets.FrostNova = Content.Load<Texture2D>("Image/FrostNova");
+            Assets.EndScreen = Content.Load<Texture2D>("Image/EndScreen");
 
             Assets.ArrowTexture = Content.Load<Texture2D>("Sprites/arrow");
             Assets.CannonBallTexture = Content.Load<Texture2D>("Sprites/cannon");

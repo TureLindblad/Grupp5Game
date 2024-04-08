@@ -314,16 +314,22 @@ namespace Grupp5Game
         }
     }
 
-    public class EndScreenScene() : Scene
+    public class EndScreenScene : Scene
     {
+        private readonly EndObjectContainer EndObjects;
+        
+        public EndScreenScene()
+        {
+            EndObjects = new EndObjectContainer();
+        }
         public override void Update(GameTime gameTime)
         {
-
+            EndObjects.Update();
         }
 
         public override void Draw()
         {
-
+            EndObjects.Draw();
         }
     }
 }
