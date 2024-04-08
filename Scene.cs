@@ -67,6 +67,7 @@ namespace Grupp5Game
         bool keyAlreadyPressed = false;
         SpriteFont nameFont;
         SpriteFont TitleFont;
+        private readonly HighScore Leaderboard;
 
         public StartScreenScene()
         {
@@ -83,6 +84,8 @@ namespace Grupp5Game
             playButton.CenterElement(Globals.WindowSize.Y + 200, Globals.WindowSize.X);
             inputBox.CenterElement(Globals.WindowSize.Y - 100, Globals.WindowSize.X);
 
+            Leaderboard = new HighScore();
+            HighScore.LoadSavedData();
         }
 
         public override void Update(GameTime gameTime)
@@ -91,7 +94,8 @@ namespace Grupp5Game
             if (playButton.IsClicked())
             {
                 Game1.CurrentScene = new MapCreationScene();
-                playerNames.Add(playerName);
+                HighScore.CurrentPlayerName = playerName;
+                //playerNames.Add(playerName);
             }
             KeyboardState keyboardState = Keyboard.GetState();
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
@@ -140,6 +144,8 @@ namespace Grupp5Game
             float textY = (Globals.WindowSize.Y - playerNameSize.Y) / 2;
 
             Globals.SpriteBatch.DrawString(nameFont, playerName, new Vector2(textX, textY - 50), Color.White);
+
+            Leaderboard.Draw();
         }
     }
 
@@ -267,12 +273,12 @@ namespace Grupp5Game
         public override void Update(GameTime gameTime)
         {
             LastKeyboardState = CurrentKeyboardState;
-            CurrentKeyboardState = Keyboard.GetState(); 
+            CurrentKeyboardState = Keyboard.GetState();
 
-            /*if (GameOverlay.NexusHealth <= 0)
+            if (GameOverlay.NexusHealth <= 0)
             {
-                Game1.CurrentScene = new EndScreenScene();
-            }*/
+                Game1.CurrentScene = new EndScreenScene(GameOverlay);
+            }
 
             Spawner.Update(this);
 
@@ -316,12 +322,14 @@ namespace Grupp5Game
                 else SelectedTowerToPlace = TowerTypes.Magic;
             }
 
-            if (LastKeyboardState.IsKeyDown(Keys.D8) && CurrentKeyboardState.IsKeyUp(Keys.D8))
+            if (LastKeyboardState.IsKeyDown(Keys.D8) && CurrentKeyboardState.IsKeyUp(Keys.D8) &&
+                SpecialAbilities.RainOfFireCooldown == 0)
             {
                 SpecialAbilities.SpawnManyExplosions(this);
             }
 
-            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9))
+            if (LastKeyboardState.IsKeyDown(Keys.D9) && CurrentKeyboardState.IsKeyUp(Keys.D9) &&
+                SpecialAbilities.FrostNovaCooldown == 0)
             {
                 SpecialAbilities.FreezeAllEnemies(this);
             }
@@ -373,15 +381,16 @@ namespace Grupp5Game
             Projectiles.Remove(projectile);
         }
     }
-
     public class EndScreenScene : Scene
     {
         private readonly EndObjectContainer EndObjects;
-        
-        public EndScreenScene()
+        public EndScreenScene(Overlay overlay)
         {
-            EndObjects = new EndObjectContainer();
-        }
+            int finalScore = overlay.CurrentWave * overlay.EnemiesKilled + overlay.PlayerGold;
+            HighScore.SaveData(Tuple.Create(HighScore.CurrentPlayerName, finalScore));
+                EndObjects = new EndObjectContainer();
+            }
+
         public override void Update(GameTime gameTime)
         {
             EndObjects.Update();

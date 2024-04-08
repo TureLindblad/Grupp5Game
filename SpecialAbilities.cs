@@ -9,8 +9,12 @@ namespace Grupp5Game
 {
     public static class SpecialAbilities
     {
+        public static float RainOfFireCooldown = 0;
+        public static float FrostNovaCooldown = 0;
         public static async void SpawnManyExplosions(PlayMapScene mapScene)
         {
+            RainOfFireCooldownTimer();
+
             Random rnd = new Random();
             for (int i = 0; i < 8; i++)
             {
@@ -30,6 +34,8 @@ namespace Grupp5Game
 
         public static void FreezeAllEnemies(PlayMapScene mapScene)
         {
+            FrostNovaCooldownTimer();
+
             foreach (Enemy enemy in mapScene.EnemyList)
             {
                 FreezeTimer(enemy);
@@ -47,6 +53,54 @@ namespace Grupp5Game
 
             enemy.Speed = lastEnemySpeed;
             enemy.TextureColor = lastEnemyColor;
+        }
+
+        private static async void RainOfFireCooldownTimer()
+        {
+            RainOfFireCooldown = 1;
+
+            while (RainOfFireCooldown > 0)
+            {
+                RainOfFireCooldown -= 0.01f;
+                await Task.Delay(1000);
+            }
+
+            RainOfFireCooldown = 0;
+        }
+
+        private static async void FrostNovaCooldownTimer()
+        {
+            FrostNovaCooldown = 1;
+            
+            while (FrostNovaCooldown > 0)
+            {
+                FrostNovaCooldown -= 0.01f;
+                await Task.Delay(500);
+            }
+
+            FrostNovaCooldown = 0;
+        }
+
+        public static void DrawFireRainCooldown()
+        {
+            Rectangle rainOfFireRect = new Rectangle(
+                MapObjectContainer.RainOfFirePosition.X - MapObjectContainer.AbilitiesSize.X,
+                MapObjectContainer.RainOfFirePosition.Y - MapObjectContainer.AbilitiesSize.Y,
+                (int)(MapObjectContainer.AbilitiesSize.X * RainOfFireCooldown),
+                MapObjectContainer.AbilitiesSize.Y);
+
+            Globals.SpriteBatch.Draw(Assets.RainOfFire, rainOfFireRect, Color.Black * 0.5f);
+        }
+
+        public static void DrawFrostNovaCooldown()
+        {
+            Rectangle frostNovaRect = new Rectangle(
+                MapObjectContainer.FrostNovaPosition.X - MapObjectContainer.AbilitiesSize.X,
+                MapObjectContainer.FrostNovaPosition.Y - MapObjectContainer.AbilitiesSize.Y,
+                (int)(MapObjectContainer.AbilitiesSize.X * FrostNovaCooldown),
+                MapObjectContainer.AbilitiesSize.Y);
+
+            Globals.SpriteBatch.Draw(Assets.FrostNova, frostNovaRect, Color.Black * 0.5f);
         }
     }
 }
