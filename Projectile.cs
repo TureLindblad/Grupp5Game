@@ -125,7 +125,7 @@ namespace Grupp5Game
     public class MagicProjectile : Projectile
     {
         public static readonly float Speed = 9f;
-        public static readonly int MagicProjectileSize = 50;
+        public static readonly int MagicProjectileSize = 30;
         public MagicProjectile(Vector2 position, Vector2 direction, Texture2D texture, int damage)
         {
             Position = position;
