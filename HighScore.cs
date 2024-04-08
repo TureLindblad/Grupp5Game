@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Grupp5Game
 {
@@ -25,9 +27,20 @@ namespace Grupp5Game
         {
             string fileName = "SavedData.json";
 
-            string jsonData = File.ReadAllText(fileName);
+            if (File.Exists(fileName))
+            {
+                string jsonData = File.ReadAllText(fileName);
 
-            LoadedHighScore = JsonSerializer.Deserialize<List<Tuple<string, int>>>(jsonData);
+                LoadedHighScore = JsonSerializer.Deserialize<List<Tuple<string, int>>>(jsonData);
+            }
+            else
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    LoadedHighScore.Add(Tuple.Create("", 0));
+                    
+                }
+            }
         }
 
         public static void SaveData(Tuple<string, int> newData)
@@ -43,10 +56,20 @@ namespace Grupp5Game
 
         private List<Tuple<string, int>> GetTopFive()
         {
-            return LoadedHighScore
+            var query = LoadedHighScore
                 .OrderByDescending(scoreTuple => scoreTuple.Item2)
                 .Take(5)
                 .ToList();
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (i == query.Count - 1 || query.Count == 0)
+                {
+                    query.Add(Tuple.Create("", 0));
+                }
+            }
+
+            return query;
         }
 
         public void Draw()
@@ -56,16 +79,36 @@ namespace Grupp5Game
                     (int)(Texture.Width * 0.8), (int)(Texture.Height * 0.8)), 
                 Color.White);
 
-            string topFive = "";
-            foreach (Tuple<string, int> score in GetTopFive())
-            {
-                topFive += $"{score.Item1}: {score.Item2} waves\n";
-            }
+            var topFive = GetTopFive();
+
+            Globals.SpriteBatch.DrawString(
+            Assets.IntroTextFont,
+                $"[1] {topFive[0].Item1}: {topFive[0].Item2} score",
+                new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 75),
+                Color.Black);
 
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                topFive,
-                new Vector2(Globals.WindowSize.X / 2 - 480, Globals.WindowSize.Y / 2),
+                $"[2] {topFive[1].Item1}: {topFive[1].Item2} score",
+                new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 150),
+                Color.Black);
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                $"[3] {topFive[2].Item1}: {topFive[2].Item2} score",
+                new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 225),
+                Color.Black);
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                $"[4] {topFive[3].Item1}: {topFive[3].Item2} score",
+                new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 300),
+                Color.Black);
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                $"[5] {topFive[4].Item1}: {topFive[4].Item2} score",
+                new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 375),
                 Color.Black);
         }
     }
