@@ -61,6 +61,7 @@ namespace Grupp5Game
         bool keyAlreadyPressed = false;
         SpriteFont nameFont;
         SpriteFont TitleFont;
+        MenuObjects LeaderBoard;
 
         public StartScreenScene()
         {
@@ -72,6 +73,7 @@ namespace Grupp5Game
             inputBox = new MenuObjects(Assets.InputBox, inputBoxSize);
             frame = new MenuObjects(Assets.Frame, frameSize);
             playButton = new MenuObjects(Assets.PlayButton, buttonSize);
+            LeaderBoard = new MenuObjects(Assets.LeaderBoard, frameSize);
 
             frame.CenterElement(Globals.WindowSize.Y, Globals.WindowSize.X);
             playButton.CenterElement(Globals.WindowSize.Y + 200, Globals.WindowSize.X);
@@ -115,6 +117,7 @@ namespace Grupp5Game
             frame.Draw();
             playButton.Draw();
             inputBox.Draw();
+            LeaderBoard.Draw();
             Vector2 playerNameSize = nameFont.MeasureString(playerName);
 
             string titleText = "ENTER YOUR NAME";
@@ -256,10 +259,10 @@ namespace Grupp5Game
             LastKeyboardState = CurrentKeyboardState;
             CurrentKeyboardState = Keyboard.GetState(); 
 
-            /*if (GameOverlay.NexusHealth <= 0)
+            if (GameOverlay.NexusHealth <= 0)
             {
                 Game1.CurrentScene = new EndScreenScene();
-            }*/
+            }
 
             Spawner.Update(this);
 
