@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 
 namespace Grupp5Game
 {
-    public static class HighScore
+    public class HighScore
     {
-        public static List<int> LoadedHighScore { get; set; } = new List<int>();
+        public static string CurrentPlayerName { get; set; }
+        public static List<Tuple<string, int>> LoadedHighScore { get; set; } = new List<Tuple<string, int>>();
         public static void LoadSavedData()
         {
             string fileName = "SavedData.json";
 
             string jsonData = File.ReadAllText(fileName);
 
-            LoadedHighScore = JsonSerializer.Deserialize<List<int>>(jsonData);
+            LoadedHighScore = JsonSerializer.Deserialize<List<Tuple<string, int>>>(jsonData);
         }
 
-        public static void SaveData(int newData)
+        public static void SaveData(Tuple<string, int> newData)
         {
             LoadSavedData();
             LoadedHighScore.Add(newData);
@@ -32,16 +33,27 @@ namespace Grupp5Game
             File.WriteAllText(fileName, data);
         }
 
-        public static void DrawHighScore()
+        private List<Tuple<string, int>> GetTopFive()
         {
-            foreach (int score in LoadedHighScore)
+            return LoadedHighScore
+                .OrderByDescending(scoreTuple => scoreTuple.Item2)
+                .Take(5)
+                .ToList();
+        }
+
+        public void Draw()
+        {
+            string topFive = "";
+            foreach (Tuple<string, int> score in GetTopFive())
             {
-                Globals.SpriteBatch.DrawString(
-                    Assets.IntroTextFont,
-                    $"{score}\n",
-                    new Vector2(Globals.WindowSize.X / 2 - 280, Globals.WindowSize.Y - 90),
-                    Color.Black);
+                topFive += $"{score.Item1}: {score.Item2} waves\n";
             }
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                topFive,
+                new Vector2(Globals.WindowSize.X / 2 - 480, Globals.WindowSize.Y / 2),
+                Color.Black);
         }
     }
 }

@@ -61,6 +61,7 @@ namespace Grupp5Game
         bool keyAlreadyPressed = false;
         SpriteFont nameFont;
         SpriteFont TitleFont;
+        private readonly HighScore Leaderboard;
 
         public StartScreenScene()
         {
@@ -77,6 +78,8 @@ namespace Grupp5Game
             playButton.CenterElement(Globals.WindowSize.Y + 200, Globals.WindowSize.X);
             inputBox.CenterElement(Globals.WindowSize.Y - 100, Globals.WindowSize.X);
 
+            Leaderboard = new HighScore();
+            HighScore.LoadSavedData();
         }
 
         public override void Update(GameTime gameTime)
@@ -85,7 +88,8 @@ namespace Grupp5Game
             if (playButton.IsClicked())
             {
                 Game1.CurrentScene = new MapCreationScene();
-                playerNames.Add(playerName);
+                HighScore.CurrentPlayerName = playerName;
+                //playerNames.Add(playerName);
             }
             KeyboardState keyboardState = Keyboard.GetState();
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
@@ -129,6 +133,8 @@ namespace Grupp5Game
             float textY = (Globals.WindowSize.Y - playerNameSize.Y) / 2;
 
             Globals.SpriteBatch.DrawString(nameFont, playerName, new Vector2(textX, textY - 50), Color.White);
+
+            Leaderboard.Draw();
         }
     }
 
@@ -259,7 +265,7 @@ namespace Grupp5Game
 
             if (GameOverlay.NexusHealth <= 0)
             {
-                Game1.CurrentScene = new EndScreenScene(GameOverlay.CurrentWave);
+                Game1.CurrentScene = new EndScreenScene(GameOverlay);
             }
 
             Spawner.Update(this);
@@ -351,9 +357,10 @@ namespace Grupp5Game
 
     public class EndScreenScene : Scene
     {
-        public EndScreenScene(int lastWave)
+        public EndScreenScene(Overlay overlay)
         {
-            HighScore.SaveData(lastWave);
+            int finalScore = overlay.CurrentWave * overlay.EnemiesKilled + overlay.PlayerGold;
+            HighScore.SaveData(Tuple.Create(HighScore.CurrentPlayerName, finalScore));
         }
 
         public override void Update(GameTime gameTime)
@@ -363,7 +370,7 @@ namespace Grupp5Game
 
         public override void Draw()
         {
-            HighScore.DrawHighScore();
+
         }
     }
 }
