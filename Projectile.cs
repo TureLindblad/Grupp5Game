@@ -83,16 +83,16 @@ namespace Grupp5Game
 
             int totalBurnDamage = 0;
 
-            while (!fireDOT.IsCompleted && totalBurnDamage <= 50)
+            while (!fireDOT.IsCompleted && totalBurnDamage <= 100)
             {
                 enemy.IsBurning = true;
 
                 if (enemy.IsBurning)
                 {
                     float damage = enemy.HealthBar.MaxHealth * 0.1f;
-                    if (totalBurnDamage + damage > 50)
+                    if (totalBurnDamage + damage > 100)
                     {
-                        damage = 50 - totalBurnDamage;
+                        damage = 100 - totalBurnDamage;
                     }
 
                     enemy.HealthBar.CurrentHealth -= damage;
