@@ -97,7 +97,7 @@ namespace Grupp5Game
 
         private void TowerPlacingTool(Tile selected)
         {
-            if (Game1.CurrentScene is PlayMapScene mapScene && mapScene.GameOverlay.PlayerGold > 0)
+            if (Game1.CurrentScene is PlayMapScene mapScene)
             {
                 if (Mouse.GetState().LeftButton == ButtonState.Pressed &&
                     selected is not BuildingTile &&
@@ -109,19 +109,19 @@ namespace Grupp5Game
                     {
                         if (neighbor is PathTile)
                         {
-                            if (mapScene.SelectedTowerToPlace == TowerTypes.Archer)
+                            if (mapScene.SelectedTowerToPlace == TowerTypes.Archer && mapScene.GameOverlay.PlayerGold >= ArcherTower.TowerCost)
                             {
                                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new ArcherTower(selected.IndexPosition.X, selected.IndexPosition.Y);
                                 mapScene.GameOverlay.PlayerGold -= ArcherTower.TowerCost;
                                 break;
                             }
-                            if (mapScene.SelectedTowerToPlace == TowerTypes.Cannon)
+                            if (mapScene.SelectedTowerToPlace == TowerTypes.Cannon && mapScene.GameOverlay.PlayerGold >= CannonTower.TowerCost)
                             {
                                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new CannonTower(selected.IndexPosition.X, selected.IndexPosition.Y);
                                 mapScene.GameOverlay.PlayerGold -= CannonTower.TowerCost;
                                 break;
                             }
-                            if (mapScene.SelectedTowerToPlace == TowerTypes.Magic)
+                            if (mapScene.SelectedTowerToPlace == TowerTypes.Magic && mapScene.GameOverlay.PlayerGold >= MagicTower.TowerCost)
                             {
                                 Tiles[selected.IndexPosition.X, selected.IndexPosition.Y] = new MagicTower(selected.IndexPosition.X, selected.IndexPosition.Y);
                                 mapScene.GameOverlay.PlayerGold -= MagicTower.TowerCost;

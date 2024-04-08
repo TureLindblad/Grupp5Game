@@ -26,7 +26,7 @@ namespace Grupp5Game
                     new Vector2(
                         rnd.Next(splashDiameter / 2, Globals.WindowSize.X - splashDiameter / 2),
                         rnd.Next(splashDiameter / 2, Globals.WindowSize.Y - splashDiameter / 2))
-                    , 100, splashDiameter, mapScene));
+                    , 1000000, splashDiameter, mapScene));
                     await Task.Delay(40);
                 }
 

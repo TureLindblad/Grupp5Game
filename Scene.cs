@@ -354,8 +354,12 @@ namespace Grupp5Game
 
             if (Keyboard.GetState().IsKeyDown(Keys.D4) && SelectedTowerTile != null)
             {
-                SelectedTowerTile.UpgradingTower();
-                SelectedTowerTile = null;
+                if (GameOverlay.PlayerGold >= 250)
+                {
+                    GameOverlay.PlayerGold -= 250;
+                    SelectedTowerTile.UpgradingTower();
+                    SelectedTowerTile = null;
+                }
             }
 
             MapObjects.Update(this);
@@ -397,7 +401,7 @@ namespace Grupp5Game
 
             GameOverlay.Draw();
 
-            MapObjects.Draw();
+            MapObjects.Draw(this);
         }
 
         public void RemoveProjectile(Projectile projectile)
@@ -423,7 +427,7 @@ namespace Grupp5Game
                 for (int y = 0; y < MapGrid.Tiles.GetLength(1); y++)
                 {
                     float distance = Vector2.Distance(mousePosition, MapGrid.Tiles[x, y].TexturePosition);
-                    if (distance < MapGrid.Tiles[x, y].TextureResizeDimension && 
+                    if (distance < MapGrid.Tiles[x, y].TextureResizeDimension / 2 && 
                         CurrentMouseState.LeftButton == ButtonState.Pressed &&
                         LastMouseState.LeftButton == ButtonState.Released)
                     {

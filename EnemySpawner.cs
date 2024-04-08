@@ -32,7 +32,7 @@ namespace Grupp5Game
             EnemyWave = 0;
             FastEnemies = 0;
             BossEnemies = 0;
-            CanSpawn = true;
+            WaveTimer();
         }
         public void Update(PlayMapScene mapScene)
         {
@@ -138,7 +138,7 @@ namespace Grupp5Game
         {
             if (mapScene.EnemyList.Count == 0)
             {
-                //WaveTimer();
+                WaveTimer();
                 mapScene.GameOverlay.CurrentWave++;
 
                 Tier1Enemy = 0;
@@ -169,7 +169,7 @@ namespace Grupp5Game
                 }
                 if (EnemyWave % 5 == 0)
                 {
-                    Globals.HealthMod++;
+                    Globals.HealthMod += 2;
                     CurrentWave.BossEnemies++;
                 }
             }
@@ -183,7 +183,7 @@ namespace Grupp5Game
         private async void WaveTimer()
         {
             CanSpawn = false;
-            await Task.Delay(15000);
+            await Task.Delay(5000);
             CanSpawn = true;
         }
     }

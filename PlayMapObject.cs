@@ -26,9 +26,9 @@ namespace Grupp5Game
         {
 
         }
-        public void Draw()
+        public void Draw(float transparant = 1)
         {
-            Globals.SpriteBatch.Draw(texture, rect, Color);
+            Globals.SpriteBatch.Draw(texture, rect, Color * transparant);
         }
         public void TopRightCorner(int windowHeight, int windowWidth)
         {

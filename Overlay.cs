@@ -20,7 +20,7 @@ namespace Grupp5Game
         public Overlay()
         {
             Hearts = new Dictionary<int, Texture2D>();
-            PlayerGold = 1000;
+            PlayerGold = 500;
             CurrentWave = 1;
 
             for (int i = 0; i < 10; i++)
@@ -71,6 +71,12 @@ namespace Grupp5Game
                 $"{EnemiesKilled}",
                 new Vector2(730, Globals.WindowSize.Y - 55),
                 Color.Black);
+
+            Globals.SpriteBatch.DrawString(
+                Assets.IntroTextFont,
+                "250",
+                new Vector2(Globals.WindowSize.X - 110, Globals.WindowSize.Y - 135),
+                Color.White);
         }
     }
 }

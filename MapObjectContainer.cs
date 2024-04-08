@@ -105,7 +105,7 @@ namespace Grupp5Game
             }
         }
 
-        public void Draw()
+        public void Draw(PlayMapScene mapScene)
         {
             artilleryFrame.Draw();
             magicFrame.Draw();
@@ -127,7 +127,14 @@ namespace Grupp5Game
             frostNova.Draw();
             SpecialAbilities.DrawFrostNovaCooldown();
 
-            upgradeButton.Draw();
+            if (mapScene.GameOverlay.PlayerGold < 250)
+            {
+                upgradeButton.Draw(0.5f);
+            }
+            else
+            {
+                upgradeButton.Draw();
+            }
 
             string archerCost = ArcherTower.TowerCost.ToString();
             Vector2 stringSize = archerPrice.MeasureString(archerCost);
