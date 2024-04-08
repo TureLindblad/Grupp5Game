@@ -448,6 +448,11 @@ namespace Grupp5Game
 
         public override void Draw()
         {
+            Globals.SpriteBatch.Draw(Assets.BackgroundImage,
+                new Rectangle(
+                0, 0, Globals.WindowSize.X, Globals.WindowSize.Y)
+                , Color.White);
+
             EndObjects.Draw();
         }
     }
