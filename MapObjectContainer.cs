@@ -33,16 +33,16 @@ namespace Grupp5Game
             Point size = new Point(126, 120);
             Point frameSize = new Point(140, 132);
             Point buttonSize = new Point(140, 51);
-            
-            archer = new PlayMapObject(Assets.Archer, size);
-            magic = new PlayMapObject(Assets.Magic, size);
-            artillery = new PlayMapObject(Assets.Artillery, size);
 
             archerFrame = new PlayMapObject(Assets.Frame, frameSize);
             artilleryFrame = new PlayMapObject(Assets.Frame, frameSize);
             magicFrame = new PlayMapObject(Assets.Frame, frameSize);
             rainOfFireFrame = new PlayMapObject(Assets.Frame, new Point(110, 71));
             frostNovaFrame = new PlayMapObject(Assets.Frame, new Point(110, 71));
+
+            archer = new PlayMapObject(Assets.Archer, size);
+            magic = new PlayMapObject(Assets.Magic, size);
+            artillery = new PlayMapObject(Assets.Artillery, size);
 
             archerButton = new PlayMapObject(Assets.PriceButton, buttonSize);
             artilleryButton = new PlayMapObject(Assets.PriceButton, buttonSize);
@@ -75,8 +75,8 @@ namespace Grupp5Game
         }
         public void Update(PlayMapScene mapScene)
         {
-            archerFrame.Color = Color.White;
             artilleryFrame.Color = Color.White;
+            archerFrame.Color = Color.White;
             magicFrame.Color = Color.White;
 
             switch (mapScene.SelectedTowerToPlace)
@@ -95,25 +95,25 @@ namespace Grupp5Game
 
         public void Draw()
         {
-            archer.Draw();
-            magic.Draw();
-            artillery.Draw();
-
             artilleryFrame.Draw();
             magicFrame.Draw();
             archerFrame.Draw();
+
+            archer.Draw();
+            magic.Draw();
+            artillery.Draw();
 
             archerButton.Draw();
             artilleryButton.Draw();
             magicButton.Draw();
 
+            rainOfFireFrame.Draw();
             rainOfFire.Draw();
             SpecialAbilities.DrawFireRainCooldown();
-            rainOfFireFrame.Draw();
 
+            frostNovaFrame.Draw();
             frostNova.Draw();
             SpecialAbilities.DrawFrostNovaCooldown();
-            frostNovaFrame.Draw();
 
             upgradeButton.Draw();
         }
