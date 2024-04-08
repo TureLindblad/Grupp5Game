@@ -55,6 +55,7 @@ namespace Grupp5Game
         public static Texture2D UndoButton;
         public static Texture2D RainOfFire;
         public static Texture2D FrostNova;
+        public static Texture2D EndScreen;
          
         public static Texture2D ExplosionTexture;
 
@@ -66,5 +67,6 @@ namespace Grupp5Game
         public static Texture2D ArcherTowerTexture;
         public static Texture2D MagicTowerTexture;
         public static Texture2D CannonTowerTexture;
+        public static Texture2D MagicBoltAtlas;
     }
 }

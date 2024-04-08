@@ -81,6 +81,7 @@ namespace Grupp5Game
             Assets.UndoButton = Content.Load<Texture2D>("Buttons/UndoButton");
             Assets.RainOfFire = Content.Load<Texture2D>("Image/RainOfFire");
             Assets.FrostNova = Content.Load<Texture2D>("Image/FrostNova");
+            Assets.EndScreen = Content.Load<Texture2D>("Image/EndScreen");
             Assets.FastEnemyTexture = Content.Load<Texture2D>("Sprites/FastEnemy");
             Assets.BossEnemyTexture = Content.Load<Texture2D>("Sprites/GigaBoss");
 
@@ -96,6 +97,7 @@ namespace Grupp5Game
             Assets.BedouinTexture = Content.Load<Texture2D>("Scenery/BedouinHex");
 
             Assets.ExplosionAtlas = Content.Load<Texture2D>("Explosion");
+            Assets.MagicBoltAtlas = Content.Load<Texture2D>("MagicBolt");
         }
 
         protected override void Update(GameTime gameTime)
