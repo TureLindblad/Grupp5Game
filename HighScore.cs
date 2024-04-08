@@ -83,31 +83,31 @@ namespace Grupp5Game
 
             Globals.SpriteBatch.DrawString(
             Assets.IntroTextFont,
-                $"[1] {topFive[0].Item1}: {topFive[0].Item2} score",
+                $"[1] {topFive[0].Item1}: {topFive[0].Item2}",
                 new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 75),
                 Color.Black);
 
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                $"[2] {topFive[1].Item1}: {topFive[1].Item2} score",
+                $"[2] {topFive[1].Item1}: {topFive[1].Item2}",
                 new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 150),
                 Color.Black);
 
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                $"[3] {topFive[2].Item1}: {topFive[2].Item2} score",
+                $"[3] {topFive[2].Item1}: {topFive[2].Item2}",
                 new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 225),
                 Color.Black);
 
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                $"[4] {topFive[3].Item1}: {topFive[3].Item2} score",
+                $"[4] {topFive[3].Item1}: {topFive[3].Item2}",
                 new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 300),
                 Color.Black);
 
             Globals.SpriteBatch.DrawString(
                 Assets.IntroTextFont,
-                $"[5] {topFive[4].Item1}: {topFive[4].Item2} score",
+                $"[5] {topFive[4].Item1}: {topFive[4].Item2}",
                 new Vector2(100, Globals.WindowSize.Y / 2 - (int)(Texture.Width * 0.8) / 2 + 375),
                 Color.Black);
         }
