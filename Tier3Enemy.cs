@@ -17,7 +17,7 @@ namespace Grupp5Game
             Size = 70;
             Speed = 2;
             PhysArmor = 10;
-            GoldValue = 200;
+            GoldValue = 230;
         }
     }
     public class FrostEnemy3 : Tier3Enemy
@@ -28,7 +28,7 @@ namespace Grupp5Game
             Size = 70;
             Speed = 2;
             PhysArmor = 10;
-            GoldValue = 200;
+            GoldValue = 230;
         }
     }
 }
