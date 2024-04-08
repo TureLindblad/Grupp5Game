@@ -33,6 +33,7 @@ namespace Grupp5Game
             Point size = new Point(126, 120);
             Point frameSize = new Point(140, 132);
             Point buttonSize = new Point(140, 51);
+            
             archer = new PlayMapObject(Assets.Archer, size);
             magic = new PlayMapObject(Assets.Magic, size);
             artillery = new PlayMapObject(Assets.Artillery, size);

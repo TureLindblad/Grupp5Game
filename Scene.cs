@@ -73,6 +73,7 @@ namespace Grupp5Game
             inputBox = new MenuObjects(Assets.InputBox, inputBoxSize);
             frame = new MenuObjects(Assets.Frame, frameSize);
             playButton = new MenuObjects(Assets.PlayButton, buttonSize);
+            LeaderBoard = new MenuObjects(Assets.LeaderBoard, frameSize);
 
             frame.CenterElement(Globals.WindowSize.Y, Globals.WindowSize.X);
             playButton.CenterElement(Globals.WindowSize.Y + 200, Globals.WindowSize.X);
@@ -119,6 +120,7 @@ namespace Grupp5Game
             frame.Draw();
             playButton.Draw();
             inputBox.Draw();
+            LeaderBoard.Draw();
             Vector2 playerNameSize = nameFont.MeasureString(playerName);
 
             string titleText = "ENTER YOUR NAME";
@@ -357,20 +359,23 @@ namespace Grupp5Game
 
     public class EndScreenScene : Scene
     {
+    public class EndScreenScene : Scene
+    {
         public EndScreenScene(Overlay overlay)
         {
             int finalScore = overlay.CurrentWave * overlay.EnemiesKilled + overlay.PlayerGold;
             HighScore.SaveData(Tuple.Create(HighScore.CurrentPlayerName, finalScore));
-        }
+                EndObjects = new EndObjectContainer();
+            }
 
         public override void Update(GameTime gameTime)
         {
-
+            EndObjects.Update();
         }
 
         public override void Draw()
         {
-
+            EndObjects.Draw();
         }
     }
 }
