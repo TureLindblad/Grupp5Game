@@ -67,7 +67,7 @@ namespace Grupp5Game
         public static int TowerCost { get; set; } = 150;
         public ArcherTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.NexusTexture;
+            Texture = Assets.ArcherTowerTexture;
             Range = 200;
             ShotDelay = TimeSpan.FromSeconds(1.5);
             Damage = 5;
@@ -78,7 +78,7 @@ namespace Grupp5Game
             if (!upgraded)
             {
                 Damage = 35;
-                ShotDelay = TimeSpan.FromSeconds(0.8);
+                ShotDelay = TimeSpan.FromSeconds(0.5);
                 upgraded = true;
             }
         }
@@ -116,7 +116,7 @@ namespace Grupp5Game
 
         public CannonTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.BasetowerTexture;
+            Texture = Assets.CannonTowerTexture;
             Range = 130;
             ShotDelay = TimeSpan.FromSeconds(1.0);
             Damage = 10;
@@ -131,7 +131,7 @@ namespace Grupp5Game
             {
 
                 Damage = 35;
-                ShotDelay = TimeSpan.FromSeconds(0.5);
+                ShotDelay = TimeSpan.FromSeconds(0.6);
                 upgraded = true;
                 SplashDiameter = 400;
 
@@ -168,7 +168,7 @@ namespace Grupp5Game
 
         public MagicTower(int x, int y) : base(x, y)
         {
-            Texture = Assets.NexusTextureOuter;
+            Texture = Assets.MagicTowerTexture;
             Range = 180;
             ShotDelay = TimeSpan.FromSeconds(1.0);
             Damage = 7;
@@ -180,7 +180,7 @@ namespace Grupp5Game
             if (!upgraded)
             {
                 Damage = 35;
-                ShotDelay = TimeSpan.FromSeconds(0.7);
+                ShotDelay = TimeSpan.FromSeconds(0.6);
                 upgraded = true;
                 magicProjectile = true;
 

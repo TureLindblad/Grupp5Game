@@ -9,6 +9,7 @@ namespace Grupp5Game
 {
     public static class SpecialAbilities
     {
+        
         public static float RainOfFireCooldown = 0;
         public static float FrostNovaCooldown = 0;
         public static async void SpawnManyExplosions(PlayMapScene mapScene)
@@ -20,11 +21,12 @@ namespace Grupp5Game
             {
                 for (int j = 0; j < 7; j++)
                 {
+                    int splashDiameter = 300;
                     mapScene.Explosions.Add(new Explosion(
                     new Vector2(
-                        rnd.Next(CannonBall.SplashDiameter / 2, Globals.WindowSize.X - CannonBall.SplashDiameter / 2),
-                        rnd.Next(CannonBall.SplashDiameter / 2, Globals.WindowSize.Y - CannonBall.SplashDiameter / 2))
-                    , 100, 300, mapScene));
+                        rnd.Next(splashDiameter / 2, Globals.WindowSize.X - splashDiameter / 2),
+                        rnd.Next(splashDiameter / 2, Globals.WindowSize.Y - splashDiameter / 2))
+                    , 100, splashDiameter, mapScene));
                     await Task.Delay(40);
                 }
 
